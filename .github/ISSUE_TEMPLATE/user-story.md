@@ -12,7 +12,8 @@ assignees: ''
 
 #### Tasks: [^2]
 - [ ] #<Link Issue here>
+- [ ] #<Link Issue here>
 
-[^1]: The epic to which this user story belongs should be attached to specify the context and navigate on it. 
+[^1]: The Epic to which this User Story belongs should be attached to specify the context and navigate on it. 
 
-[^2]: All tasks belonging to the user story should be listed to get an overview and to be able to navigate to them.
+[^2]: All Tasks belonging to the User Story should be listed to get an overview and to be able to navigate to them.

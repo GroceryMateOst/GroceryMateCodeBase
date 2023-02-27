@@ -7,8 +7,7 @@ assignees: ''
 
 ---
 
-...Insert Task Description❗❗
+#### User Story: [^1]
+- [#<Link Issue here>]
 
-
-\estimatedtime
-\timespent
+[^1]: The User Story to which this Task belongs should be attached to specify the context and navigate on it.
