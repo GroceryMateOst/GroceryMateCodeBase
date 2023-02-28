@@ -8,4 +8,8 @@ export class ClickService extends AxiosBaseService{
     public async sendClicks(number: number): Promise<any>{
         return await this.instance.post(`?number=${number}`).then(this.responseBody)
     }
+
+    public async getClicks(): Promise<any>{
+        return await this.instance.get()
+    }
 }

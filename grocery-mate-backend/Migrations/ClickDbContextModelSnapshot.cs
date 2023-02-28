@@ -29,7 +29,7 @@ namespace grocery_mate_backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("click")
+                    b.Property<int>("numberOfClicks")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace grocery_mate_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class initalmigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace grocery_mate_backend.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    click = table.Column<int>(type: "integer", nullable: false)
+                    numberOfClicks = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

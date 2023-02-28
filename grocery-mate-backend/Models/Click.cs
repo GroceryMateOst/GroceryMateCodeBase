@@ -2,6 +2,6 @@
 
 public class Click
 {
-    public int id { get; set; }
-    public int click { get; set; }
+    public int Id { get; set; }
+    public int numberOfClicks { get; set; }
 }

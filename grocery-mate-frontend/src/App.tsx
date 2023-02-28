@@ -1,10 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import { ClickService } from './services/click-serbice'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    const clickService = new ClickService();
+    const fetchData =async () => {
+      return await clickService.getClicks()
+    }
+    fetchData().then((e)=>setCount(e.data.numberOfClicks))
+  }, [])
+  
 
   const countUp = async () =>{
     const clickService = new ClickService();

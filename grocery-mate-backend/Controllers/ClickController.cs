@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using grocery_mate_backend.Data;
 using grocery_mate_backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace grocery_mate_backend.Controllers;
 
@@ -23,14 +24,14 @@ public class ClickController : ControllerBase
     public async Task<IActionResult> SendNumber(int number)
     {
         Console.WriteLine(number);
-        var newOrExisting = _context.Clicks.Find(1);
+        var newOrExisting = await _context.Clicks.FirstOrDefaultAsync(c =>c.Id == 1);
         if(newOrExisting == null){
-        _context.Add(new Click{
-            id = 1,
-            click = number,
-        });
+            _context.Add(new Click{
+                Id = 1,
+                numberOfClicks = number,
+            });
         }else{
-            newOrExisting.click = number;
+            newOrExisting.numberOfClicks = number;
         }
         await _context.SaveChangesAsync();
 
@@ -43,8 +44,8 @@ public class ClickController : ControllerBase
         var click = _context.Clicks.Find(1);
         if(click == null){
             var newClick = new Click{
-                id = 1,
-                click = 0,
+                Id = 1,
+                numberOfClicks = 0,
             };
             return Ok(newClick);
         }

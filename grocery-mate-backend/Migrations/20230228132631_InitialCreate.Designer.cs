@@ -11,8 +11,8 @@ using grocery_mate_backend.Data;
 namespace grocery_mate_backend.Migrations
 {
     [DbContext(typeof(ClickDbContext))]
-    [Migration("20230228085016_inital-migration")]
-    partial class initalmigration
+    [Migration("20230228132631_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,7 @@ namespace grocery_mate_backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("click")
+                    b.Property<int>("numberOfClicks")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
