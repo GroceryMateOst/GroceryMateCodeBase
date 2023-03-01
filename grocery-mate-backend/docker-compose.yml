@@ -1,9 +1,9 @@
 ﻿version: '3.4'
 
 services:
-  grocery_mate_db:
+  db:
     image: postgres:latest
-    container_name: grocery-mate-db
+    container_name: db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -12,9 +12,9 @@ services:
       - "5433:5432"
     restart: always
     volumes:
-      - grocery_mate_db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
 
 
 volumes:
-  grocery_mate_db:
+  db:
     driver: local
