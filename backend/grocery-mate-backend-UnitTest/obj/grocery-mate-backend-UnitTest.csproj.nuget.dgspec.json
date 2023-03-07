@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj": {}
+    "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj": {}
   },
   "projects": {
-    "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj": {
+    "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj",
+        "projectUniqueName": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj",
         "projectName": "grocery-mate-backend-UnitTest",
-        "projectPath": "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj",
-        "packagesPath": "C:\\Users\\Gian-\\.nuget\\packages\\",
-        "outputPath": "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\obj\\",
+        "projectPath": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj",
+        "packagesPath": "C:\\Users\\MarcKissling\\.nuget\\packages\\",
+        "outputPath": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Gian-\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\MarcKissling\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -26,8 +26,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj": {
-                "projectPath": "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj"
+              "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj": {
+                "projectPath": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj"
               }
             }
           }
@@ -79,21 +79,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj": {
+    "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj",
+        "projectUniqueName": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj",
         "projectName": "grocery-mate-backend",
-        "projectPath": "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj",
-        "packagesPath": "C:\\Users\\Gian-\\.nuget\\packages\\",
-        "outputPath": "C:\\Studium\\6\\SE_P\\CodeBase\\backend\\grocery-mate-backend\\obj\\",
+        "projectPath": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj",
+        "packagesPath": "C:\\Users\\MarcKissling\\.nuget\\packages\\",
+        "outputPath": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Gian-\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\MarcKissling\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -155,7 +155,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
