@@ -8,12 +8,9 @@ public class Example
 
     public bool CanBeCanceled(User user)
     {
-        if (user.IsAdmin /* || MadeBy == user */)
+        if (user.IsAdmin  || MadeBy == user )
             return true;
-        if (MadeBy == user)
-            return true;
-
-        return false;
+        return MadeBy == user;
     }
 }
 
