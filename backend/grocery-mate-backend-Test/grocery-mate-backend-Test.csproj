@@ -21,4 +21,9 @@
       <ProjectReference Include="..\grocery-mate-backend\grocery-mate-backend.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Integration" />
+      <Folder Include="Unit" />
+    </ItemGroup>
+
 </Project>
