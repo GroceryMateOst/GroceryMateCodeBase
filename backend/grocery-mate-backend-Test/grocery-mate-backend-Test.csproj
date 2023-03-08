@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>grocery_mate_backend_UnitTest</RootNamespace>
+        <RootNamespace>grocery_mate_backend_Test</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
@@ -19,6 +19,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\grocery-mate-backend\grocery-mate-backend.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Integration" />
+        <Folder Include="Unit" />
     </ItemGroup>
 
 </Project>
