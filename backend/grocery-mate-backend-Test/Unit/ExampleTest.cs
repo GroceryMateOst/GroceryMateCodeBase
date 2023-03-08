@@ -40,6 +40,7 @@ public class ExampleTest
         Assert.IsTrue(result);
     }
     
+    
     [Test]
     public void CanBeCanceled_DifferentUserCancelingReservation_false()
     {
@@ -52,5 +53,20 @@ public class ExampleTest
 
         // Assert
         Assert.IsFalse(result);
+    }
+    
+    [Test]
+    public void CanBeCanceled_UserIsNotAdmin_false()
+    {
+        //Arrange
+        var user1 = new User();
+        var user2 = new User();
+        var reservation = new Example{MadeBy = user1};
+
+        // Act
+        var result = reservation.CanBeCanceled(user2);
+
+        // Assert
+        Assert.That(user2, Is.Not.SameAs(user1));
     }
 }
