@@ -4,7 +4,7 @@ namespace grocery_mate_backend;
 
 public class Example
 {
-    public User MadeBy { get; set; }
+    public User MadeBy{ get; set;}
 
     public bool CanBeCanceled(User user)
     {
