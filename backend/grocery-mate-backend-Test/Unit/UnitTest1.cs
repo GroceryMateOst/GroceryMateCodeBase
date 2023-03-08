@@ -1,4 +1,4 @@
-namespace grocery_mate_backend_UnitTest;
+namespace grocery_mate_backend_Test.Unit;
 
 public class Tests
 {
