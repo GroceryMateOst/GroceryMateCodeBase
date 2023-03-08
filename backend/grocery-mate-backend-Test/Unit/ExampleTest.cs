@@ -4,20 +4,19 @@ namespace grocery_mate_backend_Test.Unit;
 public class ExampleTest
 {
 
-    private Example reservation;
+    private UnitExample reservation;
 
     [SetUp]
     public void Setup()
     {
-        var reservation = new Example();
+        var reservation = new UnitExample();
     }
-
     
     [Test]
     public void CanBeCanceled_UserIsAdmin_true() //Test-Method-Name: NameOfTestedMethod_Scenario_ExpectedBehavior();
     {
         //Arrange
-        var reservation = new Example();
+        var reservation = new UnitExample();
         
         // Act
         var result = reservation.CanBeCanceled(new User{IsAdmin = true});
@@ -31,7 +30,7 @@ public class ExampleTest
     {
         //Arrange
         var user = new User();
-        var reservation = new Example{MadeBy = user};
+        var reservation = new UnitExample{MadeBy = user};
 
         // Act
         var result = reservation.CanBeCanceled(user);
@@ -46,7 +45,7 @@ public class ExampleTest
     {
         //Arrange
         var user = new User();
-        var reservation = new Example{MadeBy = user};
+        var reservation = new UnitExample{MadeBy = user};
 
         // Act
         var result = reservation.CanBeCanceled(new User{IsAdmin = false});
@@ -61,7 +60,7 @@ public class ExampleTest
         //Arrange
         var user1 = new User();
         var user2 = new User();
-        var reservation = new Example{MadeBy = user1};
+        var reservation = new UnitExample{MadeBy = user1};
 
         // Act
         var result = reservation.CanBeCanceled(user2);
