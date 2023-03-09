@@ -44,7 +44,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"grocerymateost_GroceryMateCodeBase_Backend" /o:"grocerymateost" /d:sonar.login="${{ secrets.SONAR_TOKEN_BACKEND }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build "backend/CodeBase.sln"
+          dotnet build -p:SonarQubeTargetsImported=true
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN_BACKEND }}"
   sonarcloud:
     name: SonarCloud_Frontend
