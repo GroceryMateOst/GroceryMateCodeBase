@@ -64,8 +64,22 @@ public class ExampleTest
 
         // Act
         var result = reservation.CanBeCanceled(user2);
-
+        
         // Assert
         Assert.That(user2, Is.Not.SameAs(user1));
+    }
+    
+    [Test]
+    public void CanBeCanceled_UserIsAdminAndCustomer_true()
+    {
+        //Arrange
+        var user1 = new User{IsAdmin = true};
+        var reservation = new UnitExample{MadeBy = user1};
+
+        // Act
+        var result = reservation.CanBeCanceled(user1);
+        
+        // Assert
+        Assert.That(user1, Is.SameAs(user1));
     }
 }
