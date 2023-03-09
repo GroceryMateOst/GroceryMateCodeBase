@@ -17,4 +17,5 @@ public class UnitExample
 public class User
 {
     public bool IsAdmin { get; set; }
+    public bool IsMale { get; set; }
 }
