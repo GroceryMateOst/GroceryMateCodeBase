@@ -26,7 +26,8 @@ public class ExampleTest
         var reservation = new UnitExample();
         
         // Act
-        var result = reservation.CanBeCanceled(new User{IsAdmin = true});
+        var result = reservation.CanBeCanceled(
+            new User{IsAdmin = true});
 
         // Assert
         Assert.IsTrue(result);
