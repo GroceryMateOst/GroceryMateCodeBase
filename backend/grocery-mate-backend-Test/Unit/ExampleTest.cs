@@ -1,4 +1,6 @@
 ﻿using grocery_mate_backend;
+using NUnit.Framework;
+
 namespace grocery_mate_backend_Test.Unit;
 
 public class ExampleTest
