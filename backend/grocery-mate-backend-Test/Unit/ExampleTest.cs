@@ -8,6 +8,11 @@ public class ExampleTest
 
     private UnitExample _reservation;
 
+    public ExampleTest()
+    {
+        _reservation = new UnitExample();
+    }
+
     [SetUp]
     public void Setup()
     {
