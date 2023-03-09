@@ -6,7 +6,7 @@ namespace grocery_mate_backend_Test.Unit;
 public class ExampleTest
 {
 
-    private UnitExample reservation;
+    private UnitExample _reservation;
 
     [SetUp]
     public void Setup()
