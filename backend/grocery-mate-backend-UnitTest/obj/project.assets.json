@@ -4892,32 +4892,40 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MarcKissling\\.nuget\\packages\\": {}
+    "C:\\Users\\Felix\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj",
+      "projectUniqueName": "C:\\Users\\Felix\\Desktop\\SEProj\\GroceryMateCodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj",
       "projectName": "grocery-mate-backend-UnitTest",
-      "projectPath": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj",
-      "packagesPath": "C:\\Users\\MarcKissling\\.nuget\\packages\\",
-      "outputPath": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend-UnitTest\\obj\\",
+      "projectPath": "C:\\Users\\Felix\\Desktop\\SEProj\\GroceryMateCodeBase\\backend\\grocery-mate-backend-UnitTest\\grocery-mate-backend-UnitTest.csproj",
+      "packagesPath": "C:\\Users\\Felix\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Felix\\Desktop\\SEProj\\GroceryMateCodeBase\\backend\\grocery-mate-backend-UnitTest\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\MarcKissling\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Felix\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj": {
-              "projectPath": "C:\\application_projects\\GroceryMate\\test\\CodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj"
+            "C:\\Users\\Felix\\Desktop\\SEProj\\GroceryMateCodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj": {
+              "projectPath": "C:\\Users\\Felix\\Desktop\\SEProj\\GroceryMateCodeBase\\backend\\grocery-mate-backend\\grocery-mate-backend.csproj"
             }
           }
         }
