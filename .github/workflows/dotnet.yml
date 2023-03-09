@@ -5,7 +5,9 @@ name: .NET build & test
 
 on:
   push:
-    branches: [ "main" ]
+   paths:
+      - 'backend/**'
+      branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
