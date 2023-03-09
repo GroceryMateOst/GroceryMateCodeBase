@@ -5,11 +5,15 @@
 name: .NET build & test
 on:
   push:
+    branches:
+      - "**"
     paths:
       - backend/**
   pull_request:
     branches:
-      - main
+      - "**"
+    paths:
+      - backend/**
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,3 +29,4 @@ jobs:
         run: dotnet build --no-restore
       - name: Test
         run: dotnet test --no-build --verbosity normal
+
