@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Server.IIS.Core;
-
-namespace grocery_mate_backend;
+﻿
+namespace grocery_mate_backend.Sandbox;
 
 public class UnitExample
 {
-    public User MadeBy{ get; set;}
+    public User MadeBy{ get; set;} = new User();
 
     public bool CanBeCanceled(User user)
     {

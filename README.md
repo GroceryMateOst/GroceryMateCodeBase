@@ -33,7 +33,7 @@ docker-compose down
 ```
 then
 ```
-docker volum remove grocery-mate-backend_db
+docker volume remove grocery-mate-backend_db
 ```
 
 to delete the volume where the data is stored. **Remember** all this commands have to be run in the grocery-mate-backend folder!
