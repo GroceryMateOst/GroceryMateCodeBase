@@ -1,0 +1,44 @@
+version: '3'
+services:
+  frontend:
+    build: ./grocery-mate-frontend
+    container_name: grocerymate-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    networks:
+      - test-network
+  backend:
+    build: ./backend/grocery-mate-backend 
+    container_name: grocerymate-backend
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    environment:
+      DB_CONNECTION_STRING: "host=db;port=5432;database=ClickDB;username=postgres;password=postgres"
+    networks:
+      - test-network 
+  db:
+    image: postgres:latest
+    container_name: grocerymate-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ClickDB
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - test-network
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  test-network:
+    driver: bridge
