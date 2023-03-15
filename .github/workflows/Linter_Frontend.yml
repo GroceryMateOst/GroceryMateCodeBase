@@ -12,6 +12,9 @@ jobs:
   run-linters:
     name: Run linters
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./grocery-mate-frontend
 
     steps:
       - name: Check out Git repository
