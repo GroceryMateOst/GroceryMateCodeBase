@@ -1,0 +1,28 @@
+name: Deploy Docker iamges to Dockerhub
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build Backend Docker
+        run: docker build ./backend/grocery-mate-backend/
+      - name: Push Backend Docker
+        run: docker push grocerymateost/backend
+
+      - name: Build Frontend Docker
+        run: docker build ./grocery-mate-frontend/
+      - name: Push Frontend Docker
+        run: docker push grocerymateost/frontend

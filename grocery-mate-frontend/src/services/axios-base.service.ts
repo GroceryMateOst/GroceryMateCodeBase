@@ -12,7 +12,8 @@ export abstract class AxiosBaseService {
 		//  console.log(backendURL);
 		this.instance = Axios.create({
 			timeout: 15000,
-			baseURL: `https://grocerymate-backend.azurewebsites.net/${baseUrl}`,
+			//baseURL: `https://grocerymate-backend.azurewebsites.net/${baseUrl}`,
+			baseURL: `http://localhost:5000/${baseUrl}`,
 			//  baseURL: `http://${backendURL}:5000${baseUrl}`
 		});
 	}
