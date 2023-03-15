@@ -1,0 +1,11 @@
+version: '3'
+services:
+  backend:
+    image: grocerymateost/backend:latest
+    container_name: grocerymate-backend
+    ports:
+      - "80:5000"
+    environment:
+      DB_CONNECTION_STRING: "host=containers-us-west-190.railway.app;port=6649;database=railway;username=postgres;password=FRBmxR9FagyRl4MZqK7o"
+
+ 

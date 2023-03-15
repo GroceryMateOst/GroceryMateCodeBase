@@ -1,0 +1,22 @@
+version: '3'
+services:
+  frontend:
+    image: grocerymateost/frontend:latest
+    container_name: grocerymate-frontend
+    ports:
+      - "8080:3000"
+    networks:
+      - test-network
+  backend:
+    image: grocerymateost/backend:latest
+    container_name: grocerymate-backend
+    ports:
+      - "80:5000"
+    environment:
+      DB_CONNECTION_STRING: "host=containers-us-west-190.railway.app;port=6649;database=railway;username=postgres;password=FRBmxR9FagyRl4MZqK7o"
+    networks:
+      - test-network
+ 
+networks:
+  test-network:
+    driver: bridge
