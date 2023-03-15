@@ -23,6 +23,6 @@ jobs:
         run: docker push grocerymateost/frontend
 
       - name: Build Frontend Docker
-        run: docker build ./grocery-mate-frontend/
+        run: docker build ./grocery-mate-frontend/ --tag grocerymateost/frontend:latest
       - name: Push Frontend Docker
-        run: docker push grocerymateost/frontend --tag grocerymateost/frontend:latest
+        run: docker push grocerymateost/frontend
