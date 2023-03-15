@@ -21,9 +21,6 @@ import './commands';
 
 import { mount } from 'cypress/react18';
 
-//Import fpr Code-Coverage Report with istanbul
-import '@cypress/code-coverage/support';
-
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
 // Alternatively, can be defined in cypress/support/component.d.ts
