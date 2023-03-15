@@ -1,11 +1,6 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
-	env: {
-		codeCoverage: {
-			exclude: 'cypress/**/*.*',
-		},
-	},
 	e2e: {
 		baseUrl: 'http://localhost:3000',
 		setupNodeEvents(on, config) {
@@ -22,4 +17,3 @@ export default defineConfig({
 		},
 	},
 });
-

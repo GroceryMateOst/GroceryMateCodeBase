@@ -1,4 +1,4 @@
-name: Deploy Docker iamges to Dockerhub
+name: Deploy Docker images to Dockerhub
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
