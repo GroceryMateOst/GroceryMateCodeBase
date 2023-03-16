@@ -4,3 +4,5 @@ describe('Just visit e2e test', () => {
 		cy.visit('/');
 	});
 });
+
+export {};
