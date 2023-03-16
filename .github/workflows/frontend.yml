@@ -81,6 +81,7 @@ jobs:
       - name: run cypress e2e
         uses: cypress-io/github-action@v5
         with:
+          working-directory: grocery-mate-frontend
           install-command: yarn install
 
 
