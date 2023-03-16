@@ -68,6 +68,8 @@ jobs:
         run: yarn cy:run-unit
   e2e-test:
     runs-on: ubuntu-latest
+    container:
+      image: lucasalt/act_base:latest
     defaults:
       run:
         working-directory: ./grocery-mate-frontend
@@ -77,16 +79,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Start Application
-        run: yarn dev
+      - name: Run Docker-Compose
+        run : |
+          docker-compose -f ../docker.compose.yml
 
       - name: Start Cypress
         run: yarn cy:run-2e2
