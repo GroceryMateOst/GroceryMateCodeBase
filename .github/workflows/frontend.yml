@@ -84,9 +84,12 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Run End to End Tests
+        run: |
+          yarn install
+          yarn dev
+          yarn cy:run-e2e
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v5
+
+
 
