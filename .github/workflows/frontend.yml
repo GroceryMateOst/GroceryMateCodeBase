@@ -79,9 +79,10 @@ jobs:
 
 
       - name: run cypress tests with firefox
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         timeout-minutes: 10
         with:
+          install-comand: yarn install
           browser: firefox
 
 
