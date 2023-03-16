@@ -85,5 +85,4 @@ public class ExampleTest
         // Assert
         Assert.That(user1, Is.SameAs(user1));
     }
->>>>>>> ed20e4b2ef8083d2a51b59a975f01f2d455fdf57
 }
