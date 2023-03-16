@@ -84,6 +84,13 @@ jobs:
           working-directory: grocery-mate-frontend
           install-command: yarn install
           start: yarn dev
+          wait-on: 'http://localhost:3000'
+      - name: run cypress component
+        uses: cypress-io/github-action@v5
+        with:
+          working-directory: src/__tests__
+          install: false
+          component: true
 
 
 
