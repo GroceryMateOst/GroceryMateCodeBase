@@ -69,7 +69,7 @@ jobs:
   e2e-test:
     runs-on: ubuntu-latest
     container:
-      image: lucasalt/act_base:latest
+      image: cypress/included:9.4.1
     defaults:
       run:
         working-directory: ./grocery-mate-frontend
@@ -89,6 +89,8 @@ jobs:
         run : |
           cd ..
           ls -R
+          sudo apt-get update
+          sudo apt-get install docker-compose-plugin
           docker-compose up -d
 
       - name: Start Cypress
