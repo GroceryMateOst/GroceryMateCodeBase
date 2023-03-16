@@ -64,29 +64,29 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Start Cypress
+      - name: Run Crypess Component Test
         run: yarn cy:run-unit
   e2e-test:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     defaults:
       run:
         working-directory: ./grocery-mate-frontend
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      
+      - name: Build and run services
+        uses: docker/compose-action@v1
         with:
-          node-version: '16.x'
+          compose-file: ../docker-compose.yml
+          command: up
+          detach: true
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Cypress run
+        uses: cypress-io/github-action@v5      
 
-      - name: Start Application
-        run: yarn dev
 
-      - name: Start Cypress
-        run: yarn cy:run-2e2
+   #   - name: Start Cypress
+    #    run: cd yarn cy:run-2e2
