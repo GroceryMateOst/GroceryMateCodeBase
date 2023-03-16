@@ -1,7 +1,7 @@
 version: '3'
 services:
   backend:
-    build: ./backend/grocery-mate-backend 
+    build: ./../../backend/grocery-mate-backend 
     container_name: grocerymate-backend
     depends_on:
       - db
