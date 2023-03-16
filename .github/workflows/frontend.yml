@@ -83,6 +83,7 @@ jobs:
         with:
           working-directory: grocery-mate-frontend
           install-command: yarn install
+          start: yarn dev
 
 
 
