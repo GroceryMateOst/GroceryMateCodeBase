@@ -87,5 +87,6 @@ jobs:
 
       - name: Start Cypress
         run: |
+          ls
           cd grocery-mate-frontend/
           yarn cy:run-2e2
