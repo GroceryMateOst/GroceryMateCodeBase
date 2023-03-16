@@ -87,7 +87,7 @@ jobs:
       - name: Run End to End Tests
         run: |
           yarn install
-          yarn dev
+          docker build -t foo . && docker run -p 3000:3000 -d foo
           yarn cy:run-e2e
 
 
