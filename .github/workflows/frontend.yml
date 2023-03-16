@@ -81,7 +81,7 @@ jobs:
 
       - name: Run Docker-Compose
         run : |
-          docker-compose -f ../docker.compose.yml
+          docker-compose -f ../docker.compose.yml up
 
       - name: Start Cypress
         run: yarn cy:run-2e2
