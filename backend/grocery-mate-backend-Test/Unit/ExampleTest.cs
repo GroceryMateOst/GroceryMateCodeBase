@@ -1,4 +1,7 @@
 ﻿using grocery_mate_backend;
+using grocery_mate_backend.Sandbox;
+using NUnit.Framework;
+
 namespace grocery_mate_backend_Test.Unit;
 
 public class ExampleTest
@@ -82,4 +85,5 @@ public class ExampleTest
         // Assert
         Assert.That(user1, Is.SameAs(user1));
     }
+>>>>>>> ed20e4b2ef8083d2a51b59a975f01f2d455fdf57
 }
