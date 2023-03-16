@@ -85,5 +85,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Start Application
+        run: yarn dev
+
       - name: Start Cypress
-        run: yarn cy:action-2e2
+        needs: Start Application
+        run: yarn cy:run-2e2
