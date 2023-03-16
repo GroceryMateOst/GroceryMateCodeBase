@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grocery-mate-backend", "grocery-mate-backend\grocery-mate-backend.csproj", "{CA3E42FA-C6AA-4EB3-90C9-45BBFCBC78C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grocery-mate-backend-UnitTest", "grocery-mate-backend-UnitTest\grocery-mate-backend-UnitTest.csproj", "{F0670888-82A6-439C-B717-5AE543308B40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grocery-mate-backend-Test", "grocery-mate-backend-Test\grocery-mate-backend-Test.csproj", "{F0670888-82A6-439C-B717-5AE543308B40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

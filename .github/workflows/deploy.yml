@@ -1,0 +1,28 @@
+name: Deploy Docker images to Dockerhub
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build Backend Docker
+        run: docker build ./backend/grocery-mate-backend/ --tag grocerymateost/frontend:latest
+      - name: Push Backend Docker
+        run: docker push grocerymateost/frontend
+
+      - name: Build Frontend Docker
+        run: docker build ./grocery-mate-frontend/ --tag grocerymateost/frontend:latest
+      - name: Push Frontend Docker
+        run: docker push grocerymateost/frontend
