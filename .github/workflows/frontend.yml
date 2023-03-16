@@ -84,14 +84,6 @@ jobs:
         with:
           node-version: '16.x'
 
-
-      - name: Run Docker-Compose
-        run : |
-          curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-          chmod +x /usr/local/bin/docker-compose
-          docker-compose --version
-          docker-compose -f ./azure/docker-compose-e2e-test.yml up -d
-
       - name: Install dependencies
         run: yarn install
 
