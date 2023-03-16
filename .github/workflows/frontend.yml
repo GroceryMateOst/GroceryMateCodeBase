@@ -88,4 +88,5 @@ jobs:
       - name: Start Cypress
         run: |
           ls
+          yarn install
           yarn cy:run-e2e
