@@ -1,16 +1,16 @@
 version: '3'
 services:
   backend:
-    build: ./../../backend/grocery-mate-backend 
+    build: ./../../backend/grocery-mate-backend
     container_name: grocerymate-backend
     depends_on:
       - db
     ports:
-      - "5000:5000"
+      - '5000:5000'
     environment:
-      DB_CONNECTION_STRING: "host=db;port=5432;database=ClickDB;username=postgres;password=postgres"
+      DB_CONNECTION_STRING: 'host=db;port=5432;database=ClickDB;username=postgres;password=postgres'
     networks:
-      - test-network 
+      - test-network
   db:
     image: postgres:latest
     container_name: grocerymate-db
@@ -19,7 +19,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=ClickDB
     ports:
-      - "5432:5432"
+      - '5432:5432'
     restart: always
     volumes:
       - db:/var/lib/postgresql/data

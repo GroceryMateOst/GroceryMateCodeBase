@@ -66,12 +66,11 @@ jobs:
 
       - name: Start Cypress
         run: yarn cy:run-unit
-  e2e-test:
+  test:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./grocery-mate-frontend
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout code
@@ -79,6 +78,7 @@ jobs:
 
 
       - name: run cypress e2e
+        if: github.ref == 'refs/heads/main'
         uses: cypress-io/github-action@v5
         with:
           working-directory: grocery-mate-frontend
