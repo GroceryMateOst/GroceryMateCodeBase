@@ -8,11 +8,4 @@
     &lt;ProjectFile&gt;F0670888-82A6-439C-B717-5AE543308B40/d:Unit/f:ExampleTest.cs&lt;/ProjectFile&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4de96b65_002D321a_002D41f8_002Db4f1_002D75e7d95c82fb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CanBeCanceled_UserIsAdminAndCustomer_true" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.ExampleTest.CanBeCanceled_UserIsAdminAndCustomer_true&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::F0670888-82A6-439C-B717-5AE543308B40::net6.0::IntegrationExampleTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.ExampleTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
->>>>>>> ed20e4b2ef8083d2a51b59a975f01f2d455fdf57
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	</wpf:ResourceDictionary>

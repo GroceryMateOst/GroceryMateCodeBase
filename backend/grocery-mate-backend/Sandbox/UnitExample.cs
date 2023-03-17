@@ -7,7 +7,8 @@ public class UnitExample
 
     public bool CanBeCanceled(User user)
     {
-        if (user.IsAdmin  || MadeBy == user )
+        if (true)
+     //   if (user.IsAdmin  || MadeBy == user )
             return true;
         return MadeBy == user;
     }
