@@ -1,153 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using Autofac.Extras.Moq;
-using grocery_mate_backend.Sandbox;
-using Moq;
+﻿
+using grocery_mate_backend;
 using Xunit;
 using Assert = Xunit.Assert;
 
+namespace grocery_mate_backend_Test.Integration;
 
 public class IntegrationExampleTest
 {
-    [Xunit.Theory]
-    [InlineData("6'8\"", true, 80)]
-    [InlineData("6\"8'", false, 0)]
-    [InlineData("six'eight\"", false, 0)]
-    public void ConvertHeightTextToInches_VariousOptions(
-        string heightText,
-        bool expectedIsValid,
-        double expectedHeightInInches)
+    private IntegrationExample _integrationExample = new IntegrationExample();
+
+    [Theory]
+    [InlineData(1, 1, 2)]
+    public void Calculate_Plus(double firstNumber, double secondNumber, double expected)
     {
-        IntegrationExample processor = new IntegrationExample(null);
+        //Arrange
 
-        var actual = processor.ConvertHeightTextToInches(heightText);
+        // Act
+        double actual = _integrationExample.Calculate(firstNumber, secondNumber, OperatorType.Plus);
 
-        
-        Assert.Equal(expectedIsValid, actual.isValid);
-        Assert.Equal(expectedHeightInInches, actual.heightInInches);
+        // Assert
+        Assert.Equal(expected, actual);
     }
-
-    [Xunit.Theory]
-    [InlineData("Tim", "Corey", "6'8\"", 80)]
-    [InlineData("Charitry", "Corey", "5'4\"", 64)]
-    public void CreatePerson_Successful(string firstName, string lastName, string heightText, double expectedHeight)
+    
+    [Theory]
+    [InlineData(1, 1, 0)]
+    public void Calculate_Minus(double firstNumber, double secondNumber, double expected)
     {
-        IntegrationExample processor = new IntegrationExample(null);
+        //Arrange
 
-        PersonModel expected = new PersonModel
-        {
-            FirstName = firstName,
-            LastName = lastName,
-            HeightInInches = expectedHeight,
-            Id = 0
-        };
+        // Act
+        double actual = _integrationExample.Calculate(firstNumber, secondNumber, OperatorType.Minus);
 
-        var actual = processor.CreatePerson(firstName, lastName, heightText);
-
-        Assert.Equal(expected.Id, actual.Id);
-        Assert.Equal(expected.FirstName, actual.FirstName);
-        Assert.Equal(expected.LastName, actual.LastName);
-        Assert.Equal(expected.HeightInInches, actual.HeightInInches);
+        // Assert
+        Assert.Equal(expected, actual);
     }
-
-    [Xunit.Theory]
-    [InlineData("Tim#", "Corey", "6'8\"", "firstName")]
-    [InlineData("Charitry", "C88ey", "5'4\"", "lastName")]
-    [InlineData("Jon", "Corey", "SixTwo", "heightText")]
-    [InlineData("", "Corey", "5'11\"", "firstName")]
-    public void CreatePerson_ThrowsException(string firstName, string lastName, string heightText,
-        string expectedInvalidParameter)
+    
+    [Theory]
+    [InlineData(1, 1, 1)]
+    [InlineData(1, 2, 2)]
+    public void inCalculate_Multiply(double firstNumber, double secondNumber, double expected)
     {
-        IntegrationExample processor = new IntegrationExample(null);
+        //Arrange
 
-        var ex = Record.Exception(() => processor.CreatePerson(firstName, lastName, heightText));
+        // Act
+        double actual = _integrationExample.Calculate(firstNumber, secondNumber, OperatorType.Multiply);
 
-        Assert.NotNull(ex);
-        Assert.IsType<ArgumentException>(ex);
-        if (ex is ArgumentException argEx)
-        {
-            Assert.Equal(expectedInvalidParameter, argEx.ParamName);
-        }
+        // Assert
+        Assert.Equal(expected, actual);
     }
-
-    [Fact]
-    public void LoadPeople_ValidCall()
+    
+    [Theory]
+    [InlineData(1, 1, 1)]
+    [InlineData(10, 5, 2)]
+    public void Calculate_Divide(double firstNumber, double secondNumber, double expected)
     {
-        using (var mock = AutoMock.GetLoose())
-        {
-            mock.Mock<ISqliteDataAccess>()
-                .Setup(x => x.LoadData<PersonModel>("select * from Person"))
-                .Returns(GetSamplePeople());
+        //Arrange
 
-            var cls = mock.Create<IntegrationExample>();
-            var expected = GetSamplePeople();
+        // Act
+        double actual = _integrationExample.Calculate(firstNumber, secondNumber, OperatorType.Divide);
 
-            var actual = cls.LoadPeople();
-
-            Assert.True(actual != null);
-            Assert.Equal(expected.Count, actual.Count);
-
-            for (int i = 0; i < expected.Count; i++)
-            {
-                Assert.Equal(expected[i].FirstName, actual[i].FirstName);
-                Assert.Equal(expected[i].LastName, actual[i].LastName);
-            }
-        }
-    }
-
-    [Fact]
-    public void SavePeople_ValidCall()
-    {
-        using (var mock = AutoMock.GetLoose())
-        {
-            var person = new PersonModel
-            {
-                Id = 1,
-                FirstName = "Hans",
-                LastName = "Peter",
-                HeightInInches = 80
-            };
-            string sql = "insert into Person (FirstName, LastName, HeightInInches) " +
-                         "values ('Hans', 'Peter', 80)";
-
-            mock.Mock<ISqliteDataAccess>()
-                .Setup(x => x.SaveData(person, sql));
-
-            var cls = mock.Create<IntegrationExample>();
-
-            cls.SavePerson(person);
-
-            mock.Mock<ISqliteDataAccess>()
-                .Verify(x => x.SaveData(person, sql), Times.Exactly(1));
-        }
-    }
-
-    private List<PersonModel> GetSamplePeople()
-    {
-        List<PersonModel> output = new List<PersonModel>
-        {
-            new PersonModel
-            {
-                FirstName = "Tim",
-                LastName = "Corey"
-            },
-            new PersonModel
-            {
-                FirstName = "Charity",
-                LastName = "Corey"
-            },
-            new PersonModel
-            {
-                FirstName = "Jon",
-                LastName = "Corey"
-            },
-            new PersonModel
-            {
-                FirstName = "Chris",
-                LastName = "Corey"
-            }
-        };
-
-        return output;
+        // Assert
+        Assert.Equal(expected, actual);
     }
 }
