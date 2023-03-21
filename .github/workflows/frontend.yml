@@ -70,6 +70,3 @@ jobs:
           working-directory: grocery-mate-frontend
           install: false
           component: true
-
-
-

@@ -2,5 +2,3 @@
 . "$(dirname -- "$0")/_/husky.sh"
 . "$(dirname -- "$0")/_/check-commit-message.sh"
 
-cd grocery-mate-frontend
-npx lint-staged
