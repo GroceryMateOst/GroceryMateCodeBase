@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./grocery-mate-frontend
+        working-directory: ./frontend
 
     steps:
       - name: Checkout code
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./grocery-mate-frontend
+        working-directory: ./frontend
 
     steps:
       - name: Checkout code
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./grocery-mate-frontend
+        working-directory: ./frontend
 
     steps:
       - name: Checkout code
@@ -60,13 +60,13 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: cypress-io/github-action@v5
         with:
-          working-directory: grocery-mate-frontend
+          working-directory: frontend
           install-command: yarn install
           start: yarn dev
           wait-on: 'http://localhost:3000'
       - name: run cypress component
         uses: cypress-io/github-action@v5
         with:
-          working-directory: grocery-mate-frontend
+          working-directory: frontend
           install: false
           component: true

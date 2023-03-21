@@ -1,7 +1,7 @@
 version: '3'
 services:
   frontend:
-    build: ./grocery-mate-frontend
+    build: ./frontend
     container_name: grocerymate-frontend
     ports:
       - "3000:3000"
