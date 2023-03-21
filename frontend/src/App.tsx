@@ -3,7 +3,7 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import './App.css';
 import ClickService from './services/click-service';
-import { Button, DatePicker } from 'antd';
+import { Button } from 'antd';
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -27,7 +27,7 @@ function App() {
 			</div>
 			<h1>Vite + React</h1>
 			<div className="card">
-				<Button onClick={countUp}>
+				<Button onClick={countUp} className="bg-green-400">
 					count is {count} to {import.meta.env.BACKEND_URL}
 				</Button>
 				<p>

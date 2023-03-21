@@ -3,6 +3,7 @@
 export abstract class AxiosBaseService {
 	protected instance: AxiosInstance;
 
+	// eslint-disable-line no-use-before-define
 	protected responseBody = (response: AxiosResponse): any => {
 		return response.data;
 	};
