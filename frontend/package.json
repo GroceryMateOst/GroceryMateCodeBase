@@ -4,7 +4,8 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "cd .. && docker-compose -f docker-compose-dev.yml up -d && cd frontend && vite",
+		"down": "cd .. && docker-compose -f docker-compose-dev.yml down",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"lint": "eslint .",
