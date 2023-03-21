@@ -13,4 +13,4 @@ RUN yarn install
 
 COPY . .
 
-CMD [ "yarn","dev:deply"]
+CMD [ "yarn","dev:deploy"]
