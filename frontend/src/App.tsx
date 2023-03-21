@@ -3,6 +3,7 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import './App.css';
 import ClickService from './services/click-service';
+import { Button, DatePicker } from 'antd';
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -26,9 +27,9 @@ function App() {
 			</div>
 			<h1>Vite + React</h1>
 			<div className="card">
-				<button onClick={countUp}>
+				<Button onClick={countUp}>
 					count is {count} to {import.meta.env.BACKEND_URL}
-				</button>
+				</Button>
 				<p>
 					Edit <code>src/App.tsx</code> and save to test HMR
 				</p>
