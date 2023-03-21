@@ -5,11 +5,8 @@ export default class ClickService extends AxiosBaseService {
 		super('/Click');
 	}
 
-	public async sendClicks(number: number): Promise<any> {
+	// eslint-disable-line no-use-before-define
+	public async sendClicks(number: number): Promise<void> {
 		return this.instance.post(`?number=${number}`).then(this.responseBody);
-	}
-
-	public async getClicks(): Promise<any> {
-		return this.instance.get(``);
 	}
 }
