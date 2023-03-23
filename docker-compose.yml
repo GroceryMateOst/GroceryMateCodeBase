@@ -1,7 +1,9 @@
 version: '3'
 services:
   frontend:
-    build: ./frontend
+    build: 
+      context: ./frontend
+      dockerfile: production.Dockerfile
     container_name: grocerymate-frontend
     ports:
       - "3000:3000"
