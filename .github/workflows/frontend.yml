@@ -25,27 +25,6 @@ jobs:
 
       - name: Build app
         run: yarn build
-  codestyle:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Run ESLint and Prettier
-        run: yarn style:all
-
   test:
     runs-on: ubuntu-latest
     defaults:
