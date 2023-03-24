@@ -1,7 +1,6 @@
 name: Frontend Build & Test
 
 on:
-  push:
   pull_request:
 
 jobs:
@@ -34,18 +33,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Build Frontend & Backend
+        run: cd .. && docker-compose -f docker-compose-dev.yml up -d 
 
-      - name: run cypress e2e
-        if: github.ref == 'refs/heads/main'
+      - name: run cypress component
         uses: cypress-io/github-action@v5
         with:
           working-directory: frontend
           install-command: yarn install
           start: yarn dev
-          wait-on: 'http://localhost:3000'
-      - name: run cypress component
+          component: true
+      - name: run cypress e2e
+        if: github.base_ref == 'main'
         uses: cypress-io/github-action@v5
         with:
           working-directory: frontend
           install: false
-          component: true
+
