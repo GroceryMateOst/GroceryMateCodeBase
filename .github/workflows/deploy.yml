@@ -18,11 +18,11 @@ jobs:
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Build Backend Docker
-        run: docker build ./backend/grocery-mate-backend/ --tag grocerymateost/frontend:latest
+        run: docker build ./backend/grocery-mate-backend/ --tag grocerymateost/frontend:latest 
       - name: Push Backend Docker
         run: docker push grocerymateost/frontend
 
       - name: Build Frontend Docker
-        run: docker build ./frontend/ --tag grocerymateost/frontend:latest
+        run: cd frontend && docker build  -f production.Dockerfile --tag grocerymateost/frontend:latest .
       - name: Push Frontend Docker
         run: docker push grocerymateost/frontend
