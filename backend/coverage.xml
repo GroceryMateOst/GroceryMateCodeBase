@@ -1,6 +1,6 @@
 <CoverageParams>
-    <Output>CodeCoverage.html</Output>
-    <ReportType>HTML</ReportType>
+    <Output>CodeCoverage.xml</Output>
+    <ReportType>xml</ReportType>
 
     <!-- Remove auto-implemented properties from report.
     <HideAutoProperties>True</HideAutoProperties>
