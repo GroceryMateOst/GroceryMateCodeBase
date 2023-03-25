@@ -50,6 +50,7 @@ jobs:
           dotnet build "backend/CodeBase.sln"
           cd .\backend\ 
           dotnet dotcover test --dcXml="coverage.xml"
+          cd ..
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN_BACKEND }}"
   sonarcloud:
     name: SonarCloud_Frontend
