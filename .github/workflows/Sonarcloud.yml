@@ -46,7 +46,7 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"grocerymateost_GroceryMateCodeBase_Backend" /o:"grocerymateost" 
             /d:sonar.login="${{ secrets.SONAR_TOKEN_BACKEND }}" 
             /d:sonar.host.url="https://sonarcloud.io"
-            /d:sonar.cs.dotcover.reportsPaths="backend/CodeCoverage.html"
+            /d:sonar.cs.dotcover.reportsPaths=backend/CodeCoverage.html
           dotnet build "backend/CodeBase.sln"
           dotnet dotcover test --dcXml=coverage.xml
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN_BACKEND }}"
