@@ -11,7 +11,6 @@
       <Mask>*/Models/*</Mask>
       <Mask>*/Migrations/*</Mask>
       <Mask>*/Data/*</Mask>
-      <Mask>*/Sandbox/*</Mask>
     </ExcludeFileMasks>
     
 
