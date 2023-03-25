@@ -4,3 +4,5 @@ node_modules/
 .eslintrc
 vite.config.ts
 cypress.config.ts
+tailwind.config.cjs
+redux/
