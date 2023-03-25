@@ -3,10 +3,12 @@ using grocery_mate_backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using grocery_mate_backend.Sandbox;
 using Microsoft.EntityFrameworkCore;
 using grocery_mate_backend.Services;
 using grocery_mate_backend.Services.Utility;
 using NLog;
+using User = grocery_mate_backend.Models.User;
 
 namespace grocery_mate_backend.Controllers;
 
@@ -25,22 +27,22 @@ public class UserController : ControllerBase
         _jwtService = jwtService;
     }
 
-    [HttpPost]
+    [HttpPost("register")]
     public async Task<ActionResult<User>> CreateUser(CreateUserUserDto userDto)
     {
         const string methodName = "REST Create User";
 
-        var user = new User(userDto);
+        var userDo = new User(userDto);
 
         GmLogger.GetInstance()?.Trace(methodName, "Validation-State: " + ModelState.IsValid);
 
         if (!ModelState.IsValid)
         {
-            GmLogger.GetInstance()?.Info(methodName, "Invalid Model-State");
+            GmLogger.GetInstance()?.Warn(methodName, "Invalid Model-State");
             return BadRequest("The specified user data does not correspond to the specifications");
         }
 
-        var identityUser = new IdentityUser() {UserName = user.EmailAddress, Email = user.EmailAddress};
+        var identityUser = new IdentityUser() {UserName = userDo.EmailAddress, Email = userDo.EmailAddress};
 
         var result = await _userManager.CreateAsync(
             identityUser,
@@ -51,19 +53,20 @@ public class UserController : ControllerBase
         {
             foreach (var error in result.Errors)
             {
-                GmLogger.GetInstance()?.Info(methodName, error.Description);
+                GmLogger.GetInstance()?.Warn(methodName, error.Description);
                 return BadRequest(result.Errors);
             }
 
             return BadRequest(result.Errors);
         }
 
-        user.Identity = identityUser;
-        _context.Add(user);
+        userDo.Identity = identityUser;
+        _context.Add(userDo);
         await _context.SaveChangesAsync();
         
         GmLogger.GetInstance()?.Trace(methodName, "successfully created");
-        
+
+        userDto.Password = Symbols.Empty;
         return Created("", userDto);
     }
 
@@ -74,7 +77,7 @@ public class UserController : ControllerBase
 
         if (!ModelState.IsValid)
         {
-            GmLogger.GetInstance()?.Info(methodName, "Invalid Model-State due to Bad credentials");
+            GmLogger.GetInstance()?.Warn(methodName, "Invalid Model-State due to Bad credentials");
             return BadRequest("Bad credentials");
         }
 
@@ -82,7 +85,7 @@ public class UserController : ControllerBase
 
         if (user == null)
         {
-            GmLogger.GetInstance()?.Info(methodName, "User with given eMail-Adr. not found");
+            GmLogger.GetInstance()?.Warn(methodName, "User with given eMail-Adr. not found");
             return BadRequest("Bad credentials");
         }
 
@@ -90,7 +93,7 @@ public class UserController : ControllerBase
 
         if (!isPasswordValid)
         {
-            GmLogger.GetInstance()?.Info(methodName, "Invalid Password");
+            GmLogger.GetInstance()?.Warn(methodName, "Invalid Password");
             return BadRequest("Bad credentials");
         }
 

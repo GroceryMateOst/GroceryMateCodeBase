@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessLogic\Calculation" />
     <Folder Include="Data\DataModels" />
     <Folder Include="Migrations" />
   </ItemGroup>
