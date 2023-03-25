@@ -4,6 +4,7 @@ namespace grocery_mate_backend.Models;
 
 public class EMailAddress
 {
+    public Guid EMailAddressId { get; set; }
     public string UserName { get; }
     public string DomainName { get; }
     public string CountryCode { get; }

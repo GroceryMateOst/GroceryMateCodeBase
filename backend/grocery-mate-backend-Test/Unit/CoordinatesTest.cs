@@ -1,3 +1,4 @@
+using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Models;
 using NUnit.Framework;
 using Xunit;
@@ -7,8 +8,7 @@ namespace grocery_mate_backend_Test.Unit;
 
 public class CoordinatesTest
 {
-    private Coordinates _coordinates;
-    
+    private Coordinate _coordinate;
 
     [Xunit.Theory]
     [InlineData(47.47605059989054, 9.09940924521073, 47, 28, 33, 9, 5, 57, true, true)]
@@ -22,19 +22,19 @@ public class CoordinatesTest
         bool dmdLatNorth, bool dmdLongEast
     )
     {
-        _coordinates = new Coordinates(
-            new DmsElement(true, ddLatitude),
+        _coordinate = CoordinateValidations.CoordinateValidation(
+            new DmsElement(true,ddLatitude),
             new DmsElement(false, ddLongitude));
 
-        var latNorth = _coordinates.Latitude.North;
-        var latDeg = _coordinates.Latitude.DmsDegrees;
-        var latMin = _coordinates.Latitude.DmsMinutes;
-        var latSec = _coordinates.Latitude.DmsSeconds;
+        var latNorth = _coordinate.Latitude.North;
+        var latDeg = _coordinate.Latitude.DmsDegrees;
+        var latMin = _coordinate.Latitude.DmsMinutes;
+        var latSec = _coordinate.Latitude.DmsSeconds;
 
-        var longEast = _coordinates.Longitude.East;
-        var longDeg = _coordinates.Longitude.DmsDegrees;
-        var longMin = _coordinates.Longitude.DmsMinutes;
-        var longSec = _coordinates.Longitude.DmsSeconds;
+        var longEast = _coordinate.Longitude.East;
+        var longDeg = _coordinate.Longitude.DmsDegrees;
+        var longMin = _coordinate.Longitude.DmsMinutes;
+        var longSec = _coordinate.Longitude.DmsSeconds;
 
         Assert.Multiple(() =>
         {
@@ -62,15 +62,15 @@ public class CoordinatesTest
         bool north, bool east
     )
     {
-        _coordinates = new Coordinates(
+        _coordinate = CoordinateValidations.CoordinateValidation(
             new DmsElement(true, north, dmdLatitudeDeg, dmdLatitudeMin, dmdLatitudeSec),
             new DmsElement(false, east, dmdLongDeg, dmdLongMin, dmdLongSec));
 
-        var latNorth = _coordinates.Latitude.North;
-        var lat = _coordinates.Latitude.DdElement;
+        var latNorth = _coordinate.Latitude.North;
+        var lat = _coordinate.Latitude.DdElement;
 
-        var longEast = _coordinates.Longitude.East;
-        var lon = _coordinates.Longitude.DdElement;
+        var longEast = _coordinate.Longitude.East;
+        var lon = _coordinate.Longitude.DdElement;
 
         Assert.Multiple(() =>
         {

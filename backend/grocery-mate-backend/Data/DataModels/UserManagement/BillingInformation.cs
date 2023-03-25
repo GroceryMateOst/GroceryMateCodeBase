@@ -4,6 +4,7 @@ namespace grocery_mate_backend.Models;
 
 public class BillingInformation
 {
+    public Guid BillingInformationId { get; set; }
     public User CardOwner { get; }
     public IBAN Iban { get; }
 
@@ -43,19 +44,11 @@ public class IBAN
         AccountNumber = accountNumber;
     }
 
-    public IBAN(string fullIban)
+    public IBAN()
     {
-        CountryCode = fullIban[..2];
-        ControlDigits = Convert.ToInt32(fullIban.Substring(2,2));
-        BankCode = Convert.ToInt32(fullIban.Substring(5,10));
-        AccountNumber = Convert.ToInt32(fullIban[11..]);
-    }
-}
-
-public class IbanException : Exception
-{
-    public IbanException(string? message) : base(message)
-    {
-        message = "The given Number-length is not a valid!";
+        CountryCode = "TG";
+        ControlDigits = 00;
+        BankCode = 0;
+        AccountNumber = 0;
     }
 }

@@ -4,7 +4,11 @@ public class Symbols
 {
     public const string Dot = ".";
     public const string At = "@";
+    public const string Colon = ":";
+    public const string SquareBracketsOpen   = "[";
+    public const string SquareBracketsClose   = "]";
     public const string Space = " ";
+    public const string DoubleSpace = "  ";
     public const string Empty = "";
     public const string Minus = "-";
   

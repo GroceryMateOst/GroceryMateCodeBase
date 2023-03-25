@@ -1,14 +1,27 @@
 using grocery_mate_backend.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using grocery_mate_backend.Configs;
+using grocery_mate_backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 // Add services to the container.
-//var conn = builder.Configuration.GetConnectionString("DefaultConnection");
 var conn = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+
+if (conn == null)
+{
+    conn = builder.Configuration.GetConnectionString("DefaultConnection");
+}
+
 Console.WriteLine(conn);
 
-builder.Services.AddDbContext<ClickDbContext>(options => options.UseNpgsql(conn));
+builder.Services.AddDbContext<GroceryContext>(options => options.UseNpgsql(conn));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -17,15 +30,49 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(p => p.AddPolicy("corspolicy", buid =>
 {
-   // buid.WithOrigins("http://localhost:3000", "http://localhost:80", "http://localhost:5000", "*").AllowAnyMethod().AllowAnyHeader();
    buid.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
+
+builder.Services.AddAutoMapper(typeof(MapperInitializer));
+
+
+builder.Services.AddIdentityCore<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.User.RequireUniqueEmail = true;
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+}).AddEntityFrameworkStores<GroceryContext>();
+
+builder.Services.AddScoped<JwtService>();
+
+builder
+    .Services    
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidAudience =  builder.Configuration["Jwt:Audience"],
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+            )
+        };
+    });
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<ClickDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<GroceryContext>();
     db.Database.Migrate();
 }
 
@@ -39,6 +86,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors("corspolicy");
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

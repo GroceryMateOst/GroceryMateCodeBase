@@ -1,24 +1,30 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5c1d885c_002D9aab_002D4f21_002D921a_002D9578372f9380/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;grocery-mate-backend-Test&amp;gt; #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a1fbc297_002D7f5a_002D4aeb_002D9bb8_002D1b9584658dfa/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CoordinatesTest #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\application_projects\GroceryMate\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	
-	
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7ab121ae_002De2bb_002D46a3_002Db060_002D59848d442a25/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FullElement_NorthEast_true #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c7810b18_002D6897_002D4252_002D89a4_002D0f368b7e09ee/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CoordinatesTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.CoordinatesTest.FullElement_NorthEast_true&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.CoordinatesTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c70dd065_002D5482_002D43ed_002D8788_002Dba77839a5ef7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;grocery-mate-backend-Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\application_projects\GroceryMate\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=def901de_002D9ec4_002D4eac_002D9623_002Dd66e5f55b46a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CoordinatesTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.CoordinatesTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=daf908ea_002Df3f1_002D4f00_002Daed9_002Dfb540fdedac8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Constructor_DD" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\application_projects\GroceryMate\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dda4e899_002D2bd1_002D4b72_002Dae9e_002D01d6144b5b48/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;grocery-mate-backend-Test&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\application_projects\GroceryMate\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
 	
 	
 	
