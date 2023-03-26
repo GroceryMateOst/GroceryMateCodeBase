@@ -3,24 +3,16 @@ import reactLogo from '../assets/react.svg';
 
 const HomeContainer = () => {
 	return (
-		<div className="App">
-			<div>
-				<a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-					<img src="/vite.svg" className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://reactjs.org" target="_blank" rel="noreferrer">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<Button className="bg-green-400">count is 1 to</Button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
+		<div>
+			<h2>Um Was geht es?</h2>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
+				asperiores illo molestias tenetur facilis assumenda at veniam sunt
+				delectus deserunt, laborum dignissimos iste corporis explicabo. Fugit ad
+				facilis mollitia quam. Lorem ipsum dolor sit amet consectetur
+				adipisicing elit. Tenetur, nobis? Deleniti sed accusantium esse,
+				eligendi sunt praesentium assumenda odit iure laudantium, rem corporis
+				vero blanditiis at, quo corrupti temporibus molestiae?
 			</p>
 		</div>
 	);

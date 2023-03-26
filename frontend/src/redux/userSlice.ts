@@ -41,7 +41,7 @@ export const userSlice = createSlice({
 		},
 		setIsLoading: (state, action: PayloadAction<boolean>) => {
 			state.isLoading = action.payload;
-		}
+		},
 	},
 });
 
