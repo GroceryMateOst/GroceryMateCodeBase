@@ -53,11 +53,10 @@ public class UserController : ControllerBase
         {
             foreach (var error in result.Errors)
             {
-                GmLogger.GetInstance()?.Warn(methodName, error.Description);
-                return BadRequest(result.Errors);
+                GmLogger.GetInstance()?.Trace(methodName, error.Description);
             }
-
-            return BadRequest(result.Errors);
+            GmLogger.GetInstance()?.Warn(methodName, "Invalid Model-State");
+            return BadRequest("Sorry, no new login could be created please check your details and try again. ");
         }
 
         userDo.Identity = identityUser;

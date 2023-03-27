@@ -29,7 +29,6 @@ public class EMailAddress
             var indexOfAt = fullMailAddress.IndexOf(Symbols.At, StringComparison.Ordinal);
             var spitedMail = fullMailAddress.Split(Symbols.At);
 
-
             UserName = fullMailAddress[..(indexOfAt)];
             DomainName = spitedMail[1].Split(Symbols.Dot)[0];
             CountryCode = spitedMail[1].Replace(DomainName + Symbols.Dot, Symbols.Empty);
