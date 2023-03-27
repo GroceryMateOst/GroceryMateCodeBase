@@ -1,7 +1,4 @@
-﻿import { Button } from 'antd';
-import reactLogo from '../assets/react.svg';
-
-const HomeContainer = () => {
+﻿const HomeContainer = () => {
 	return (
 		<div>
 			<h2>Um Was geht es?</h2>
