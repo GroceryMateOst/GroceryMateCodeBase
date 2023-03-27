@@ -1,42 +1,26 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
 import './App.css';
-import ClickService from './services/click-service';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import HomeContainer from './components/HomeContainer';
+import Registration from './pages/Registration';
+import Header from './components/header/Header';
+import Error404 from './components/Error404';
 
 function App() {
-	const [count, setCount] = useState(0);
-
-	const countUp = async () => {
-		const clickService = new ClickService();
-		const newCount = count + 1;
-		await clickService.sendClicks(newCount);
-		setCount(newCount);
-	};
-
 	return (
-		<div className="App">
-			<div>
-				<a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-					<img src="/vite.svg" className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://reactjs.org" target="_blank" rel="noreferrer">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={countUp}>
-					count is {count} to {import.meta.env.BACKEND_URL}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				sass Click on the Vite and React logos to learn more
-			</p>
-		</div>
+		<BrowserRouter>
+			<Provider store={store}>
+				<Header />
+				<div id="content">
+					<Routes>
+						<Route path="/" element={<HomeContainer />} />
+						<Route path="/register" element={<Registration />} />
+						<Route path="*" element={<Error404 />} />
+					</Routes>
+				</div>
+			</Provider>
+		</BrowserRouter>
 	);
 }
 
