@@ -3,6 +3,7 @@
 export abstract class AxiosBaseService {
 	protected instance: AxiosInstance;
 
+	// eslint-disable-line no-use-before-define
 	protected responseBody = (response: AxiosResponse): any => {
 		return response.data;
 	};
@@ -12,9 +13,8 @@ export abstract class AxiosBaseService {
 		//  console.log(backendURL);
 		this.instance = Axios.create({
 			timeout: 15000,
-			baseURL: `https://grocerymate-backend.azurewebsites.net${baseUrl}`,
-			//baseURL: `http://localhost:5000${baseUrl}`,
-			//  baseURL: `http://${backendURL}:5000${baseUrl}`
+			//baseURL: `https://grocerymate-backend.azurewebsites.net${baseUrl}`,
+			baseURL: `http://localhost:5000${baseUrl}`,
 		});
 	}
 }

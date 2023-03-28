@@ -1,0 +1,53 @@
+<CoverageParams>
+    <Output>CodeCoverage.html</Output>
+    <ReportType>HTML</ReportType>
+
+    <!-- Remove auto-implemented properties from report.
+    <HideAutoProperties>True</HideAutoProperties>
+    -->
+
+    <!-- Remove specified files from report. Ant-style patterns are supported here.-->
+    <ExcludeFileMasks>
+      <Mask>*/Models/*</Mask>
+      <Mask>*/Migrations/*</Mask>
+      <Mask>*/Data/*</Mask>
+    </ExcludeFileMasks>
+    
+
+    <!-- Allows including not loaded assemblies in the specified scope into coverage results. Ant-style patterns are supported here.
+    <Scope>
+      <ScopeEntry>ProjectFolder/**/*.dll</ScopeEntry>
+      <ScopeEntry>ProjectFolder/**/*.exe</ScopeEntry>
+    </Scope>
+    -->
+
+    <!-- Coverage filters. It's possible to use asterisks as wildcard symbols.-->
+    <Filters>
+        <IncludeFilters>
+            <FilterEntry>
+                <ModuleMask>grocery-mate-backend</ModuleMask>
+                <ClassMask>*</ClassMask>
+                <FunctionMask>*</FunctionMask>
+            </FilterEntry>
+        </IncludeFilters>
+    </Filters>
+
+
+    <!-- Attribute filters. It's possible to use asterisks as wildcard symbols.
+    <AttributeFilters>
+      <AttributeFilterEntry> Attribute class mask </AttributeFilterEntry>
+      <AttributeFilterEntry>System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute</AttributeFilterEntry>
+    </AttributeFilters>
+    -->
+
+    <!-- Process Filters. It's possible to use asterisks as wildcard symbols.
+    <ProcessFilters>
+      <IncludeFilters>
+        <ProcessMask>SampleProcess*</ProcessMask>
+      </IncludeFilters>
+      <ExcludeFilters>
+        <ProcessMask>SampleProcess.exe</ProcessMask>
+      </ExcludeFilters>
+    </ProcessFilters>
+    -->
+</CoverageParams>

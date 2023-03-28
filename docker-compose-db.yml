@@ -1,0 +1,24 @@
+﻿version: '3'
+services:
+  db:
+    image: postgres:latest
+    container_name: grocerymate-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ClickDB
+    ports:
+      - "5433:5432"
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - test-network
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  test-network:
+    driver: bridge
