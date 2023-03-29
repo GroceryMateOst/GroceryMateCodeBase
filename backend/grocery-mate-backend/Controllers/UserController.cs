@@ -2,12 +2,11 @@ using grocery_mate_backend.Data;
 using grocery_mate_backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using grocery_mate_backend.Models.Settings;
 using grocery_mate_backend.Sandbox;
-using Microsoft.EntityFrameworkCore;
 using grocery_mate_backend.Services;
 using grocery_mate_backend.Services.Utility;
-using NLog;
+using Microsoft.EntityFrameworkCore;
 using User = grocery_mate_backend.Models.User;
 
 namespace grocery_mate_backend.Controllers;
@@ -42,7 +41,7 @@ public class UserController : ControllerBase
             return BadRequest("The specified user data does not correspond to the specifications");
         }
 
-        var identityUser = new IdentityUser() {UserName = userDo.EmailAddress, Email = userDo.EmailAddress};
+        var identityUser = new IdentityUser() { UserName = userDo.EmailAddress, Email = userDo.EmailAddress };
 
         var result = await _userManager.CreateAsync(
             identityUser,
@@ -55,6 +54,7 @@ public class UserController : ControllerBase
             {
                 GmLogger.GetInstance()?.Trace(methodName, error.Description);
             }
+
             GmLogger.GetInstance()?.Warn(methodName, "Invalid Model-State");
             return BadRequest("Sorry, no new login could be created please check your details and try again. ");
         }
@@ -62,7 +62,7 @@ public class UserController : ControllerBase
         userDo.Identity = identityUser;
         _context.Add(userDo);
         await _context.SaveChangesAsync();
-        
+
         GmLogger.GetInstance()?.Trace(methodName, "successfully created");
 
         userDto.Password = Symbols.Empty;
@@ -100,5 +100,34 @@ public class UserController : ControllerBase
 
         GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");
         return Ok(token);
+    }
+
+    [HttpGet("settings")]
+    public async Task<ActionResult<UserDataResponseDto>> GetUserSettings(UserDataRequestDto userToken)
+    {
+        const string methodName = "REST Get User data";
+
+        if (!ModelState.IsValid)
+        {
+            GmLogger.GetInstance()?.Warn(methodName, "Invalid Model-State due to Bad credentials");
+            return BadRequest("Bad credentials");
+        }
+
+        User user = await _context.User
+            .Where(u => u.EmailAddress == userToken.email)
+            .FirstAsync();
+        
+        Address address = await _context.Address
+            .Where(a => a.AddressId == user.AddressId)
+            .FirstAsync();
+        
+        if (user == null)
+        {
+            GmLogger.GetInstance()?.Warn(methodName, "User with given GUID not found");
+            return BadRequest("Bad credentials");
+        }
+
+        GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");
+        return Ok(user);
     }
 }

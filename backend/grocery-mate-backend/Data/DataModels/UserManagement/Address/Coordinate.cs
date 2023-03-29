@@ -1,10 +1,14 @@
 namespace grocery_mate_backend.Models;
 
 public class Coordinate
-{ 
+{
     public Guid CoordinateId { get; set; }
     public DmsElement Latitude { get; }
     public DmsElement Longitude { get; }
+
+    public Coordinate()
+    {
+    }
 
     public Coordinate(DmsElement latitude, DmsElement longitude)
     {
@@ -51,9 +55,9 @@ public class DmsElement
         {
             East = northOrEast;
         }
+
         DmsDegrees = dmsDegrees;
         DmsMinutes = dmsMinutes;
         DmsSeconds = dmsSeconds;
     }
 }
-
