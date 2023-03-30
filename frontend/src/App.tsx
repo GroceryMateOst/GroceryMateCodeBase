@@ -6,19 +6,23 @@ import Header from './components/header/Header';
 import HomePage from './pages/HomePage';
 import Error404Page from './pages/Error404Page';
 import UserPage from './pages/UserPage';
+import Footer from './components/Footer';
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Provider store={store}>
-				<Header />
-				<div id="content">
-					<Routes>
-						<Route path="/" element={<HomePage />} />
-						<Route path="/register" element={<RegistrationPage />} />
-						<Route path="*" element={<Error404Page />} />
-						<Route path="/user" element={<UserPage />} />
-					</Routes>
+				<div className="h-screen flex flex-col">
+					<Header />
+					<div id="content">
+						<Routes>
+							<Route path="/" element={<HomePage />} />
+							<Route path="/register" element={<RegistrationPage />} />
+							<Route path="*" element={<Error404Page />} />
+							<Route path="/user" element={<UserPage />} />
+						</Routes>
+					</div>
+					<Footer />
 				</div>
 			</Provider>
 		</BrowserRouter>

@@ -9,7 +9,9 @@ const Header = () => {
 			id="header"
 		>
 			<NavBar />
-			<h1 className="my-0">Grocery Mate</h1>
+			<Link to="/">
+				<h1 className="my-0">Grocery Mate</h1>
+			</Link>
 			<Link to="/user" className="mt-0 ml-0">
 				<UserOutlined
 					style={{ fontSize: '200%', color: '#213547' }}
