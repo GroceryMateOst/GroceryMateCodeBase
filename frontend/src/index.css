@@ -27,9 +27,3 @@ a:visited {
 .green-background {
 	background-color: #8fb69c;
 }
-
-#content {
-	padding: 20px;
-	display: flex;
-	justify-content: center;
-}

@@ -21,7 +21,7 @@ const RegistrationPage = () => {
 
 	const isLoading = useAppSelector((state) => state.user.isLoading);
 
-	const handleSubmit = async (values: RegisterFormData) => {
+	const handleSubmit = (values: RegisterFormData) => {
 		dispatch(setIsLoading(true));
 		const userService = new UserService();
 		const registerBody: UserModel = {
@@ -30,7 +30,7 @@ const RegistrationPage = () => {
 			secondname: values.name,
 			firstname: values.firstname,
 		};
-		await userService
+		userService
 			.registerAccount(registerBody)
 			.then(() => {
 				return {
@@ -82,7 +82,7 @@ const RegistrationPage = () => {
 					rules={[
 						{
 							type: 'email',
-							message: 'Das ist eine gültige E-Mail Adresse!',
+							message: 'Das ist keine gültige E-Mail Adresse!',
 						},
 						{
 							required: true,

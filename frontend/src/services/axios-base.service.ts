@@ -15,7 +15,7 @@ export abstract class AxiosBaseService {
 			baseURL: `http://localhost:5000/api/v0${baseUrl}`,
 		});
 		this.instance.interceptors.request.use((config) => {
-			const token = localStorage.getItem('bearerToken');
+			const token = localStorage.getItem('bearerTokenGroceryMate');
 			if (token) {
 				config.headers.Authorization = `Bearer ${token}`;
 			}
