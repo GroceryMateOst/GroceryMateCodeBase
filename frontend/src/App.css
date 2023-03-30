@@ -1,9 +1,9 @@
-#root {
-	max-width: 2560px;
-}
-
 #content {
 	padding: 2rem;
 	display: flex;
 	justify-content: center;
+}
+
+#root {
+	width: 100%;
 }

@@ -49,17 +49,3 @@ a {
 .green-background {
 	background-color: #8fb69c;
 }
-
-@media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
-	}
-	a {
-		color: #213547;
-	}
-
-	button {
-		background-color: #f9f9f9;
-	}
-}
