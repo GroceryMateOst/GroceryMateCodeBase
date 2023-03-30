@@ -43,7 +43,6 @@ jobs:
           install-command: yarn install
           component: true
       - name: run cypress e2e
-        needs: Build Frontend & Backend
         if: github.base_ref == 'main'
         uses: cypress-io/github-action@v5
         with:
