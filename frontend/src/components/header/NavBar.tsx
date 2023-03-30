@@ -26,7 +26,6 @@ const NavBar = () => {
 			<a onClick={(e) => e.preventDefault()}>
 				<Space style={{ fontSize: '150%' }}>
 					<MenuOutlined />
-					Menü
 				</Space>
 			</a>
 		</Dropdown>

@@ -14,7 +14,7 @@ interface RegisterFormData {
 	confirm: string;
 }
 
-const Registration = () => {
+const RegistrationPage = () => {
 	const [form] = Form.useForm();
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -177,4 +177,4 @@ const Registration = () => {
 	);
 };
 
-export default Registration;
+export default RegistrationPage;

@@ -1,4 +1,4 @@
-﻿const HomeContainer = () => {
+﻿const HomePage = () => {
 	return (
 		<div>
 			<h2>Um Was geht es?</h2>
@@ -15,4 +15,4 @@
 	);
 };
 
-export default HomeContainer;
+export default HomePage;
