@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setIsAuthenticated } from '../../redux/userSlice';
 import UserService from '../../services/user-service';
 
-const NavBar = () => {
+const NavBarMenu = () => {
 	const dispatch = useAppDispatch();
 	const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
 
@@ -53,14 +53,11 @@ const NavBar = () => {
 				items: getNavItems(isAuthenticated),
 				onClick: onDropdownClick,
 			}}
+			className="flex items-center"
 		>
-			<a onClick={(e) => e.preventDefault()}>
-				<Space style={{ fontSize: '150%' }}>
-					<MenuOutlined />
-				</Space>
-			</a>
+			<MenuOutlined className="text-[150%]" />
 		</Dropdown>
 	);
 };
 
-export default NavBar;
+export default NavBarMenu;

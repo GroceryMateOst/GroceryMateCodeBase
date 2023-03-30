@@ -3,7 +3,7 @@ import TextArea from 'antd/es/input/TextArea';
 
 const UserPage = () => {
 	return (
-		<div>
+		<div className="w-full flex justify-center">
 			<Form
 				className="w-[325px]"
 				name="basic"

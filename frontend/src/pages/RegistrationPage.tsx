@@ -65,12 +65,11 @@ const RegistrationPage = () => {
 	};
 
 	return (
-		<div>
+		<div className="w-full flex justify-center">
 			<Form
+				className="w-[325px]"
 				name="basic"
-				labelCol={{ span: 9 }}
-				wrapperCol={{ span: 17 }}
-				style={{ maxWidth: 650 }}
+				layout="vertical"
 				form={form}
 				initialValues={{ remember: true }}
 				onFinish={handleSubmit}

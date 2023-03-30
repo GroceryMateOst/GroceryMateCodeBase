@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
-import NavBar from './NavBar';
+import NavBarMenu from './NavBarMenu';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { setIsAuthenticated } from '../../redux/userSlice';
 
@@ -20,24 +20,20 @@ const Header = () => {
 	return (
 		<div className="headerContainer ">
 			<div
-				className="flex justify-between items-center green-background navbar px-6 py-6"
+				className="grid grid-cols-[min-content,1fr,min-content] green-background px-6 py-6"
 				id="header"
 			>
-				<NavBar />
-				<h1>Grocery Mate</h1>
-				{isAuthenticated ? (
-					<Link to="/profile" className="mt-0 ml-0">
-						<div style={{ fontSize: '140%' }} className="inline-block mr-3">
-							Profil
-						</div>
-						<UserOutlined
-							style={{ fontSize: '200%', color: '#213547' }}
-							className="text-center"
-						/>
-					</Link>
-				) : (
-					<div></div>
-				)}
+				<NavBarMenu />
+				<Link to="/" className="!flex justify-center">
+					<h1 className="my-0">Grocery Mate</h1>
+				</Link>
+				<div className="flex justify-end">
+					{isAuthenticated && (
+						<Link to="/profile" className="mt-0 ml-0 flex items-center">
+							<UserOutlined className="text-center text-[200%]" />
+						</Link>
+					)}
+				</div>
 			</div>
 		</div>
 	);
