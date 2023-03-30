@@ -34,16 +34,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Build Frontend & Backend
-        run: cd .. && docker-compose -f docker-compose-dev.yml up -d 
+        run: yarn dev
 
       - name: run cypress component
         uses: cypress-io/github-action@v5
         with:
           working-directory: frontend
           install-command: yarn install
-          start: yarn dev
           component: true
       - name: run cypress e2e
+        needs: Build Frontend & Backend
         if: github.base_ref == 'main'
         uses: cypress-io/github-action@v5
         with:
