@@ -6,6 +6,7 @@ using grocery_mate_backend.Models.Settings;
 using grocery_mate_backend.Sandbox;
 using grocery_mate_backend.Services;
 using grocery_mate_backend.Services.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using User = grocery_mate_backend.Models.User;
 
@@ -102,8 +103,9 @@ public class UserController : ControllerBase
         return Ok(token);
     }
 
+    [Authorize]
     [HttpGet("settings")]
-    public async Task<ActionResult<UserDataResponseDto>> GetUserSettings(UserDataRequestDto userToken)
+    public async Task<ActionResult<UserDataResponseDto>> GetUserSettings([FromQuery] UserDataRequestDto userMail)
     {
         const string methodName = "REST Get User data";
 
@@ -113,21 +115,20 @@ public class UserController : ControllerBase
             return BadRequest("Bad credentials");
         }
 
-        User user = await _context.User
-            .Where(u => u.EmailAddress == userToken.email)
-            .FirstAsync();
-        
-        Address address = await _context.Address
-            .Where(a => a.AddressId == user.AddressId)
-            .FirstAsync();
-        
+        var user = await _context.User
+            .Where(u => u.EmailAddress == userMail.email)
+            .FirstOrDefaultAsync();
+
         if (user == null)
         {
-            GmLogger.GetInstance()?.Warn(methodName, "User with given GUID not found");
+            GmLogger.GetInstance()?.Warn(methodName, "User does not exist");
             return BadRequest("Bad credentials");
         }
 
-        GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");
-        return Ok(user);
+        var address = await _context.Address
+            .Where(a => a.AddressId == user.AddressId)
+            .FirstOrDefaultAsync() ?? new Address();
+
+        return Ok(new UserDataResponseDto(user, address));
     }
 }

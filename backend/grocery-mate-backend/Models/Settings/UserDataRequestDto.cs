@@ -1,8 +1,8 @@
-using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace grocery_mate_backend.Models.Settings;
 
 public class UserDataRequestDto
 {
-    [Required] public string email { get; set; }
+    [BindRequired] public string email { get; set; }
 }
