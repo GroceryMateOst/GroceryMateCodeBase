@@ -33,31 +33,31 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Build Frontend & Backend
-        run: cd .. && docker-compose -f docker-compose-dev.yml up -d 
 
       - name: run cypress component
         uses: cypress-io/github-action@v5
         with:
           working-directory: frontend
           install-command: yarn install
-          start: yarn dev
           component: true
       - name: run cypress e2e
         if: github.base_ref == 'main'
         uses: cypress-io/github-action@v5
         with:
           working-directory: frontend
-          install: false
+          install-command: yarn install
+          start: yarn dev
+          wait-on: 'http://localhost:3000'
+
 
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
-          path: cypress/screenshots
+          path: /home/runner/work/GroceryMateCodeBase/GroceryMateCodeBase/frontend/cypress/videos
       - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-videos
-          path: cypress/videos
+          path: /home/runner/work/GroceryMateCodeBase/GroceryMateCodeBase/frontend/cypress/videos
 
