@@ -47,6 +47,8 @@ jobs:
           working-directory: frontend
           install-command: yarn install
           start: yarn dev
+          wait-on: 'http://localhost:3000'
+
 
       - uses: actions/upload-artifact@v3
         if: failure()
