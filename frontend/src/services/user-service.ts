@@ -20,10 +20,6 @@ export default class UserService extends AxiosBaseService {
 		return data;
 	}
 
-	public async getWeather() {
-		return this.instance.get('Weatherforecast');
-	}
-
 	public logout(): void {
 		localStorage.removeItem('bearerTokenGroceryMate');
 	}
