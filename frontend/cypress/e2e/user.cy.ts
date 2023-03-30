@@ -12,7 +12,7 @@ describe('User registers and gets a JWT token in return which is stored in local
 	});
 
 	it('Fills out the registration form', () => {
-		cy.get('#basic_email').type('test@test9.com');
+		cy.get('#basic_email').type('test@test101.com');
 		cy.get('#basic_firstname').type('John');
 		cy.get('#basic_name').type('Doe');
 		cy.get('#basic_password').type('p@ssw0rd2023A');
