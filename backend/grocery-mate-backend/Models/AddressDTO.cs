@@ -13,7 +13,6 @@ public class AddressDto
     public string HouseNr { get; set; }
 
     [Required]
-    [StringLength(maximumLength: 8, ErrorMessage = "Zip-Code is too long")]
     public int ZipCode { get; set; }
 
     [Required]
