@@ -20,8 +20,8 @@ export interface UserModelComplete {
 	firstName: string;
 	secondName: string;
 	street: string;
-	houseNr: number;
-	zipCode: number;
+	houseNr: string;
+	zipCode: string;
 	city: string;
 	state: string;
 	country: string;

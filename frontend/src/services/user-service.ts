@@ -34,10 +34,31 @@ export default class UserService extends AxiosBaseService {
 
 	public async getUserSettings(email: string): Promise<UserModelComplete> {
 		const response = await this.instance.get(`settings?email=${email}`);
+		console.log(response);
 		return {
 			...response.data.user,
 			...response.data.address,
-			residencyDetails: '',
 		};
+	}
+
+	public async updateUserSettings(
+		userSettings: UserModelComplete
+	): Promise<void> {
+		const address = {
+			street: userSettings.street,
+			houseNr: parseInt(userSettings.houseNr),
+			zipCode: parseInt(userSettings.zipCode),
+			city: userSettings.city,
+			state: userSettings.state,
+			country: userSettings.country,
+		};
+		const user = {
+			firstName: userSettings.firstName,
+			secondName: userSettings.secondName,
+			emailAddress: userSettings.emailAddress,
+			residencyDetails: userSettings.residencyDetails,
+		};
+		const email = localStorage.getItem('userEmail');
+		await this.instance.post('settings', { user, address, email });
 	}
 }

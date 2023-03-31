@@ -26,8 +26,9 @@ const UserPage = () => {
 		form.setFieldsValue(userSettings);
 	};
 
-	const handleSubmit = (userSettings: UserModelComplete) => {
-		console.log(userSettings);
+	const handleSubmit = async (userSettings: UserModelComplete) => {
+		const userService = new UserService();
+		await userService.updateUserSettings(userSettings);
 	};
 
 	return (
@@ -109,7 +110,7 @@ const UserPage = () => {
 						},
 					]}
 				>
-					<InputNumber />
+					<Input />
 				</Form.Item>
 				<Form.Item
 					name="zipCode"
@@ -122,7 +123,7 @@ const UserPage = () => {
 						},
 					]}
 				>
-					<InputNumber />
+					<Input />
 				</Form.Item>
 				<Form.Item
 					name="city"
