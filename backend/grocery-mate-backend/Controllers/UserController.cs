@@ -73,7 +73,7 @@ public class UserController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<AuthenticationResponseDto>> CreateBearerToken(AuthenticationRequestDto requestDto)
     {
-        const string methodName = "REST Create User";
+        const string methodName = "REST Log-In";
 
         if (!ModelState.IsValid)
         {
@@ -107,7 +107,7 @@ public class UserController : ControllerBase
     [HttpGet("settings")]
     public async Task<ActionResult<UserDataResponseDto>> GetUserSettings([FromQuery] UserDataRequestDto userMail)
     {
-        const string methodName = "REST Get User data";
+        const string methodName = "REST Get User-Settings";
 
         if (!ModelState.IsValid)
         {
