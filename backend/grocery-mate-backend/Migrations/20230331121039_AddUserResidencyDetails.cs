@@ -14,7 +14,7 @@ namespace grocery_mate_backend.Migrations
                 name: "ResidencyDetails",
                 table: "User",
                 type: "text",
-                nullable: false,
+                nullable: true,
                 defaultValue: "");
         }
 
