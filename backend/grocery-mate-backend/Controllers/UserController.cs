@@ -186,7 +186,7 @@ public class UserController : ControllerBase
         user.ResidencyDetails = requestDto.User.ResidencyDetails;
         await _context.SaveChangesAsync();
 
-        return Ok();
+        return Ok("Settings have been updated successfully");
     }
 
     private async Task<User?> FindUser(string email)

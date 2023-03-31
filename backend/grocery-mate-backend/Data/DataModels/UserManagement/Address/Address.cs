@@ -13,7 +13,7 @@ public class Address
     [Required] public string State { get; set; }
     [Required] public Countries Country { get; set; }
 
-    public Coordinate Coordinate { get; set; }
+    public Coordinate? Coordinate { get; set; }
     public ICollection<User> Users { get; set; }
 
     public Address(AddressDto requestDtoAddress)
@@ -24,6 +24,7 @@ public class Address
         City = requestDtoAddress.City;
         State = requestDtoAddress.State;
         Country = Countries.CH;
+        Users = new List<User>();
     }
 
     public Address()

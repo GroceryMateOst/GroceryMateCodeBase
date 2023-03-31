@@ -120,7 +120,7 @@ namespace grocery_mate_backend.Migrations
                     City = table.Column<string>(type: "text", nullable: false),
                     State = table.Column<string>(type: "text", nullable: false),
                     Country = table.Column<int>(type: "integer", nullable: false),
-                    CoordinateId = table.Column<Guid>(type: "uuid", nullable: false)
+                    CoordinateId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
