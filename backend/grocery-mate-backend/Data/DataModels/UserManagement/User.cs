@@ -19,6 +19,8 @@ public class User
     public string Password { get; set; }
     public IdentityUser? Identity { get; set; }
     
+    public string ResidencyDetails { get; set; }
+    
     public Guid? AddressId { get; set; }
 
     public User(CreateUserUserDto dto)

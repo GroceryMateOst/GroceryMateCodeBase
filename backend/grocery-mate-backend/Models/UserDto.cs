@@ -9,6 +9,7 @@ public class UserDto
     [Required] public string FirstName { get; set; }
     [Required] public string SecondName { get; set; }
     [Required] public string EmailAddress { get; set; }
+    public string ResidencyDetails { get; set; }
 }
 
 public class CreateUserUserDto : UserDto
