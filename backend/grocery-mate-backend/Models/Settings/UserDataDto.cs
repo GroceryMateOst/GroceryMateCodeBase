@@ -14,7 +14,8 @@ public class UserDataDto
         {
             EmailAddress = user.EmailAddress,
             FirstName = user.FirstName,
-            SecondName = user.SecondName
+            SecondName = user.SecondName,
+            ResidencyDetails = user.ResidencyDetails ?? string.Empty
         };
 
         Address = new AddressDto
