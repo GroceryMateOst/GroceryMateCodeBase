@@ -18,8 +18,8 @@ function App() {
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/register" element={<RegistrationPage />} />
-							<Route path="*" element={<Error404Page />} />
 							<Route path="/profile" element={<UserPage />} />
+							<Route path="*" element={<Error404Page />} />
 						</Routes>
 					</div>
 					<Footer />

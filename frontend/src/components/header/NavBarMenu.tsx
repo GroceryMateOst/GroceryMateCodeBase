@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Dropdown, MenuProps, Space } from 'antd';
+import { Dropdown, MenuProps } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setIsAuthenticated } from '../../redux/userSlice';

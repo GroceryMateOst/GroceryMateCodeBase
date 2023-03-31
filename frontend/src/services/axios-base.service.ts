@@ -12,7 +12,7 @@ export abstract class AxiosBaseService {
 		this.instance = Axios.create({
 			timeout: 15000,
 			//baseURL: `https://grocerymate-backend.azurewebsites.net${baseUrl}`,
-			baseURL: `http://localhost:5000/api/v0${baseUrl}`,
+			baseURL: `${import.meta.env.VITE_SERVER_BASE_URL}${baseUrl}`,
 		});
 		this.instance.interceptors.request.use((config) => {
 			const token = localStorage.getItem('bearerTokenGroceryMate');

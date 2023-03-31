@@ -1,7 +1,12 @@
 ﻿import { Button, Form, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { UserModel } from '../models/UserModel';
 
 const UserPage = () => {
+	const handleSubmit = (values: UserModel) => {
+		console.log(values);
+	};
+
 	return (
 		<div className="w-full flex justify-center">
 			<Form
@@ -10,6 +15,7 @@ const UserPage = () => {
 				initialValues={{ remember: true }}
 				autoComplete="off"
 				layout="vertical"
+				onFinish={handleSubmit}
 			>
 				<Form.Item
 					name="email"
@@ -42,7 +48,7 @@ const UserPage = () => {
 					<Input />
 				</Form.Item>
 				<Form.Item
-					name="name"
+					name="secondName"
 					label="Nachname"
 					tooltip="Was ist dein Familienname?"
 					rules={[
