@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using grocery_mate_backend.Data;
@@ -11,9 +12,11 @@ using grocery_mate_backend.Data;
 namespace grocery_mate_backend.Migrations
 {
     [DbContext(typeof(GroceryContext))]
-    partial class GroceryContextModelSnapshot : ModelSnapshot
+    [Migration("20230331121039_AddUserResidencyDetails")]
+    partial class AddUserResidencyDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,9 +171,8 @@ namespace grocery_mate_backend.Migrations
                     b.Property<int>("Country")
                         .HasColumnType("integer");
 
-                    b.Property<string>("HouseNr")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("HouseNr")
+                        .HasColumnType("integer");
 
                     b.Property<string>("State")
                         .IsRequired()
