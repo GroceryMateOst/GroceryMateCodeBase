@@ -151,8 +151,8 @@ const UserPage = () => {
 				>
 					<Input />
 				</Form.Item>
-				<Form.Item name="addressDetails" label="Details zu deinem Wohnort">
-					<TextArea />
+				<Form.Item name="residencyDetails" label="Details zu deinem Wohnort">
+					<Input />
 				</Form.Item>
 				<Form.Item>
 					<Button type="primary" htmlType="submit">

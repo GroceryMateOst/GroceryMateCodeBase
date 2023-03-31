@@ -34,7 +34,6 @@ export default class UserService extends AxiosBaseService {
 
 	public async getUserSettings(email: string): Promise<UserModelComplete> {
 		const response = await this.instance.get(`settings?email=${email}`);
-		console.log(response);
 		return {
 			...response.data.user,
 			...response.data.address,
@@ -50,7 +49,7 @@ export default class UserService extends AxiosBaseService {
 			zipCode: userSettings.zipCode,
 			city: userSettings.city,
 			state: userSettings.state,
-			country: userSettings.country ?? ' ',
+			country: userSettings.country ?? 'Hello',
 		};
 		const user = {
 			firstName: userSettings.firstName,
@@ -59,7 +58,6 @@ export default class UserService extends AxiosBaseService {
 			residencyDetails: userSettings.residencyDetails ?? ' ',
 		};
 		const email = localStorage.getItem('userEmail');
-		console.log({ user, address, email });
 		await this.instance.post('settings', { user, address, email });
 	}
 }
