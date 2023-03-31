@@ -33,7 +33,8 @@ public class JwtService
         return new AuthenticationResponseDto
         {
             Token = tokenHandler.WriteToken(token),
-            Expiration = expiration
+            Expiration = expiration,
+            Email = user.Email
         };
     }
 
