@@ -46,19 +46,20 @@ export default class UserService extends AxiosBaseService {
 	): Promise<void> {
 		const address = {
 			street: userSettings.street,
-			houseNr: parseInt(userSettings.houseNr),
-			zipCode: parseInt(userSettings.zipCode),
+			houseNr: userSettings.houseNr,
+			zipCode: userSettings.zipCode,
 			city: userSettings.city,
 			state: userSettings.state,
-			country: userSettings.country,
+			country: userSettings.country ?? ' ',
 		};
 		const user = {
 			firstName: userSettings.firstName,
 			secondName: userSettings.secondName,
 			emailAddress: userSettings.emailAddress,
-			residencyDetails: userSettings.residencyDetails,
+			residencyDetails: userSettings.residencyDetails ?? ' ',
 		};
 		const email = localStorage.getItem('userEmail');
+		console.log({ user, address, email });
 		await this.instance.post('settings', { user, address, email });
 	}
 }

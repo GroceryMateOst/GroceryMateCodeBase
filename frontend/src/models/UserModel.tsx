@@ -3,6 +3,7 @@ export interface UserModel {
 	password: string;
 	secondname: string;
 	firstname: string;
+	residencyDetails: string;
 }
 
 export interface LoginModel {

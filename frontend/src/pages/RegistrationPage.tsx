@@ -29,6 +29,7 @@ const RegistrationPage = () => {
 			password: values.password,
 			secondname: values.name,
 			firstname: values.firstname,
+			residencyDetails: '',
 		};
 		try {
 			await userService.registerAccount(registerBody);
