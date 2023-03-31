@@ -1,5 +1,10 @@
 import { AxiosBaseService } from './axios-base.service';
-import { UserModel, LoginModel, LoginResponseModel } from '../models/UserModel';
+import {
+	UserModel,
+	LoginModel,
+	LoginResponseModel,
+	UserModelComplete,
+} from '../models/UserModel';
 
 export default class UserService extends AxiosBaseService {
 	constructor() {
@@ -17,15 +22,22 @@ export default class UserService extends AxiosBaseService {
 		);
 		const token: string = data.token;
 		localStorage.setItem('bearerTokenGroceryMate', token);
+		// ToDo is to replace by using only token.
+		localStorage.setItem('userEmail', body.emailaddress);
 		return data;
 	}
 
 	public logout(): void {
 		localStorage.removeItem('bearerTokenGroceryMate');
+		localStorage.removeItem('userEmail');
 	}
 
-	public async getUserSettings(): Promise<void> {
-		const response = await this.instance.get('settings?email=test2@test.ch');
-		console.log(response);
+	public async getUserSettings(email: string): Promise<UserModelComplete> {
+		const response = await this.instance.get(`settings?email=${email}`);
+		return {
+			...response.data.user,
+			...response.data.address,
+			residencyDetails: '',
+		};
 	}
 }
