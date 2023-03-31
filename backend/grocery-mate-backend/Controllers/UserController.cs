@@ -201,7 +201,7 @@ public class UserController : ControllerBase
         var user = await _context.Address
             .Where(a =>
                 a.Street == address.Street &&
-                a.HouseNr == address.HouseNr.ToString() &&
+                a.HouseNr == address.HouseNr &&
                 a.City == address.City &&
                 a.ZipCode == address.ZipCode)
             .FirstOrDefaultAsync();

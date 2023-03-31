@@ -10,7 +10,7 @@ public class AddressDto
 
     [StringLength(maximumLength: 5, ErrorMessage = "House-Number is too long")]
     [Required]
-    public int HouseNr { get; set; }
+    public string HouseNr { get; set; }
 
     [Required]
     [StringLength(maximumLength: 8, ErrorMessage = "Zip-Code is too long")]

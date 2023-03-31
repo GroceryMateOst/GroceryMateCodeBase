@@ -21,7 +21,7 @@ public class UserDataDto
         {
             City = address.City,
             Country = address.Country.ToString(),
-            HouseNr = Convert.ToInt32(address.HouseNr),
+            HouseNr = address.HouseNr,
             State = address.State,
             Street = address.Street,
             ZipCode = address.ZipCode

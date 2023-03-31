@@ -19,7 +19,7 @@ public class Address
     public Address(AddressDto requestDtoAddress)
     {
         Street = requestDtoAddress.Street;
-        HouseNr = requestDtoAddress.HouseNr.ToString();
+        HouseNr = requestDtoAddress.HouseNr;
         ZipCode = requestDtoAddress.ZipCode;
         City = requestDtoAddress.City;
         State = requestDtoAddress.State;
