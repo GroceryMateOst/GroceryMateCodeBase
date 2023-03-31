@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.OpenApi.Extensions;
 
 namespace grocery_mate_backend.Models.Settings;
 
@@ -20,7 +21,7 @@ public class UserDataResponseDto
         Address = new AddressDto()
         {
             City = address.City,
-            Country = address.Country.ToString(),
+            Country = address.Country.GetDisplayName(),
             HouseNr = Convert.ToInt32(address.HouseNr),
             State = address.State,
             Street = address.Street,
