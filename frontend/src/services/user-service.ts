@@ -23,4 +23,9 @@ export default class UserService extends AxiosBaseService {
 	public logout(): void {
 		localStorage.removeItem('bearerTokenGroceryMate');
 	}
+
+	public async getUserSettings(): Promise<void> {
+		const response = await this.instance.get('settings?email=test2@test.ch');
+		console.log(response);
+	}
 }

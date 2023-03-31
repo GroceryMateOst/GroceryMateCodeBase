@@ -1,10 +1,12 @@
 ﻿import { Button, Form, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UserModel } from '../models/UserModel';
+import UserService from '../services/user-service';
 
 const UserPage = () => {
 	const handleSubmit = (values: UserModel) => {
-		console.log(values);
+		const userService = new UserService();
+		userService.getUserSettings();
 	};
 
 	return (
@@ -26,7 +28,7 @@ const UserPage = () => {
 							message: 'Das ist eine gültige E-Mail Adresse!',
 						},
 						{
-							required: true,
+							// required: true,
 							message: 'Bitte gebe deine E-Mail Adresse ein!',
 						},
 					]}
@@ -39,7 +41,7 @@ const UserPage = () => {
 					tooltip="Was ist dein Vorname?"
 					rules={[
 						{
-							required: true,
+							// required: true,
 							message: 'Bitte gebe deinen Vorname ein!',
 							whitespace: true,
 						},
@@ -53,7 +55,7 @@ const UserPage = () => {
 					tooltip="Was ist dein Familienname?"
 					rules={[
 						{
-							required: true,
+							// required: true,
 							message: 'Bitte gebe deinen Nachnamen ein!',
 							whitespace: true,
 						},
@@ -66,7 +68,7 @@ const UserPage = () => {
 					label="Strasse"
 					rules={[
 						{
-							required: true,
+							// required: true,
 							message: 'Bitte gebe an an welcher Strasse du wohnst.',
 							whitespace: true,
 						},
@@ -79,7 +81,7 @@ const UserPage = () => {
 					label="PLZ/Ort"
 					rules={[
 						{
-							required: true,
+							// required: true,
 							message: 'Bitte gebe eine PLZ und den dazugehörigen Ort an!',
 							whitespace: true,
 						},
