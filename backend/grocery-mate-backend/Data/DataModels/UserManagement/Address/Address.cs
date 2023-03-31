@@ -24,6 +24,7 @@ public class Address
         City = requestDtoAddress.City;
         State = requestDtoAddress.State;
         Country = Countries.CH;
+        Users = new List<User>();
     }
 
     public Address()
