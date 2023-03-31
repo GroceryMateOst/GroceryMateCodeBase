@@ -11,7 +11,7 @@ export abstract class AxiosBaseService {
 	constructor(baseUrl = '/') {
 		this.instance = Axios.create({
 			timeout: 15000,
-			//baseURL: `https://grocerymate-backend.azurewebsites.net${baseUrl}`,
+			// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 			baseURL: `${import.meta.env.VITE_SERVER_BASE_URL}${baseUrl}`,
 		});
 		this.instance.interceptors.request.use((config) => {

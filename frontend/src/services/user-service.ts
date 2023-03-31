@@ -35,7 +35,9 @@ export default class UserService extends AxiosBaseService {
 	public async getUserSettings(email: string): Promise<UserModelComplete> {
 		const response = await this.instance.get(`settings?email=${email}`);
 		return {
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 			...response.data.user,
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 			...response.data.address,
 		};
 	}

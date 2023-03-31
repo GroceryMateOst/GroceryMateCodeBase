@@ -1,4 +1,4 @@
-﻿import { Button, Form, Input, InputNumber } from 'antd';
+﻿import { Button, Form, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UserModelComplete } from '../models/UserModel';
 import UserService from '../services/user-service';
@@ -9,22 +9,23 @@ const UserPage = () => {
 	const navigate = useNavigate();
 	const [form] = Form.useForm<UserModelComplete>();
 
+	const getUser = async (userService: UserService, email: string) => {
+		try {
+			const userSettings = await userService.getUserSettings(email);
+			form.setFieldsValue(userSettings);
+		} catch {
+			navigate('/error');
+		}
+	};
+
 	useEffect(() => {
 		const email = localStorage.getItem('userEmail');
 		if (email) {
 			const userService = new UserService();
-			try {
-				getUser(userService, email);
-			} catch {
-				navigate('/error');
-			}
+			// eslint-disable-next-line @typescript-eslint/no-floating-promises
+			getUser(userService, email);
 		}
 	}, []);
-
-	const getUser = async (userService: UserService, email: string) => {
-		const userSettings = await userService.getUserSettings(email);
-		form.setFieldsValue(userSettings);
-	};
 
 	const handleSubmit = async (userSettings: UserModelComplete) => {
 		const userService = new UserService();
@@ -152,7 +153,7 @@ const UserPage = () => {
 					<Input />
 				</Form.Item>
 				<Form.Item name="residencyDetails" label="Details zu deinem Wohnort">
-					<Input />
+					<TextArea />
 				</Form.Item>
 				<Form.Item>
 					<Button type="primary" htmlType="submit">

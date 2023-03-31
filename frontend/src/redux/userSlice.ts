@@ -14,6 +14,7 @@ const initialUser: UserModel = {
 	password: '',
 	secondname: '',
 	firstname: '',
+	residencyDetails: '',
 };
 
 const initialState: UserState = {
