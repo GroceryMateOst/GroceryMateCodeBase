@@ -18,4 +18,5 @@ public class GroceryContext : IdentityUserContext<IdentityUser>
     }
 
     public DbSet<User> User { get; set; }
+    public DbSet<Address> Address { get; set; }
 }

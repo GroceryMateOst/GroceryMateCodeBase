@@ -12,4 +12,5 @@ public class Address
     [Required] public string State { get; set; }
     [Required] public Countries Country { get; set; }
     public Coordinate Coordinate { get; set; }
+    public ICollection<User> Users { get; set; }
 }
