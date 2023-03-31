@@ -21,7 +21,7 @@ public class UserDataResponseDto
         Address = new AddressDto()
         {
             City = address.City,
-            Country = address.Country.GetDisplayName(),
+            Country = address.Country.ToString(),
             HouseNr = Convert.ToInt32(address.HouseNr),
             State = address.State,
             Street = address.Street,
