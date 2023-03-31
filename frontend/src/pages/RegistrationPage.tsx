@@ -14,14 +14,14 @@ interface RegisterFormData {
 	confirm: string;
 }
 
-const Registration = () => {
+const RegistrationPage = () => {
 	const [form] = Form.useForm();
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
 	const isLoading = useAppSelector((state) => state.user.isLoading);
 
-	const handleSubmit = async (values: RegisterFormData) => {
+	const handleSubmit = (values: RegisterFormData) => {
 		dispatch(setIsLoading(true));
 		const userService = new UserService();
 		const registerBody: UserModel = {
@@ -30,7 +30,7 @@ const Registration = () => {
 			secondname: values.name,
 			firstname: values.firstname,
 		};
-		await userService
+		userService
 			.registerAccount(registerBody)
 			.then(() => {
 				return {
@@ -65,12 +65,11 @@ const Registration = () => {
 	};
 
 	return (
-		<div>
+		<div className="w-full flex justify-center">
 			<Form
+				className="w-[325px]"
 				name="basic"
-				labelCol={{ span: 9 }}
-				wrapperCol={{ span: 17 }}
-				style={{ maxWidth: 650 }}
+				layout="vertical"
 				form={form}
 				initialValues={{ remember: true }}
 				onFinish={handleSubmit}
@@ -82,7 +81,7 @@ const Registration = () => {
 					rules={[
 						{
 							type: 'email',
-							message: 'Das ist eine gültige E-Mail Adresse!',
+							message: 'Das ist keine gültige E-Mail Adresse!',
 						},
 						{
 							required: true,
@@ -177,4 +176,4 @@ const Registration = () => {
 	);
 };
 
-export default Registration;
+export default RegistrationPage;
