@@ -12,8 +12,8 @@ using grocery_mate_backend.Data;
 namespace grocery_mate_backend.Migrations
 {
     [DbContext(typeof(GroceryContext))]
-    [Migration("20230330111213_UserManagement")]
-    partial class UserManagement
+    [Migration("20230331121039_AddUserResidencyDetails")]
+    partial class AddUserResidencyDetails
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,10 +155,61 @@ namespace grocery_mate_backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("grocery_mate_backend.Models.Address", b =>
+                {
+                    b.Property<Guid>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("CoordinateId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Country")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("HouseNr")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AddressId");
+
+                    b.HasIndex("CoordinateId");
+
+                    b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("grocery_mate_backend.Models.Coordinate", b =>
+                {
+                    b.Property<Guid>("CoordinateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.HasKey("CoordinateId");
+
+                    b.ToTable("Coordinate");
+                });
+
             modelBuilder.Entity("grocery_mate_backend.Models.User", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("AddressId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("EmailAddress")
@@ -172,11 +223,17 @@ namespace grocery_mate_backend.Migrations
                     b.Property<string>("IdentityId")
                         .HasColumnType("text");
 
+                    b.Property<string>("ResidencyDetails")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("SecondName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("IdentityId");
 
@@ -210,13 +267,33 @@ namespace grocery_mate_backend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("grocery_mate_backend.Models.Address", b =>
+                {
+                    b.HasOne("grocery_mate_backend.Models.Coordinate", "Coordinate")
+                        .WithMany()
+                        .HasForeignKey("CoordinateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Coordinate");
+                });
+
             modelBuilder.Entity("grocery_mate_backend.Models.User", b =>
                 {
+                    b.HasOne("grocery_mate_backend.Models.Address", null)
+                        .WithMany("Users")
+                        .HasForeignKey("AddressId");
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Identity")
                         .WithMany()
                         .HasForeignKey("IdentityId");
 
                     b.Navigation("Identity");
+                });
+
+            modelBuilder.Entity("grocery_mate_backend.Models.Address", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

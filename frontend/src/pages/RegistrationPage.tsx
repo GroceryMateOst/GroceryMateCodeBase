@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { Button, Form, Input } from 'antd';
-import { UserModel, LoginModel } from '../models/UserModel';
+import { UserModel } from '../models/UserModel';
 import UserService from '../services/user-service';
 import { setIsLoading, setIsAuthenticated } from '../redux/userSlice';
 import Spinner from '../components/LoadingSpinner';
@@ -14,14 +14,14 @@ interface RegisterFormData {
 	confirm: string;
 }
 
-const Registration = () => {
+const RegistrationPage = () => {
 	const [form] = Form.useForm();
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
 	const isLoading = useAppSelector((state) => state.user.isLoading);
 
-	const handleSubmit = (values: RegisterFormData) => {
+	const handleSubmit = async (values: RegisterFormData) => {
 		dispatch(setIsLoading(true));
 		const userService = new UserService();
 		const registerBody: UserModel = {
@@ -29,26 +29,20 @@ const Registration = () => {
 			password: values.password,
 			secondname: values.name,
 			firstname: values.firstname,
+			residencyDetails: '',
 		};
-		userService
-			.registerAccount(registerBody)
-			.then(() => {
-				return {
-					emailaddress: registerBody.emailaddress,
-					password: registerBody.password,
-				};
-			})
-			.then((loginBody: LoginModel) => {
-				return userService.loginUser(loginBody);
-			})
-			.then(() => {
-				dispatch(setIsLoading(false));
-				dispatch(setIsAuthenticated(true));
-				navigate('/');
-			})
-			.catch(() => {
-				navigate('/error');
+		try {
+			await userService.registerAccount(registerBody);
+			await userService.loginUser({
+				emailaddress: registerBody.emailaddress,
+				password: registerBody.password,
 			});
+			dispatch(setIsLoading(false));
+			dispatch(setIsAuthenticated(true));
+			navigate('/');
+		} catch {
+			navigate('/error');
+		}
 	};
 
 	const tailFormItemLayout = {
@@ -65,12 +59,11 @@ const Registration = () => {
 	};
 
 	return (
-		<div>
+		<div className="w-full flex justify-center">
 			<Form
+				className="w-[325px]"
 				name="basic"
-				labelCol={{ span: 9 }}
-				wrapperCol={{ span: 17 }}
-				style={{ maxWidth: 650 }}
+				layout="vertical"
 				form={form}
 				initialValues={{ remember: true }}
 				onFinish={handleSubmit}
@@ -177,4 +170,4 @@ const Registration = () => {
 	);
 };
 
-export default Registration;
+export default RegistrationPage;

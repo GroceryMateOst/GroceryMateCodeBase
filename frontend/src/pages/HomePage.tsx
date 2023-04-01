@@ -1,6 +1,6 @@
-﻿const HomeContainer = () => {
+﻿const HomePage = () => {
 	return (
-		<div>
+		<div className="px-6">
 			<h2>Um Was geht es?</h2>
 			<p>
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
@@ -15,4 +15,4 @@
 	);
 };
 
-export default HomeContainer;
+export default HomePage;

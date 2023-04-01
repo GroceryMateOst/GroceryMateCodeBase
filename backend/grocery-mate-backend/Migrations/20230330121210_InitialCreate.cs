@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace grocery_mate_backend.Migrations
 {
     /// <inheritdoc />
-    public partial class UserManagement : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,6 +35,17 @@ namespace grocery_mate_backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Coordinate",
+                columns: table => new
+                {
+                    CoordinateId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Coordinate", x => x.CoordinateId);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,6 +110,30 @@ namespace grocery_mate_backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Address",
+                columns: table => new
+                {
+                    AddressId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Street = table.Column<string>(type: "text", nullable: false),
+                    HouseNr = table.Column<string>(type: "text", nullable: false),
+                    ZipCode = table.Column<int>(type: "integer", nullable: false),
+                    City = table.Column<string>(type: "text", nullable: false),
+                    State = table.Column<string>(type: "text", nullable: false),
+                    Country = table.Column<int>(type: "integer", nullable: false),
+                    CoordinateId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Address", x => x.AddressId);
+                    table.ForeignKey(
+                        name: "FK_Address_Coordinate_CoordinateId",
+                        column: x => x.CoordinateId,
+                        principalTable: "Coordinate",
+                        principalColumn: "CoordinateId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -106,17 +141,28 @@ namespace grocery_mate_backend.Migrations
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     SecondName = table.Column<string>(type: "text", nullable: false),
                     EmailAddress = table.Column<string>(type: "text", nullable: false),
-                    IdentityId = table.Column<string>(type: "text", nullable: true)
+                    IdentityId = table.Column<string>(type: "text", nullable: true),
+                    AddressId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_User_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
+                        principalColumn: "AddressId");
                     table.ForeignKey(
                         name: "FK_User_AspNetUsers_IdentityId",
                         column: x => x.IdentityId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_CoordinateId",
+                table: "Address",
+                column: "CoordinateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -140,6 +186,11 @@ namespace grocery_mate_backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_User_AddressId",
+                table: "User",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_IdentityId",
                 table: "User",
                 column: "IdentityId");
@@ -161,7 +212,13 @@ namespace grocery_mate_backend.Migrations
                 name: "User");
 
             migrationBuilder.DropTable(
+                name: "Address");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Coordinate");
         }
     }
 }

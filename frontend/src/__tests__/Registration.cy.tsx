@@ -1,4 +1,4 @@
-import Registration from '../pages/Registration';
+import Registration from '../pages/RegistrationPage';
 import { mount } from '@cypress/react18';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';

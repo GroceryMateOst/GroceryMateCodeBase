@@ -5,9 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"dev:deploy": "vite",
-		"dev": "cd .. && docker-compose -f docker-compose-dev.yml up -d && cd frontend && vite",
+		"dev": "cd .. && docker-compose -f docker-compose-dev.yml up -d && cd frontend && vite serve --mode development",
 		"down": "cd .. && docker-compose -f docker-compose-dev.yml down",
-		"build": "tsc && vite build",
+		"build": "tsc && vite build --mode production",
 		"preview": "vite preview",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
