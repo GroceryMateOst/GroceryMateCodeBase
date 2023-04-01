@@ -1,14 +1,14 @@
 ﻿version: '3'
 services:
   db:
-    image: postgres:latest
+    image: postgres:15-alpine
     container_name: grocerymate-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=ClickDB
     ports:
-      - "5433:5432"
+      - '5433:5432'
     restart: always
     volumes:
       - db:/var/lib/postgresql/data
