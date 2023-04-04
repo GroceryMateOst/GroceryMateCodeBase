@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import Error404Page from './pages/Error404Page';
 import UserPage from './pages/UserPage';
 import Footer from './components/Footer';
+import LoginPage from './pages/LoginPage';
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/register" element={<RegistrationPage />} />
+							<Route path="/login" element={<LoginPage />} />
 							<Route path="/profile" element={<UserPage />} />
 							<Route path="*" element={<Error404Page />} />
 						</Routes>

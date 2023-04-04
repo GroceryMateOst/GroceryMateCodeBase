@@ -2,7 +2,7 @@ version: '3'
 services:
   backend:
     image: grocerymateost/backend:latest
-    container_name: grocerymate-backend
+    container_name: grocerymate-backend-prod
     ports:
       - '5000:5000'
     environment:
