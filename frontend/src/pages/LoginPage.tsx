@@ -7,25 +7,34 @@ import UserService from '../services/user-service';
 import { LoginModel } from '../models/UserModel';
 import Spinner from '../components/LoadingSpinner';
 
-const Login = () => {
+interface LoginFormData {
+	email: string;
+	password: string;
+}
+
+const LoginPage = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
 	const isLoading = useAppSelector((state) => state.user.isLoading);
 
-	const handleSubmit = (values: LoginModel) => {
+	const handleSubmit = async (values: LoginFormData) => {
 		dispatch(setIsLoading(true));
 		const userService = new UserService();
-		userService
-			.loginUser(values)
-			.then(() => {
-				dispatch(setIsLoading(false));
-				dispatch(setIsAuthenticated(true));
-				navigate('/');
-			})
-			.catch(() => {
-				navigate('/error');
-			});
+
+		const loginBody: LoginModel = {
+			emailaddress: values.email,
+			password: values.password,
+		};
+
+		try {
+			await userService.loginUser(loginBody);
+			dispatch(setIsLoading(false));
+			dispatch(setIsAuthenticated(true));
+			navigate('/');
+		} catch {
+			navigate('/error');
+		}
 	};
 
 	const tailFormItemLayout = {
@@ -42,7 +51,7 @@ const Login = () => {
 	};
 
 	return (
-		<div>
+		<div className="w-full flex justify-center">
 			<Form
 				name="normal_login"
 				className="login-form"
@@ -102,4 +111,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default LoginPage;
