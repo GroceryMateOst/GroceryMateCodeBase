@@ -12,19 +12,17 @@ export default class UserService extends AxiosBaseService {
 	}
 
 	public async registerAccount(body: UserModel) {
-		return this.instance.post<UserModel>('register', body);
+		return this.instance
+			.post<UserModel>('register', body)
+			.then(this.responseBody)
+			.catch(this.errorHandling);
 	}
 
 	public async loginUser(body: LoginModel) {
-		const { data } = await this.instance.post<LoginResponseModel>(
-			'login',
-			body
-		);
-		const token: string = data.token;
-		localStorage.setItem('bearerTokenGroceryMate', token);
-		// ToDo is to replace by using only token.
-		localStorage.setItem('userEmail', body.emailaddress);
-		return data;
+		return this.instance
+			.post<LoginResponseModel>('login', body)
+			.then(this.responseBody)
+			.catch(this.errorHandling);
 	}
 
 	public logout(): void {
@@ -32,14 +30,11 @@ export default class UserService extends AxiosBaseService {
 		localStorage.removeItem('userEmail');
 	}
 
-	public async getUserSettings(email: string): Promise<UserModelComplete> {
-		const response = await this.instance.get(`settings?email=${email}`);
-		return {
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-			...response.data.user,
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-			...response.data.address,
-		};
+	public async getUserSettings(email: string) {
+		return this.instance
+			.get(`settings?email=${email}`)
+			.then(this.responseBody)
+			.catch(this.errorHandling);
 	}
 
 	public async updateUserSettings(
