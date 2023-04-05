@@ -8,7 +8,7 @@ services:
     ports:
       - '5000:5000'
     environment:
-      DB_CONNECTION_STRING: 'host=db;port=5432;database=ClickDB;username=postgres;password=postgres'
+      DB_CONNECTION_STRING: 'host=db;port=5432;database=GroceryMateDB;username=postgres;password=postgres'
     networks:
       - test-network
   db:
@@ -17,7 +17,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=ClickDB
+      - POSTGRES_DB=GroceryMateDB
     ports:
       - '5433:5432'
     restart: always

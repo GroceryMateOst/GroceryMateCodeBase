@@ -22,7 +22,7 @@
     </Namespace>
     <Namespace Name="grocery_mate_backend.Controllers" CoveredStatements="0" TotalStatements="35" CoveragePercent="0">
       <Type Name="ClickController" CoveredStatements="0" TotalStatements="26" CoveragePercent="0">
-        <Constructor Name="ClickController(ILogger&lt;ClickController&gt;,ClickDbContext)" CoveredStatements="0" TotalStatements="5" CoveragePercent="0" />
+        <Constructor Name="ClickController(ILogger&lt;ClickController&gt;,GroceryMateDBContext)" CoveredStatements="0" TotalStatements="5" CoveragePercent="0" />
         <Method Name="GetNumber():IActionResult" CoveredStatements="0" TotalStatements="8" CoveragePercent="0" />
         <Method Name="SendNumber(int):Task&lt;IActionResult&gt;" CoveredStatements="0" TotalStatements="13" CoveragePercent="0">
           <InternalCompiledMethod Name="MoveNext():void" CoveredStatements="0" TotalStatements="13" CoveragePercent="0" />
