@@ -58,7 +58,7 @@ public class UserController : ControllerBase
             }
 
             GmLogger.GetInstance()?.Warn(methodName, "Invalid Model-State");
-            return BadRequest("Sorry, no new login could be created please check your details and try again. ");
+            return BadRequest(result.Errors.ElementAt(0).Description);
         }
 
         userDo.Identity = identityUser;
@@ -177,9 +177,10 @@ public class UserController : ControllerBase
                 _context.Add(address);
             }
         }
+
         address.Users.Add(user);
         user.AddressId = address.AddressId;
-        
+
         user.FirstName = requestDto.User.FirstName;
         user.SecondName = requestDto.User.SecondName;
         user.EmailAddress = requestDto.User.EmailAddress;

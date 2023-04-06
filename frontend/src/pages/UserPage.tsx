@@ -3,12 +3,10 @@ import TextArea from 'antd/es/input/TextArea';
 import { UserModelComplete } from '../models/UserModel';
 import UserService from '../services/user-service';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { setIsLoading } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 const UserPage = () => {
-	const navigate = useNavigate();
 	const [form] = Form.useForm<UserModelComplete>();
 	const dispatch = useAppDispatch();
 	const isLoading = useAppSelector((state) => state.user.isLoading);

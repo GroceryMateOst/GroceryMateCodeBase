@@ -25,6 +25,5 @@ export interface UserModelComplete {
 	zipCode: string;
 	city: string;
 	state: string;
-	country: string;
 	residencyDetails: string;
 }

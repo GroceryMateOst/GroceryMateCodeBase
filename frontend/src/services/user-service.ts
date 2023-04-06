@@ -5,20 +5,23 @@ import {
 	LoginResponseModel,
 	UserModelComplete,
 } from '../models/UserModel';
+import { Address } from '../models/AddressModel';
 
 export default class UserService extends AxiosBaseService {
 	constructor() {
 		super('/User');
 	}
 
-	public async registerAccount(body: UserModel) {
+	public async registerAccount(body: UserModel): Promise<void> {
 		return this.instance
 			.post<UserModel>('register', body)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
 
-	public async loginUser(body: LoginModel) {
+	public async loginUser(
+		body: LoginModel
+	): Promise<{ token: string; expiration: string; email: string }> {
 		return this.instance
 			.post<LoginResponseModel>('login', body)
 			.then(this.responseBody)
@@ -30,7 +33,9 @@ export default class UserService extends AxiosBaseService {
 		localStorage.removeItem('userEmail');
 	}
 
-	public async getUserSettings(email: string) {
+	public async getUserSettings(
+		email: string
+	): Promise<{ user: UserModel; address: Address; email: string }> {
 		return this.instance
 			.get(`settings?email=${email}`)
 			.then(this.responseBody)
@@ -46,7 +51,6 @@ export default class UserService extends AxiosBaseService {
 			zipCode: userSettings.zipCode,
 			city: userSettings.city,
 			state: userSettings.state,
-			country: userSettings.country ?? 'Hello',
 		};
 		const user = {
 			firstName: userSettings.firstName,
@@ -55,6 +59,9 @@ export default class UserService extends AxiosBaseService {
 			residencyDetails: userSettings.residencyDetails ?? ' ',
 		};
 		const email = localStorage.getItem('userEmail');
-		await this.instance.post('settings', { user, address, email });
+		return this.instance
+			.post('settings', { user, address, email })
+			.then(this.responseBody)
+			.catch(this.errorHandling);
 	}
 }
