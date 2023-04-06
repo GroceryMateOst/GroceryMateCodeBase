@@ -22,10 +22,6 @@ public class AddressDto
     [Required]
     [StringLength(maximumLength: 50, ErrorMessage = "State-Name is too long")]
     public string State { get; set; }
-
-    [Required]
-    [StringLength(maximumLength: 50, ErrorMessage = "Country-Name is too long")]
-    public string Country { get; set; }
 }
 
 public class UserInfo_AddressDto : AddressDto

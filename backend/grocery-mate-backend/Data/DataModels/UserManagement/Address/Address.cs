@@ -11,7 +11,6 @@ public class Address
     [Required] public int ZipCode { get; set; }
     [Required] public string City { get; set; }
     [Required] public string State { get; set; }
-    [Required] public Countries Country { get; set; }
 
     public Coordinate? Coordinate { get; set; }
     public ICollection<User> Users { get; set; }
@@ -23,7 +22,6 @@ public class Address
         ZipCode = requestDtoAddress.ZipCode;
         City = requestDtoAddress.City;
         State = requestDtoAddress.State;
-        Country = Countries.CH;
         Users = new List<User>();
     }
 

@@ -11,12 +11,6 @@ public class GroceryContext : IdentityUserContext<IdentityUser>
     {
     }
 
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
-        // builder.Entity<User>().OwnsOne(x => x.);
-    }
-
     public DbSet<User> User { get; set; }
     public DbSet<Address> Address { get; set; }
 }

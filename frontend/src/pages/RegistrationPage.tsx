@@ -33,15 +33,16 @@ const RegistrationPage = () => {
 		};
 		try {
 			await userService.registerAccount(registerBody);
-			await userService.loginUser({
-				emailaddress: registerBody.emailaddress,
-				password: registerBody.password,
+			const response = await userService.loginUser({
+				emailaddress: values.email,
+				password: values.password,
 			});
-			dispatch(setIsLoading(false));
+			localStorage.setItem('bearerTokenGroceryMate', response.token);
+			localStorage.setItem('userEmail', values.email);
 			dispatch(setIsAuthenticated(true));
 			navigate('/');
-		} catch {
-			navigate('/error');
+		} finally {
+			dispatch(setIsLoading(false));
 		}
 	};
 

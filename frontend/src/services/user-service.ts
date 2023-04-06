@@ -5,26 +5,27 @@ import {
 	LoginResponseModel,
 	UserModelComplete,
 } from '../models/UserModel';
+import { Address } from '../models/AddressModel';
 
 export default class UserService extends AxiosBaseService {
 	constructor() {
 		super('/User');
 	}
 
-	public async registerAccount(body: UserModel) {
-		return this.instance.post<UserModel>('register', body);
+	public async registerAccount(body: UserModel): Promise<void> {
+		return this.instance
+			.post<UserModel>('register', body)
+			.then(this.responseBody)
+			.catch(this.errorHandling);
 	}
 
-	public async loginUser(body: LoginModel) {
-		const { data } = await this.instance.post<LoginResponseModel>(
-			'login',
-			body
-		);
-		const token: string = data.token;
-		localStorage.setItem('bearerTokenGroceryMate', token);
-		// ToDo is to replace by using only token.
-		localStorage.setItem('userEmail', body.emailaddress);
-		return data;
+	public async loginUser(
+		body: LoginModel
+	): Promise<{ token: string; expiration: string; email: string }> {
+		return this.instance
+			.post<LoginResponseModel>('login', body)
+			.then(this.responseBody)
+			.catch(this.errorHandling);
 	}
 
 	public logout(): void {
@@ -32,14 +33,13 @@ export default class UserService extends AxiosBaseService {
 		localStorage.removeItem('userEmail');
 	}
 
-	public async getUserSettings(email: string): Promise<UserModelComplete> {
-		const response = await this.instance.get(`settings?email=${email}`);
-		return {
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-			...response.data.user,
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-			...response.data.address,
-		};
+	public async getUserSettings(
+		email: string
+	): Promise<{ user: UserModel; address: Address; email: string }> {
+		return this.instance
+			.get(`settings?email=${email}`)
+			.then(this.responseBody)
+			.catch(this.errorHandling);
 	}
 
 	public async updateUserSettings(
@@ -51,7 +51,6 @@ export default class UserService extends AxiosBaseService {
 			zipCode: userSettings.zipCode,
 			city: userSettings.city,
 			state: userSettings.state,
-			country: userSettings.country ?? 'Hello',
 		};
 		const user = {
 			firstName: userSettings.firstName,
@@ -60,6 +59,9 @@ export default class UserService extends AxiosBaseService {
 			residencyDetails: userSettings.residencyDetails ?? ' ',
 		};
 		const email = localStorage.getItem('userEmail');
-		await this.instance.post('settings', { user, address, email });
+		return this.instance
+			.post('settings', { user, address, email })
+			.then(this.responseBody)
+			.catch(this.errorHandling);
 	}
 }

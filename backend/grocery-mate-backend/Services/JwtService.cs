@@ -9,7 +9,7 @@ namespace grocery_mate_backend.Services;
 
 public class JwtService
 {
-    private const int EXPIRATION_MINUTES = 60;
+    private const int ExpirationMinutes = 60;
 
     private readonly IConfiguration _configuration;
 
@@ -20,7 +20,7 @@ public class JwtService
 
     public AuthenticationResponseDto CreateToken(IdentityUser user)
     {
-        var expiration = DateTime.UtcNow.AddMinutes(EXPIRATION_MINUTES);
+        var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
 
         var token = CreateJwtToken(
             CreateClaims(user),

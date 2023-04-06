@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { setIsLoading, setIsAuthenticated } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import UserService from '../services/user-service';
-import { LoginModel } from '../models/UserModel';
 import Spinner from '../components/LoadingSpinner';
 
 interface LoginFormData {
@@ -19,21 +18,19 @@ const LoginPage = () => {
 	const isLoading = useAppSelector((state) => state.user.isLoading);
 
 	const handleSubmit = async (values: LoginFormData) => {
-		dispatch(setIsLoading(true));
-		const userService = new UserService();
-
-		const loginBody: LoginModel = {
-			emailaddress: values.email,
-			password: values.password,
-		};
-
 		try {
-			await userService.loginUser(loginBody);
-			dispatch(setIsLoading(false));
+			dispatch(setIsLoading(true));
+			const userService = new UserService();
+			const response = await userService.loginUser({
+				emailaddress: values.email,
+				password: values.password,
+			});
+			localStorage.setItem('bearerTokenGroceryMate', response.token);
+			localStorage.setItem('userEmail', values.email);
 			dispatch(setIsAuthenticated(true));
 			navigate('/');
-		} catch {
-			navigate('/error');
+		} finally {
+			dispatch(setIsLoading(false));
 		}
 	};
 
