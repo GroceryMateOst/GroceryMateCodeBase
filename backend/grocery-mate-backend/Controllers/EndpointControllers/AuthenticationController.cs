@@ -7,7 +7,7 @@ using grocery_mate_backend.Services;
 using grocery_mate_backend.Services.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using User = grocery_mate_backend.Models.User;
+using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
 
 namespace grocery_mate_backend.Controllers.EndpointControllers;
 
@@ -21,26 +21,22 @@ public class AuthenticationController : BaseController
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<User>> CreateUser(CreateUserUserDto userDto)
+    public async Task<ActionResult<User>> CreateUser(CreateUserDto userDto)
     {
         const string methodName = "REST Create User";
-        
-        var userDo = new User(userDto);
+        var userDm = new User(userDto);
 
-        if (AuthenticationValidation.ValidateModelState(ModelState, methodName)) return BadRequest("Bad credentials");
+        if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
+            return BadRequest("Bad credentials");
 
-        var identityUser = new IdentityUser() {UserName = userDo.EmailAddress, Email = userDo.EmailAddress};
-        var result = await _userManager.CreateAsync(
-            new IdentityUser() {UserName = userDo.EmailAddress, Email = userDo.EmailAddress},
-            userDto.Password
-        );
+        var identityUser = new IdentityUser() {UserName = userDm.EmailAddress, Email = userDm.EmailAddress};
+        var result = _authenticationService.SaveNewIdentityUser(identityUser, userDm).Result;
 
-        if (AuthenticationValidation.ValidateIdentityUserCreation(result, methodName))
+        if (!AuthenticationValidation.ValidateIdentityUserCreation(result, methodName))
             return BadRequest(result.Errors.ElementAt(0).Description);
 
-
-        userDo.Identity = identityUser;
-        _context.Add(userDo);
+        userDm.Identity = identityUser;
+        _context.AddRange(userDm);
         await _context.SaveChangesAsync();
 
         GmLogger.GetInstance()?.Trace(methodName, "successfully created");
@@ -54,13 +50,16 @@ public class AuthenticationController : BaseController
     {
         const string methodName = "REST Log-In";
 
-        if (AuthenticationValidation.ValidateModelState(ModelState, methodName)) return BadRequest("Bad credentials");
-        
-        var identityUser = FindIdentityUser(requestDto.EmailAddress).Result;
-        if (ValidationBase.ValidateUser(identityUser, methodName)) return BadRequest("User with given eMail-Adr. not found");
+        if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
+            return BadRequest("Bad credentials");
 
-        var passwordCheck = CheckPassword(identityUser, requestDto.Password);
-        if (AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName)) return BadRequest("Invalid Password");
+        var identityUser = _authenticationService.FindIdentityUser(requestDto.EmailAddress).Result;
+        if (!ValidationBase.ValidateUser(identityUser, methodName))
+            return BadRequest("User with given eMail-Adr. not found");
+
+        var passwordCheck = _authenticationService.CheckPassword(identityUser, requestDto.Password);
+        if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
+            return BadRequest("Invalid Password");
 
         var token = _jwtService.CreateToken(identityUser);
         GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");

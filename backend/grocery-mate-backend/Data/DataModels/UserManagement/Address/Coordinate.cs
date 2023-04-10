@@ -8,6 +8,8 @@ public class Coordinate
 
     public Coordinate()
     {
+        Latitude = new DmsElement();
+        Longitude = new DmsElement();
     }
 
     public Coordinate(DmsElement latitude, DmsElement longitude)
@@ -59,5 +61,16 @@ public class DmsElement
         DmsDegrees = dmsDegrees;
         DmsMinutes = dmsMinutes;
         DmsSeconds = dmsSeconds;
+    }
+
+    public DmsElement()
+    {
+        IsLatitude = false;
+        North = false;
+        East = false;
+        DmsDegrees = -1;
+        DmsMinutes = -1;
+        DmsSeconds = -1;
+        DdElement = -1;
     }
 }

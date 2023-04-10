@@ -29,7 +29,7 @@ public class GmLogger : ILogger
 
     public void Debug(string method, string message, string? arg = null)
     {
-        GetLogger("groceryMateLoggerRule")?.Debug( GenerateLogMsg(method, message, arg));
+        GetLogger("groceryMateLoggerRule")?.Debug(GenerateLogMsg(method, message, arg));
     }
 
 
@@ -47,19 +47,19 @@ public class GmLogger : ILogger
 
     public void Error(string method, string message, string? arg = null)
     {
-        GetLogger("groceryMateLoggerRule")?.Error( GenerateLogMsg(method, message, arg));
+        GetLogger("groceryMateLoggerRule")?.Error(GenerateLogMsg(method, message, arg));
     }
 
     private string GenerateLogMsg(string method, string message, string? arg = null)
     {
         if (arg == null)
         {
-            return Symbols.Space +  Symbols.SquareBracketsOpen + method + Symbols.SquareBracketsClose + Symbols.Space +
-                  message;
+            return Symbols.Space + Symbols.SquareBracketsOpen + method + Symbols.SquareBracketsClose + Symbols.Space +
+                   message;
         }
         else
         {
-            return Symbols.Space +Symbols.SquareBracketsOpen + method + Symbols.SquareBracketsClose + Symbols.Space +
+            return Symbols.Space + Symbols.SquareBracketsOpen + method + Symbols.SquareBracketsClose + Symbols.Space +
                    message + " Arg: " + arg;
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using grocery_mate_backend.Data.DataModels.UserManagement;
+using Microsoft.EntityFrameworkCore;
 using grocery_mate_backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -8,6 +9,10 @@ namespace grocery_mate_backend.Data;
 public class GroceryContext : IdentityUserContext<IdentityUser>
 {
     public GroceryContext(DbContextOptions<GroceryContext> options) : base(options)
+    {
+    }
+
+    protected GroceryContext()
     {
     }
 

@@ -11,7 +11,7 @@ public abstract class AuthenticationValidation : ValidationBase
         return ValidationBase.ValidateModelState(modelState, methodName);
     }
 
-    public static bool ValidateIdentityUserCreation(IdentityResult result, string methodName)
+    public static bool ValidateIdentityUserCreation(IdentityResult? result, string methodName)
     {
         if (result.Succeeded) return true;
         foreach (var error in result.Errors)
@@ -21,7 +21,6 @@ public abstract class AuthenticationValidation : ValidationBase
 
         GmLogger.GetInstance()?.Warn(methodName, "Caretion of the Identity-User failed");
         return false;
-
     }
 
     public static bool ValidateUserPassword(bool result, string methodName)
@@ -29,7 +28,5 @@ public abstract class AuthenticationValidation : ValidationBase
         if (result) return true;
         GmLogger.GetInstance()?.Warn(methodName, "Invalid Password");
         return false;
-
     }
-
 }
