@@ -27,9 +27,8 @@ public class User
         Password = dto.Password;
     }
 
-    public User(Guid userId, string firstName, string secondName, string emailAddress)
+    public User( string firstName, string secondName, string emailAddress)
     {
-        UserId = userId;
         FirstName = firstName;
         SecondName = secondName;
         EmailAddress = emailAddress;
@@ -47,5 +46,17 @@ public class User
         Identity = identity;
         ResidencyDetails = residencyDetails;
         AddressId = addressId;
+    }
+
+    public User()
+    {
+        UserId = Guid.Empty;
+        FirstName = Symbols.Empty;
+        SecondName = Symbols.Empty;
+        EmailAddress = Symbols.Empty;
+        Password = Symbols.Empty;
+        Identity = new IdentityUser();
+        ResidencyDetails = Symbols.Empty;
+        AddressId = Guid.Empty;
     }
 }
