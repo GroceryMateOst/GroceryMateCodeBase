@@ -27,13 +27,13 @@ public class AuthenticationController : BaseController
         var userDm = new User(userDto);
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
-            return BadRequest("Bad credentials");
+            return BadRequest("Invalid Request!");
 
         var identityUser = new IdentityUser() {UserName = userDm.EmailAddress, Email = userDm.EmailAddress};
         var result = _authenticationService.SaveNewIdentityUser(identityUser, userDm).Result;
 
         if (!AuthenticationValidation.ValidateIdentityUserCreation(result, methodName))
-            return BadRequest(result.Errors.ElementAt(0).Description);
+            return BadRequest("Invalid User-details");
 
         userDm.Identity = identityUser;
         _context.AddRange(userDm);
@@ -51,7 +51,7 @@ public class AuthenticationController : BaseController
         const string methodName = "REST Log-In";
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
-            return BadRequest("Bad credentials");
+            return BadRequest("Invalid Request!");
 
         var identityUser = _authenticationService.FindIdentityUser(requestDto.EmailAddress).Result;
         if (!ValidationBase.ValidateUser(identityUser, methodName))
@@ -59,7 +59,7 @@ public class AuthenticationController : BaseController
 
         var passwordCheck = _authenticationService.CheckPassword(identityUser, requestDto.Password);
         if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
-            return BadRequest("Invalid Password");
+            return BadRequest("Invalid Username or Password");
 
         var token = _jwtService.CreateToken(identityUser);
         GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");

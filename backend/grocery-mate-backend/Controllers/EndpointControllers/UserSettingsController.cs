@@ -26,8 +26,8 @@ public class UserSettingsController : BaseController
         const string methodName = "REST Get User-Settings";
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
-            return BadRequest("Invalid Model-State due to Bad credentials");
-
+            return BadRequest("Invalid Request!");
+        
         var user = _userService.FindUser(userMail.email).Result;
         if (!ValidationBase.ValidateUser(user, methodName))
             return BadRequest("User with given eMail-Adr. not found");
@@ -46,10 +46,11 @@ public class UserSettingsController : BaseController
         const string methodName = "REST Set User-Settings";
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
-            return BadRequest("Invalid Model-State due to Bad credentials");
+            return BadRequest("Invalid Request!");
 
         var user = await _userService.FindUser(requestDto.email);
-        if (!ValidationBase.ValidateUser(user, methodName)) return BadRequest("User with given eMail-Adr. not found");
+        if (!ValidationBase.ValidateUser(user, methodName)) 
+            return BadRequest("User with given eMail-Adr. not found");
 
         var newAddress = await _addressService.FindOrCreateAddress(requestDto.Address);
         var oldAddress = _addressService.FindAddressByGuid(user.AddressId).Result;
