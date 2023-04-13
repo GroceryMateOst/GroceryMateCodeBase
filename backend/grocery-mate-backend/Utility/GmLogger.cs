@@ -52,15 +52,6 @@ public class GmLogger : ILogger
 
     private string GenerateLogMsg(string method, string message, string? arg = null)
     {
-        if (arg == null)
-        {
-            return Symbols.Space + Symbols.SquareBracketsOpen + method + Symbols.SquareBracketsClose + Symbols.Space +
-                   message;
-        }
-        else
-        {
-            return Symbols.Space + Symbols.SquareBracketsOpen + method + Symbols.SquareBracketsClose + Symbols.Space +
-                   message + " Arg: " + arg;
-        }
+        return arg == null ? $"{Symbols.Space}[{method}]{Symbols.Space}{message}" : $"{Symbols.Space}[{method}]{Symbols.Space}{message} Arg: {arg}";
     }
 }
