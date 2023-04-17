@@ -13,13 +13,13 @@ public abstract class AuthenticationValidation : ValidationBase
 
     public static bool ValidateIdentityUserCreation(IdentityResult? result, string methodName)
     {
-        if (result.Succeeded) return true;
+        if (result is {Succeeded: true}) return true;
         foreach (var error in result.Errors)
         {
             GmLogger.GetInstance()?.Trace(methodName, error.Description);
         }
 
-        GmLogger.GetInstance()?.Warn(methodName, "Caretion of the Identity-User failed");
+        GmLogger.GetInstance()?.Warn(methodName, "Creation of the Identity-User failed");
         return false;
     }
 

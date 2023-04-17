@@ -27,7 +27,7 @@ public class User
         Password = dto.Password;
     }
 
-    public User( string firstName, string secondName, string emailAddress)
+    public User(string firstName, string secondName, string emailAddress)
     {
         FirstName = firstName;
         SecondName = secondName;

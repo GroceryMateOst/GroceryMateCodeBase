@@ -6,7 +6,6 @@ namespace grocery_mate_backend_Test.Unit.Endpoint;
 
 public partial class ServiceIntegrationTests
 {
-    
     [Test]
     public void FindOrCreateAddressTest_FindAddress_true()
     {

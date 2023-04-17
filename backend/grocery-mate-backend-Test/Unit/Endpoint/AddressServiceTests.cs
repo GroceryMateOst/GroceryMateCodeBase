@@ -1,5 +1,6 @@
 using grocery_mate_backend.Controllers.Services;
 using grocery_mate_backend.Data;
+using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ public class AddressServiceTests
 
     private Address addressOne;
     private Address addressTwo;
+
     [SetUp]
     public void SetUp()
     {
@@ -34,7 +36,7 @@ public class AddressServiceTests
             ZipCode = 12345,
             State = "CA"
         };
-        
+
         var addressDtoTwo = new AddressDto
         {
             Street = "123 Main St",
@@ -46,7 +48,7 @@ public class AddressServiceTests
 
         addressOne = new Address(addressDtoOne);
         addressTwo = new Address(addressDtoTwo);
-        
+
         var user = new User
         {
             FirstName = "John",
@@ -94,7 +96,6 @@ public class AddressServiceTests
         _service.RemoveAddress(address, user);
         Assert.Multiple(() =>
         {
-
             // Assert
             Assert.That(_context.Address.Contains(addressOne), Is.False);
             Assert.That(_context.User.First().AddressId, Is.EqualTo(Guid.Empty));

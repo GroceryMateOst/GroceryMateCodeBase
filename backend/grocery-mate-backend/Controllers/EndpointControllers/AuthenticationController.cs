@@ -1,10 +1,9 @@
-using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
-using grocery_mate_backend.Data;
+using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Sandbox;
-using grocery_mate_backend.Services;
 using grocery_mate_backend.Services.Utility;
+using grocery_mate_backend.Utility.UOW;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
@@ -15,9 +14,11 @@ namespace grocery_mate_backend.Controllers.EndpointControllers;
 [Route("api/v0/authentication")]
 public class AuthenticationController : BaseController
 {
-    public AuthenticationController(GroceryContext context, UserManager<IdentityUser> userManager,
-        JwtService jwtService) : base(context, userManager, jwtService)
+    private readonly IUnitOfWork _unitOfWork;
+
+    public AuthenticationController(IUnitOfWork unitOfWork)
     {
+        _unitOfWork = unitOfWork;
     }
 
     [HttpPost("register")]
@@ -30,14 +31,14 @@ public class AuthenticationController : BaseController
             return BadRequest("Invalid Request!");
 
         var identityUser = new IdentityUser() {UserName = userDm.EmailAddress, Email = userDm.EmailAddress};
-        var result = _authenticationService.SaveNewIdentityUser(identityUser, userDm).Result;
+        var result = _unitOfWork.Authentication.SaveNewIdentityUser(identityUser, userDm).Result;
 
         if (!AuthenticationValidation.ValidateIdentityUserCreation(result, methodName))
             return BadRequest("Invalid User-details");
 
         userDm.Identity = identityUser;
-        _context.AddRange(userDm);
-        await _context.SaveChangesAsync();
+        await _unitOfWork.Authentication.Add(userDm);
+        await _unitOfWork.CompleteAsync();
 
         GmLogger.GetInstance()?.Trace(methodName, "successfully created");
 
@@ -46,23 +47,24 @@ public class AuthenticationController : BaseController
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<AuthenticationResponseDto>> CreateBearerToken(AuthenticationRequestDto requestDto)
+    public Task<ActionResult<AuthenticationResponseDto>> CreateBearerToken(AuthenticationRequestDto requestDto)
     {
         const string methodName = "REST Log-In";
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
-            return BadRequest("Invalid Request!");
+            return Task.FromResult<ActionResult<AuthenticationResponseDto>>(BadRequest("Invalid Request!"));
 
-        var identityUser = _authenticationService.FindIdentityUser(requestDto.EmailAddress).Result;
-        if (!ValidationBase.ValidateUser(identityUser, methodName))
-            return BadRequest("User with given eMail-Adr. not found");
+        var identityUser = _unitOfWork.Authentication.FindIdentityUser(requestDto.EmailAddress).Result;
+        if (!UserValidation.ValidateUser(identityUser, methodName))
+            return Task.FromResult<ActionResult<AuthenticationResponseDto>>(
+                BadRequest("User with given eMail-Adr. not found"));
 
-        var passwordCheck = _authenticationService.CheckPassword(identityUser, requestDto.Password);
+        var passwordCheck = _unitOfWork.Authentication.CheckPassword(identityUser, requestDto.Password);
         if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
-            return BadRequest("Invalid Username or Password");
+            return Task.FromResult<ActionResult<AuthenticationResponseDto>>(BadRequest("Invalid Username or Password"));
 
-        var token = _jwtService.CreateToken(identityUser);
+        var token = _unitOfWork.Authentication.CreateToken(identityUser);
         GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");
-        return Ok(token);
+        return Task.FromResult<ActionResult<AuthenticationResponseDto>>(Ok(token));
     }
 }

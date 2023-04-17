@@ -1,6 +1,4 @@
-using grocery_mate_backend.Controllers;
-using grocery_mate_backend.Controllers.Services;
-using grocery_mate_backend.Data;
+using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Sandbox;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +15,6 @@ public partial class ServiceIntegrationTests
 
     private GroceryContext _context;
 
-    private AddressService _addressService;
-    private UserService _userService;
 
     private CreateUserDto _userDtoOne;
     private CreateUserDto _userDtoTwo;
@@ -31,9 +27,6 @@ public partial class ServiceIntegrationTests
     {
         _context = new GroceryContext(_options);
         _context.Database.EnsureCreated();
-
-        _addressService = new AddressService(_context);
-        _userService = new UserService(_context);
 
         SeedDatabase();
     }
@@ -89,5 +82,4 @@ public partial class ServiceIntegrationTests
 
         Console.Write("sadf");
     }
-    
 }

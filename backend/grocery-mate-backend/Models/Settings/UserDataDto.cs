@@ -28,7 +28,7 @@ public class UserDataDto
             ZipCode = address.ZipCode
         };
     }
-    
+
     public UserDataDto()
     {
         User = new UserDto();

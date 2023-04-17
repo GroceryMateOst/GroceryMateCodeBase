@@ -28,10 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessLogic\Validation\Shopping" />
-    <Folder Include="BusinessLogic\Validation\UserSettings" />
     <Folder Include="Controllers\Handler" />
-    <Folder Include="Data\DataModels" />
     <Folder Include="Migrations" />
   </ItemGroup>
 

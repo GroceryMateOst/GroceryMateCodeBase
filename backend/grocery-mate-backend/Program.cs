@@ -1,11 +1,12 @@
-using grocery_mate_backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using grocery_mate_backend.Configs;
+using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Services;
+using grocery_mate_backend.Utility.UOW;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -32,7 +33,6 @@ builder.Services.AddCors(p =>
     p.AddPolicy("corspolicy", buid => { buid.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
 
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
-
 
 builder.Services.AddIdentityCore<IdentityUser>(options =>
 {
@@ -65,6 +65,8 @@ builder
             )
         };
     });
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

@@ -13,13 +13,6 @@ public class ValidationBase
         return false;
     }
 
-    protected internal static bool ValidateUser(Object user, string methodName)
-    {
-        if (user != null) return true;
-        GmLogger.GetInstance()?.Warn(methodName, "User with given eMail-Adr. not found");
-        return false;
-    }
-
     protected internal static bool ValidateAddress(Address address, string methodName)
     {
         if (address != null || address.AddressId != Guid.Empty) return true;
