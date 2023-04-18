@@ -1,7 +1,9 @@
 using grocery_mate_backend.Controllers.Repo.Generic;
 using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Data.DataModels.Shopping;
+using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Utility.Log;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace grocery_mate_backend.Controllers.Repo.Shopping;
@@ -31,5 +33,11 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
             GmLogger.GetInstance()?.Warn("SettingsRepository: ", "No matching Request found!");
             return Task.FromResult<GroceryRequest?>(new GroceryRequest());
         }
+    }
+
+    public async Task<bool> Add(GroceryRequest request)
+    {
+        var a = _context.GroceryRequests.Add(request);
+        return true;
     }
 }

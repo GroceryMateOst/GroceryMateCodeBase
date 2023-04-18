@@ -3,8 +3,8 @@ namespace grocery_mate_backend.Data.DataModels.UserManagement.Address;
 public class Coordinate
 {
     public Guid CoordinateId { get; set; }
-    public DmsElement Latitude { get; }
-    public DmsElement Longitude { get; }
+    public DmsElement Latitude { get; set;}
+    public DmsElement Longitude { get; set;}
 
     public Coordinate()
     {
@@ -21,13 +21,14 @@ public class Coordinate
 
 public class DmsElement
 {
-    public bool IsLatitude { get; }
-    public bool North { get; }
-    public bool East { get; }
+    public Guid DmsElementId { get; set; }
+    public bool IsLatitude { get; set;}
+    public bool North { get; set;}
+    public bool East { get; set;}
 
-    public int DmsDegrees { get; }
-    public int DmsMinutes { get; }
-    public int DmsSeconds { get; }
+    public int DmsDegrees { get; set;}
+    public int DmsMinutes { get;set;}
+    public int DmsSeconds { get; set;}
 
     public double DdElement { get; }
 

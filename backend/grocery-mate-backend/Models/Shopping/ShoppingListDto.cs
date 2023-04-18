@@ -7,7 +7,7 @@ public class ShoppingListDto
 {
     public string PreferedStore { get; }
 
-    public string Node { get; }
+    public string Note { get; }
 
     [Required] public List<string> Items { get; }
 
@@ -17,7 +17,7 @@ public class ShoppingListDto
     public ShoppingListDto()
     {
         PreferedStore = Symbols.Empty;
-        Node = Symbols.Empty;
+        Note = Symbols.Empty;
         Items = new List<string>();
     }
 }

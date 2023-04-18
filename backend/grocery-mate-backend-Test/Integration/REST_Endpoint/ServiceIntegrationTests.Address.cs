@@ -2,7 +2,7 @@ using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models;
 using NUnit.Framework;
 
-namespace grocery_mate_backend_Test.Unit.Endpoint;
+namespace grocery_mate_backend_Test.Integration.REST_Endpoint;
 
 public partial class ServiceIntegrationTests
 {

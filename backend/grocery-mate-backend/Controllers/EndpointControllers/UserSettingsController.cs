@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace grocery_mate_backend.Controllers.EndpointControllers;
 
 [ApiController]
-[Route("api/v0/settings")]
+[Route("api/v0/User/Settings")]
 public class UserSettingsController : BaseController
 {
     private readonly IUnitOfWork _unitOfWork;

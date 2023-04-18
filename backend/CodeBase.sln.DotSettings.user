@@ -2,39 +2,29 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\MarcKissling\.nuget\packages\microsoft.entityframeworkcore.inmemory\6.0.0\lib\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=15349be1_002Dcdde_002D4da9_002Da24b_002D09f73bd9a758/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;grocery-mate-backend-Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\application_projects\GroceryMate\Test\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6c3803eb_002D1e70_002D4c92_002Da5ee_002Dae2f098ebcfb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FindUserTest_BasedOnEmail_false" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=45c74521_002De3e2_002D4306_002Dbe84_002D9d257e136ef5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FindAddressByGuid_" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.Endpoint.ServiceIntegrationTests.FindUserTest_BasedOnEmail_false&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cf93822b_002D2e84_002D46f9_002D9f0d_002Dc8701e98ce26/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ServicesTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\application_projects\GroceryMate\Test\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d6275df8_002D0207_002D4382_002Daee3_002D7eb53334ea5a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ControllerBaseTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.Endpoint.ControllerBaseTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Integration.Repo.AuthenticationRepositoryTest.FindAddressByGuid_&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ec596feb_002D8f40_002D4433_002Da8ef_002Df466e95edad0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateUserTest_InvalidModelState_BadRequest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.Endpoint.AuthenticationControllerTest.CreateUserTest_InvalidModelState_BadRequest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0022Musterman/@EntryIndexedValue">True</s:Boolean>
 	
 	

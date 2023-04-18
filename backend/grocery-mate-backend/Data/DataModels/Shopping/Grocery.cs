@@ -6,10 +6,10 @@ namespace grocery_mate_backend.Data.DataModels.Shopping;
 public class Grocery
 {
     public Guid GroceryId { get; set; }
-    private string Position { get; }
-    private GroceryGroceries Category { get; }
-    private int Size { get; }
-    private GrocerySizeUnit Unit { get; }
+    public string Position { get; set;}
+    public GroceryGroceries Category { get; set;}
+    public int Size { get; set;}
+    public GrocerySizeUnit Unit { get; set;}
 
     public Grocery(string position)
     {

@@ -12,7 +12,7 @@ using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
 namespace grocery_mate_backend.Controllers.EndpointControllers;
 
 [ApiController]
-[Route("api/v0/authentication")]
+[Route("api/v0/User/[controller]")]
 public class AuthenticationController : BaseController
 {
     private readonly IUnitOfWork _unitOfWork;

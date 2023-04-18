@@ -41,7 +41,6 @@ public class Address
 
     public Address()
     {
-        AddressId = Guid.Empty;
         Street = Symbols.Empty;
         HouseNr = Symbols.Empty;
         ZipCode = -1;

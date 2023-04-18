@@ -59,10 +59,20 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
 
     public Task<IdentityResult?> SaveNewIdentityUser(IdentityUser identityUser, User user)
     {
-        return _userManager.CreateAsync(
-            identityUser,
-            user.Password
-        );
+        Task<IdentityResult?> result = null;
+        try
+        {
+            result = _userManager.CreateAsync(
+                identityUser,
+                user.Password
+            );
+        }
+        catch (Exception)
+        {
+            GmLogger.GetInstance()?.Trace("AuthenticationRepository: ", "Password-Check failed!");
+        }
+
+        return result;
     }
 
     public Task<AuthenticationResponseDto> CreateToken(IdentityUser user)

@@ -7,9 +7,9 @@ namespace grocery_mate_backend.Data.DataModels.Shopping;
 public class ShoppingList
 {
     public Guid ShoppingListId { get; set; }
-    public Stores PreferredStore { get; }
-    public List<ShoppingListItem> Items { get; }
-    public string Note { get; }
+    public Stores PreferredStore { get; set; }
+    public List<ShoppingListItem> Items { get; set; }
+    public string Note { get; set; }
 
     public ShoppingList(ValidatedShoppingList validatedShoppingList)
     {
@@ -33,10 +33,10 @@ public class ShoppingList
 public class ShoppingListItem
 {
     public Guid ShoppingListItemId { get; set; }
-    private Grocery Grocery { get; set; }
-    private int Amount { get; set; }
-    private string PreferredBrand { get; set; }
-    private string Note { get; set; }
+    public Grocery Grocery { get; set; }
+    public int Amount { get; set; }
+    public string PreferredBrand { get; set; }
+    public string Note { get; set; }
 
     public ShoppingListItem(string position)
     {

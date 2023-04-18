@@ -57,6 +57,5 @@ public class User
         Password = Symbols.Empty;
         Identity = new IdentityUser();
         ResidencyDetails = Symbols.Empty;
-        AddressId = Guid.Empty;
     }
 }

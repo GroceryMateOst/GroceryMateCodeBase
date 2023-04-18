@@ -44,8 +44,6 @@ builder.Services.AddIdentityCore<IdentityUser>(options =>
     options.Password.RequireLowercase = false;
 }).AddEntityFrameworkStores<GroceryContext>();
 
-// builder.Services.AddScoped<JwtService>();
-
 builder
     .Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
