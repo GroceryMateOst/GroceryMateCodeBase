@@ -1,7 +1,6 @@
 using System.ComponentModel;
-using grocery_mate_backend.Data.DataModels.UserManagement;
 
-namespace grocery_mate_backend.Models;
+namespace grocery_mate_backend.Data.DataModels.UserManagement;
 
 public class Rating
 {

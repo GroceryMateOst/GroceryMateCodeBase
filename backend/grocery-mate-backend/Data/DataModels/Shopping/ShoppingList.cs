@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using grocery_mate_backend.BusinessLogic.Validation.Shopping;
-using grocery_mate_backend.Models;
 using grocery_mate_backend.Sandbox;
 
 namespace grocery_mate_backend.Data.DataModels.Shopping;

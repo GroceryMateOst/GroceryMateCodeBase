@@ -1,8 +1,6 @@
 using System.Linq.Expressions;
-using grocery_mate_backend.Data.DataModels.UserManagement;
-using Microsoft.AspNetCore.Identity;
 
-namespace grocery_mate_backend.Controllers.Repo;
+namespace grocery_mate_backend.Controllers.Repo.Generic;
 
 public interface IGenericRepository<T> where T : class
 {

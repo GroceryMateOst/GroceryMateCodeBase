@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using grocery_mate_backend.Sandbox;
-using Microsoft.AspNetCore.Identity;
 
 namespace grocery_mate_backend.Models;
 

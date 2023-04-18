@@ -1,4 +1,4 @@
-using grocery_mate_backend.Services.Utility;
+using grocery_mate_backend.Utility.Log;
 using Microsoft.IdentityModel.Tokens;
 
 namespace grocery_mate_backend.BusinessLogic.Validation.UserSettings;

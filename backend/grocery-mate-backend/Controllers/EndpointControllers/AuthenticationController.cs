@@ -1,9 +1,10 @@
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
+using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Models;
+using grocery_mate_backend.Models.Authentication;
 using grocery_mate_backend.Sandbox;
-using grocery_mate_backend.Services.Utility;
-using grocery_mate_backend.Utility.UOW;
+using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using User = grocery_mate_backend.Data.DataModels.UserManagement.User;

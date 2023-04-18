@@ -4,9 +4,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using grocery_mate_backend.Configs;
+using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.Context;
-using grocery_mate_backend.Services;
-using grocery_mate_backend.Utility.UOW;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -45,7 +44,7 @@ builder.Services.AddIdentityCore<IdentityUser>(options =>
     options.Password.RequireLowercase = false;
 }).AddEntityFrameworkStores<GroceryContext>();
 
-builder.Services.AddScoped<JwtService>();
+// builder.Services.AddScoped<JwtService>();
 
 builder
     .Services

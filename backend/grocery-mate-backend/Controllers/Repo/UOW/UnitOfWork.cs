@@ -2,10 +2,9 @@ using grocery_mate_backend.Controllers.Repo.Authentication;
 using grocery_mate_backend.Controllers.Repo.Settings;
 using grocery_mate_backend.Controllers.Repo.Shopping;
 using grocery_mate_backend.Data.Context;
-using grocery_mate_backend.Services;
 using Microsoft.AspNetCore.Identity;
 
-namespace grocery_mate_backend.Utility.UOW;
+namespace grocery_mate_backend.Controllers.Repo.UOW;
 
 public class UnitOfWork : IUnitOfWork, IDisposable
 {
@@ -25,7 +24,6 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         Address = new AddressRepository(_context);
         Authentication = new AuthenticationRepository(context, userManager, configuration);
     }
-
 
     public async Task CompleteAsync()
     {

@@ -1,9 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using grocery_mate_backend.Models;
 using grocery_mate_backend.Sandbox;
-using Microsoft.OpenApi.Extensions;
-using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
 
-namespace grocery_mate_backend.Models;
+namespace grocery_mate_backend.Data.DataModels.UserManagement.Address;
 
 public class Address
 {

@@ -1,12 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using grocery_mate_backend.Data;
+using grocery_mate_backend.Controllers.Repo.Generic;
 using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Data.DataModels.UserManagement;
-using grocery_mate_backend.Models;
-using grocery_mate_backend.Services;
-using grocery_mate_backend.Services.Utility;
+using grocery_mate_backend.Models.Authentication;
+using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -20,7 +19,8 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
 
     private const int ExpirationMinutes = 60;
 
-    public AuthenticationRepository(GroceryContext context, UserManager<IdentityUser> userManager, IConfiguration configuration) : base(context)
+    public AuthenticationRepository(GroceryContext context, UserManager<IdentityUser> userManager,
+        IConfiguration configuration) : base(context)
     {
         _userManager = userManager;
         _configuration = configuration;

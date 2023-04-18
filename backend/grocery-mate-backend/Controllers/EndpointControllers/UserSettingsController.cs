@@ -1,8 +1,8 @@
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
+using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Models.Settings;
-using grocery_mate_backend.Utility.UOW;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

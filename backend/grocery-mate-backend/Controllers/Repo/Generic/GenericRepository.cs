@@ -1,12 +1,8 @@
 using System.Linq.Expressions;
-using grocery_mate_backend.Controllers.Repo;
-using grocery_mate_backend.Data;
 using grocery_mate_backend.Data.Context;
-using grocery_mate_backend.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace grocery_mate_backend.Controllers;
+namespace grocery_mate_backend.Controllers.Repo.Generic;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {

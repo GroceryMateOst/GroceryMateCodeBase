@@ -1,5 +1,5 @@
-using grocery_mate_backend.Models;
-using grocery_mate_backend.Services.Utility;
+using grocery_mate_backend.Data.DataModels.UserManagement.Address;
+using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace grocery_mate_backend.BusinessLogic.Validation;

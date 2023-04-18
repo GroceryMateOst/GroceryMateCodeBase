@@ -1,10 +1,10 @@
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.BusinessLogic.Validation.Shopping;
 using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
+using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
-using grocery_mate_backend.Services.Utility;
-using grocery_mate_backend.Utility.UOW;
+using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Mvc;
 
 namespace grocery_mate_backend.Controllers.EndpointControllers;

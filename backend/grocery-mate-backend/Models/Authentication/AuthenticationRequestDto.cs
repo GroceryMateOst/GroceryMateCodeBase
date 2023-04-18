@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace grocery_mate_backend.Models;
+namespace grocery_mate_backend.Models.Authentication;
 
 public class AuthenticationRequestDto
 {

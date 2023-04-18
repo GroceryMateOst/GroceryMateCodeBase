@@ -1,4 +1,3 @@
-using System.Net.Sockets;
 using AutoMapper;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models;

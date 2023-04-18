@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using grocery_mate_backend.Data.DataModels.UserManagement.Address;
 using grocery_mate_backend.Sandbox;
 using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
 

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace grocery_mate_backend.Controllers;
 
 [ApiController]

@@ -2,7 +2,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using grocery_mate_backend.BusinessLogic.Validation.Shopping;
 using grocery_mate_backend.Data.DataModels.UserManagement;
-using grocery_mate_backend.Models;
 
 namespace grocery_mate_backend.Data.DataModels.Shopping;
 

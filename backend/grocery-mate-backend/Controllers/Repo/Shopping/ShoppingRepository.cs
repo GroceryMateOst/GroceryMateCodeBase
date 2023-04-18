@@ -1,9 +1,7 @@
+using grocery_mate_backend.Controllers.Repo.Generic;
 using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Data.DataModels.Shopping;
-using grocery_mate_backend.Data.DataModels.UserManagement;
-using grocery_mate_backend.Services;
-using grocery_mate_backend.Services.Utility;
-using Microsoft.AspNetCore.Identity;
+using grocery_mate_backend.Utility.Log;
 using Microsoft.EntityFrameworkCore;
 
 namespace grocery_mate_backend.Controllers.Repo.Shopping;

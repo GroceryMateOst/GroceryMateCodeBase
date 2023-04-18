@@ -2,7 +2,7 @@ using grocery_mate_backend.Controllers.Repo.Authentication;
 using grocery_mate_backend.Controllers.Repo.Settings;
 using grocery_mate_backend.Controllers.Repo.Shopping;
 
-namespace grocery_mate_backend.Utility.UOW;
+namespace grocery_mate_backend.Controllers.Repo.UOW;
 
 public interface IUnitOfWork
 {

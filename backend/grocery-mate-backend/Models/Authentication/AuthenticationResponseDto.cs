@@ -1,4 +1,4 @@
-namespace grocery_mate_backend.Models;
+namespace grocery_mate_backend.Models.Authentication;
 
 public class AuthenticationResponseDto
 {

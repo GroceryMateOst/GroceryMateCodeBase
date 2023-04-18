@@ -1,4 +1,4 @@
-namespace grocery_mate_backend.Models;
+namespace grocery_mate_backend.Data.DataModels.UserManagement.Address;
 
 public class Coordinate
 {
