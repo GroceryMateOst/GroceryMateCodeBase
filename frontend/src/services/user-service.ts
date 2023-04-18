@@ -14,7 +14,7 @@ export default class UserService extends AxiosBaseService {
 
 	public async registerAccount(body: UserModel): Promise<void> {
 		return this.instance
-			.post<UserModel>('register', body)
+			.post<UserModel>('Authentication/register', body)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
