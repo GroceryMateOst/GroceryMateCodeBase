@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace grocery_mate_backend.Controllers.EndpointControllers;
 
 [ApiController]
-[Route("api/v0/shopping")]
+[Route("api/v0/[controller]")]
 public class ShoppingController : BaseController
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -20,7 +20,6 @@ public class ShoppingController : BaseController
         _unitOfWork = unitOfWork;
     }
 
-
     [HttpPost("groceryRequest")]
     public async Task<ActionResult<GroceryRequestDto>> PostGroceryRequest([FromQuery] GroceryRequestDto requestDto
     )
@@ -29,7 +28,6 @@ public class ShoppingController : BaseController
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
             return BadRequest("Invalid Request!");
-
 
         if (!UserValidation.ValidateUserMail(requestDto.ClientMail, methodName) ||
             !UserValidation.ValidateUserMail(requestDto.ContractorMail, methodName))
@@ -53,7 +51,6 @@ public class ShoppingController : BaseController
 
         var validatedGroceryRequest = GroceryValidation.CreateValidatedGroceryRequest(requestDto, user, contractor);
 
-
         GroceryRequest? groceryRequest = new GroceryRequest();
         switch (requestDto.RequestState?.ToLower())
         {
@@ -63,7 +60,6 @@ public class ShoppingController : BaseController
                 groceryRequest.State = RatingState.P;
                 break;
             }
-
             case "accepted":
             {
                 groceryRequest =
@@ -72,7 +68,6 @@ public class ShoppingController : BaseController
                     groceryRequest.State = RatingState.A;
                 break;
             }
-
             case "fulfilled":
             {
                 groceryRequest =
@@ -93,7 +88,6 @@ public class ShoppingController : BaseController
             GmLogger.GetInstance()?.Trace(methodName, e.Message);
             return BadRequest("Something went wrong! Pls. try again");
         }
-
         GmLogger.GetInstance()?.Trace(methodName, "Grocery-Request successfully saved");
         return Ok();
     }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace grocery_mate_backend.Controllers.EndpointControllers;
 
 [ApiController]
-[Route("api/v0/settings")]
+[Route("api/v0/User/Settings")]
 public class UserSettingsController : BaseController
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -21,7 +21,7 @@ public class UserSettingsController : BaseController
 
 
     [Authorize]
-    [HttpGet("settings")]
+    [HttpGet]
     public async Task<ActionResult<UserDataDto>> GetUserSettings([FromQuery] UserDataRequestDto userMail)
     {
         const string methodName = "REST Get User-Settings";
@@ -41,7 +41,7 @@ public class UserSettingsController : BaseController
     }
 
     [Authorize]
-    [HttpPost("settings")]
+    [HttpPost]
     public async Task<ActionResult> UpdateUserSettings(UpdateUserSettingsDto requestDto)
     {
         const string methodName = "REST Set User-Settings";

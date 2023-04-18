@@ -14,7 +14,7 @@ export default class UserService extends AxiosBaseService {
 
 	public async registerAccount(body: UserModel): Promise<void> {
 		return this.instance
-			.post<UserModel>('register', body)
+			.post<UserModel>('Authentication/register', body)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
@@ -23,7 +23,7 @@ export default class UserService extends AxiosBaseService {
 		body: LoginModel
 	): Promise<{ token: string; expiration: string; email: string }> {
 		return this.instance
-			.post<LoginResponseModel>('login', body)
+			.post<LoginResponseModel>('Authentication/login', body)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
@@ -37,7 +37,7 @@ export default class UserService extends AxiosBaseService {
 		email: string
 	): Promise<{ user: UserModel; address: Address; email: string }> {
 		return this.instance
-			.get(`settings?email=${email}`)
+			.get(`Settings?email=${email}`)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
@@ -60,7 +60,7 @@ export default class UserService extends AxiosBaseService {
 		};
 		const email = localStorage.getItem('userEmail');
 		return this.instance
-			.post('settings', { user, address, email })
+			.post('Settings', { user, address, email })
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
