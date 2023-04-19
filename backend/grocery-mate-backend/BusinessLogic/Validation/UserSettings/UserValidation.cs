@@ -5,7 +5,7 @@ namespace grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 
 public static class UserValidation
 {
-    public static bool ValidateUser(Object user, string methodName)
+    public static bool ValidateUser(Object? user, string methodName)
     {
         if (user != null) return true;
         GmLogger.GetInstance()?.Warn(methodName, "User with given eMail-Adr. not found");
