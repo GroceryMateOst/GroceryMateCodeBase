@@ -1,11 +1,11 @@
-using grocery_mate_backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using grocery_mate_backend.Configs;
-using grocery_mate_backend.Services;
+using grocery_mate_backend.Controllers.Repo.UOW;
+using grocery_mate_backend.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -28,13 +28,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(p => p.AddPolicy("corspolicy", buid =>
-{
-   buid.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-}));
+builder.Services.AddCors(p =>
+    p.AddPolicy("corspolicy", buid => { buid.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
 
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
-
 
 builder.Services.AddIdentityCore<IdentityUser>(options =>
 {
@@ -47,10 +44,8 @@ builder.Services.AddIdentityCore<IdentityUser>(options =>
     options.Password.RequireLowercase = false;
 }).AddEntityFrameworkStores<GroceryContext>();
 
-builder.Services.AddScoped<JwtService>();
-
 builder
-    .Services    
+    .Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -60,13 +55,15 @@ builder
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidAudience =  builder.Configuration["Jwt:Audience"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
             )
         };
     });
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

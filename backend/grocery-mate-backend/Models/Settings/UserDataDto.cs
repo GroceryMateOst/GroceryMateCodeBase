@@ -1,4 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using grocery_mate_backend.Data.DataModels.UserManagement.Address;
+using grocery_mate_backend.Sandbox;
+using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
 
 namespace grocery_mate_backend.Models.Settings;
 
@@ -12,12 +15,11 @@ public class UserDataDto
     {
         User = new UserDto
         {
-            EmailAddress = user.EmailAddress,
             FirstName = user.FirstName,
             SecondName = user.SecondName,
-            ResidencyDetails = user.ResidencyDetails ?? string.Empty
+            EmailAddress = user.EmailAddress,
+            ResidencyDetails = user.ResidencyDetails ?? Symbols.Empty
         };
-
         Address = new AddressDto
         {
             City = address.City,
@@ -30,6 +32,8 @@ public class UserDataDto
 
     public UserDataDto()
     {
+        User = new UserDto();
+        Address = new AddressDto();
     }
 }
 
