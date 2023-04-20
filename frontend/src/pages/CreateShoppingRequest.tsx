@@ -13,6 +13,7 @@ import {
 } from '../redux/shoppingSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import ShoppingService from '../services/shopping-service';
+import { setIsLoading } from '../redux/userSlice';
 
 const { RangePicker } = DatePicker;
 
@@ -54,9 +55,8 @@ const CreateShoppingRequest = () => {
 	};
 
 	const handleSubmit = async (values: NewShoppingFormData) => {
-		console.log(values);
-		console.log(`von: ${values.daterange[0]} bis ${values.daterange[1]}`);
 		try {
+			dispatch(setIsLoading(true));
 			const shoppingService = new ShoppingService();
 			const body: ShoppingModel = {
 				userId: '',
@@ -68,6 +68,7 @@ const CreateShoppingRequest = () => {
 			};
 			await shoppingService.createShopping(body);
 		} finally {
+			dispatch(setIsLoading(false));
 		}
 	};
 

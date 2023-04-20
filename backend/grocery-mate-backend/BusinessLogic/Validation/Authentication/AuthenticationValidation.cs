@@ -6,11 +6,6 @@ namespace grocery_mate_backend.BusinessLogic.Validation.Authentication;
 
 public abstract class AuthenticationValidation : ValidationBase
 {
-    public new static bool ValidateModelState(ModelStateDictionary modelState, string methodName)
-    {
-        return ValidationBase.ValidateModelState(modelState, methodName);
-    }
-
     public static bool ValidateIdentityUserCreation(IdentityResult? result, string methodName)
     {
         if (result is {Succeeded: true}) return true;

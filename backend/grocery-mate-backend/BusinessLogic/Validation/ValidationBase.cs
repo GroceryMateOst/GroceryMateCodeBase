@@ -6,7 +6,7 @@ namespace grocery_mate_backend.BusinessLogic.Validation;
 
 public class ValidationBase
 {
-    protected static bool ValidateModelState(ModelStateDictionary modelState, string methodName)
+    public static bool ValidateModelState(ModelStateDictionary modelState, string methodName)
     {
         if (modelState.IsValid) return true;
         GmLogger.GetInstance()?.Warn(methodName, "Invalid Model-State due to Bad credentials");
