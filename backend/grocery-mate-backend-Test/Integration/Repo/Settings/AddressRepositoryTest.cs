@@ -4,15 +4,17 @@ using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Data.DataModels.UserManagement.Address;
 using grocery_mate_backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
 namespace grocery_mate_backend_Test.Integration.Repo.Settings;
 
 public class AddressRepositoryTest
 {
-    private UserRepository _userRepository;
     private AddressRepository _addressRepository;
     private GroceryContext _context;
+    private IConfiguration _configuration;
+
 
     private DbContextOptions<GroceryContext> _options = new DbContextOptionsBuilder<GroceryContext>()
         .UseInMemoryDatabase(databaseName: "GroceryTestDB")
@@ -23,8 +25,7 @@ public class AddressRepositoryTest
     {
         _context = new GroceryContext(_options);
         _context.Database.EnsureCreated();
-        _userRepository = new UserRepository(_context);
-        _addressRepository = new AddressRepository(_context);
+        _addressRepository = new AddressRepository(_context, _configuration);
     }
 
     [Test]

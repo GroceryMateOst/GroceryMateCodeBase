@@ -12,10 +12,12 @@ namespace grocery_mate_backend.Controllers.Repo.Settings;
 public class AddressRepository : GenericRepository<Address>, IAddressRepository
 {
     private readonly GroceryContext _context;
+    private readonly IConfiguration _configuration;
 
-    public AddressRepository(GroceryContext context) : base(context)
+    public AddressRepository(GroceryContext context, IConfiguration configuration) : base(context)
     {
         _context = context;
+        _configuration = configuration;
     }
 
     public async Task<Address?> FindAddressByGuid(Guid? guid)
@@ -44,7 +46,14 @@ public class AddressRepository : GenericRepository<Address>, IAddressRepository
 
         if (address is { Latitude: 0, Longitude: 0 })
         {
-            var coordinates = await GeoApifyApi.GetCoordinates(addressDto.Street, addressDto.HouseNr, addressDto.City, addressDto.ZipCode, addressDto.State);
+            var coordinates = await GeoApifyApi.GetCoordinates(
+                addressDto.Street,
+                addressDto.HouseNr,
+                addressDto.City,
+                addressDto.ZipCode,
+                addressDto.State,
+                _configuration["GeoApify:Key"] ?? throw new ArgumentNullException());
+
             address.Longitude = coordinates.lon;
             address.Latitude = coordinates.lat;
         }

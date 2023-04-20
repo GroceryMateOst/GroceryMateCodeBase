@@ -6,10 +6,14 @@ namespace grocery_mate_backend.Service;
 public static class GeoApifyApi
 {
     private const string BaseUrl = "https://api.geoapify.com/v1/geocode/search?";
-    private const string ApiKey = "1ca0f23d53294f628b24b74ce7475d14";
 
-    public static async Task<(double lon, double lat)> GetCoordinates(string street, string houseNr, string city,
-        int postcode, string state)
+    public static async Task<(double lon, double lat)> GetCoordinates(
+        string street, 
+        string houseNr, 
+        string city,
+        int postcode, 
+        string state, 
+        string apiKey)
     {
         using (HttpClient client = new())
         {
@@ -18,10 +22,10 @@ public static class GeoApifyApi
                                                  $"postcode={postcode}&" +
                                                  $"city={HttpUtility.UrlEncode(city)}&" +
                                                  $"state={HttpUtility.UrlEncode(state)}&" +
-                                                 "country=Schweiz&" +
+                                                 "country=Switzerland&" +
                                                  "bias=countrycode:de,at,ch&" +
                                                  "format=json&" +
-                                                 $"apiKey={ApiKey}");
+                                                 $"apiKey={apiKey}");
             var addressData = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
 
             var lon = Convert.ToDouble(addressData?.results[0].lon);

@@ -21,7 +21,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         _context = context;
         User = new UserRepository(_context);
         Shopping = new ShoppingRepository(_context);
-        Address = new AddressRepository(_context);
+        Address = new AddressRepository(_context, configuration);
         Authentication = new AuthenticationRepository(context, userManager, configuration);
     }
 
