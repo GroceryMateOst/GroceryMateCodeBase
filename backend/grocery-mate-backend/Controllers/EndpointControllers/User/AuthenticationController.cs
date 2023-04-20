@@ -48,24 +48,24 @@ public class AuthenticationController : BaseController
     }
 
     [HttpPost("login")]
-    public Task<ActionResult<AuthenticationResponseDto>> CreateBearerToken(AuthenticationRequestDto requestDto)
+    public async Task<ActionResult<AuthenticationResponseDto>> CreateBearerToken(AuthenticationRequestDto requestDto)
     {
         const string methodName = "REST Log-In";
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
-            return Task.FromResult<ActionResult<AuthenticationResponseDto>>(BadRequest("Invalid Request!"));
+            return BadRequest("Invalid Request!");
 
         var identityUser = _unitOfWork.Authentication.FindIdentityUser(requestDto.EmailAddress).Result;
         if (!UserValidation.ValidateUser(identityUser, methodName))
-            return Task.FromResult<ActionResult<AuthenticationResponseDto>>(
-                BadRequest("User with given eMail-Adr. not found"));
+            return
+                BadRequest("User with given eMail-Adr. not found");
 
         var passwordCheck = _unitOfWork.Authentication.CheckPassword(identityUser, requestDto.Password);
         if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
-            return Task.FromResult<ActionResult<AuthenticationResponseDto>>(BadRequest("Invalid Username or Password"));
+            return BadRequest("Invalid Username or Password");
 
         var token = _unitOfWork.Authentication.CreateToken(identityUser);
         GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");
-        return Task.FromResult<ActionResult<AuthenticationResponseDto>>(Ok(token));
+        return Ok(token);
     }
 }

@@ -10,5 +10,5 @@ public interface IAuthenticationRepository : IGenericRepository<User>
     Task<bool> CheckPassword(IdentityUser identityUser, string password);
     Task<IdentityUser> FindIdentityUser(string email);
     Task<IdentityResult?> SaveNewIdentityUser(IdentityUser identityUser, User user);
-    Task<AuthenticationResponseDto> CreateToken(IdentityUser user);
+    AuthenticationResponseDto CreateToken(IdentityUser user);
 }
