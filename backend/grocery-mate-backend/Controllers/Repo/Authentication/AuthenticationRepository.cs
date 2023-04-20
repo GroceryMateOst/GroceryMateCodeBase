@@ -75,7 +75,7 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
         return result;
     }
 
-    public Task<AuthenticationResponseDto> CreateToken(IdentityUser user)
+    public AuthenticationResponseDto CreateToken(IdentityUser user)
     {
         var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
 
@@ -87,12 +87,12 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
 
         var tokenHandler = new JwtSecurityTokenHandler();
 
-        return Task.FromResult(new AuthenticationResponseDto
+        return new AuthenticationResponseDto
         {
             Token = tokenHandler.WriteToken(token.Result),
             Expiration = expiration,
             Email = user.Email
-        });
+        };
     }
 
     private Task<JwtSecurityToken> CreateJwtToken(Claim[] claims, SigningCredentials credentials,
