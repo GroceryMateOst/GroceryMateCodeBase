@@ -13,21 +13,9 @@ public class Address
     [Required] public string City { get; set; }
     [Required] public string State { get; set; }
 
-    public Coordinate? Coordinate { get; set; }
+    public double Latitude { get; set;}
+    public double Longitude { get; set;}
     public ICollection<User> Users { get; set; }
-
-    public Address(Guid addressId, string street, string houseNr, int zipCode, string city, string state,
-        Coordinate? coordinate, ICollection<User> users)
-    {
-        AddressId = addressId;
-        Street = street;
-        HouseNr = houseNr;
-        ZipCode = zipCode;
-        City = city;
-        State = state;
-        Coordinate = coordinate;
-        Users = users;
-    }
 
     public Address(AddressDto requestDtoAddress)
     {
@@ -46,7 +34,6 @@ public class Address
         ZipCode = -1;
         City = Symbols.Empty;
         State = Symbols.Empty;
-        Coordinate = new Coordinate();
         Users = new List<User>();
     }
 }

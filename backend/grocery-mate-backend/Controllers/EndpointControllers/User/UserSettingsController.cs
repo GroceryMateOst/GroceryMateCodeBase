@@ -49,20 +49,18 @@ public class UserSettingsController : BaseController
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
             return BadRequest("Invalid Request!");
 
-        var user = _unitOfWork.User.FindUserByMail(requestDto.email);
+        var user = await _unitOfWork.User.FindUserByMail(requestDto.email);
         if (!UserValidation.ValidateUser(user, methodName))
             return BadRequest("User with given eMail-Adr. not found");
 
-        var newAddress = _unitOfWork.Address.FindOrCreateUserAddress(requestDto.Address);
-        var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.Result.AddressId).Result;
-
+        var newAddress = await _unitOfWork.Address.FindOrCreateUserAddress(requestDto.Address);
+        var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result;
         if (!ValidationBase.ValidateAddress(oldAddress, methodName))
-            await _unitOfWork.Address.RemoveAddress(oldAddress, await user);
+            await _unitOfWork.Address.RemoveAddress(oldAddress, user);
 
-        await _unitOfWork.Authentication.Add(user.Result);
-        user.Result.AddressId = newAddress.Result?.AddressId;
-        user.Result.ResidencyDetails = requestDto.User.ResidencyDetails;
-
+        user.AddressId = newAddress?.AddressId;
+        user.ResidencyDetails = requestDto.User.ResidencyDetails;
+        
         await _unitOfWork.CompleteAsync();
         return Ok();
     }
