@@ -2,10 +2,10 @@ import { Button, Form, Input, DatePicker } from 'antd';
 import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import {
-	ShoppingModel,
+	GroceryRequestModel,
 	ShoppingList,
 	ShoppingItem,
-} from '../models/ShoppingModel';
+} from '../models/GroceryRequestModel';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
 	addCurrentShopping,
@@ -28,27 +28,24 @@ const CreateShoppingRequest = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
-	const currentShopping: ShoppingModel = useAppSelector(
+	const currentShopping: GroceryRequestModel = useAppSelector(
 		(state) => state.shopping.currentShopping
 	);
 
 	const removeShoppingItem = (index: number) => {
-		const newItems = [...currentShopping.shoppingList.items];
+		const newItems = [...currentShopping.groceryList];
 		newItems.splice(index, 1);
 		dispatch(changeCurrentShoppingItems(newItems));
 	};
 
 	const handleShoppingItemChange = (index: number, value: string) => {
-		const newItems = [...currentShopping.shoppingList.items];
+		const newItems = [...currentShopping.groceryList];
 		newItems[index] = { description: value };
 		dispatch(changeCurrentShoppingItems(newItems));
 	};
 
 	const addShoppingItem = (value: string) => {
-		const newItems = [
-			...currentShopping.shoppingList.items,
-			{ description: value },
-		];
+		const newItems = [...currentShopping.groceryList, { description: value }];
 		dispatch(changeCurrentShoppingItems(newItems));
 	};
 
@@ -56,13 +53,13 @@ const CreateShoppingRequest = () => {
 		try {
 			dispatch(setIsLoading(true));
 			const shoppingService = new ShoppingService();
-			const body: ShoppingModel = {
-				userId: '',
-				contractorId: '',
+			const body: GroceryRequestModel = {
 				fromDate: values.daterange[0].toJSON(),
 				toDate: values.daterange[1].toJSON(),
-				note: values.note,
-				shoppingList: currentShopping.shoppingList,
+				note: 'Bla',
+				preferredStore: 'Coop',
+				requestState: 'published',
+				groceryList: currentShopping.groceryList,
 			};
 			await shoppingService.createShopping(body);
 		} finally {
@@ -101,7 +98,7 @@ const CreateShoppingRequest = () => {
 					<p className="font-bold">
 						Bitte fügen Sie die benötigten Artikel hinzu
 					</p>
-					{currentShopping.shoppingList.items.map(
+					{currentShopping.groceryList.map(
 						(option: ShoppingItem, index: number) => (
 							<div key={index} className="flex items-center mb-2">
 								<Input

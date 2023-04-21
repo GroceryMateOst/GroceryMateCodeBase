@@ -9,7 +9,7 @@ public class GroceryRequest
 {
     public Guid GroceryRequestId { get; set; }
     [Required] public User Client { get; set; }
-    [Required] public User? Contractor { get; set; }
+    public User? Contractor { get; set; }
     public Rating? Rating { get; set; }
     [Required] public ShoppingList? ShoppingList { get; set; }
     public DateTime FromDate { get; set; }
@@ -22,11 +22,11 @@ public class GroceryRequest
     {
         Client = client;
         Rating = new Rating();
-        ShoppingList = new ShoppingList(requestDto.ShoppingListDto);
-        State = Enum.Parse<GroceryRequestState>(requestDto.RequestState);
+        ShoppingList = new ShoppingList(requestDto.GroceryList);
+        State = Enum.Parse<GroceryRequestState>(requestDto.RequestState,true);
         FromDate = fromDate;
         ToDate = toDate;
-        Note = requestDto.note;
+        Note = requestDto.Note;
         PreferredStore = requestDto.PreferredStore;
     }
 

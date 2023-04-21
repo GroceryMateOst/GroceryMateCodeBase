@@ -1,25 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ShoppingModel, ShoppingItem } from '../models/ShoppingModel';
+import {
+	GroceryRequestModel,
+	ShoppingItem,
+} from '../models/GroceryRequestModel';
 
 export interface ShoppingState {
-	allShoppings: ShoppingModel[];
-	currentShopping: ShoppingModel;
+	allShoppings: GroceryRequestModel[];
+	currentShopping: GroceryRequestModel;
 }
 
-const initialShopping: ShoppingModel = {
-	userId: '',
-	contractorId: '',
-	fromDate: '',
-	toDate: '',
-	note: '',
-	shoppingList: {
-		preferedStore: '',
-		items: [
-			{
-				description: '',
-			},
-		],
-	},
+const initialShopping: GroceryRequestModel = {
+	preferredStore: ' ',
+	requestState: ' ',
+	fromDate: ' ',
+	toDate: ' ',
+	note: ' ',
+	groceryList: [],
 };
 
 const initialState: ShoppingState = {
@@ -31,17 +27,17 @@ export const shoppingSlice = createSlice({
 	name: 'shopping',
 	initialState,
 	reducers: {
-		addCurrentShopping: (state, action: PayloadAction<ShoppingModel>) => {
+		addCurrentShopping: (state, action: PayloadAction<GroceryRequestModel>) => {
 			state.currentShopping = action.payload;
 		},
-		addAllShoppings: (state, action: PayloadAction<ShoppingModel[]>) => {
+		addAllShoppings: (state, action: PayloadAction<GroceryRequestModel[]>) => {
 			state.allShoppings = action.payload;
 		},
 		changeCurrentShoppingItems: (
 			state,
 			action: PayloadAction<ShoppingItem[]>
 		) => {
-			state.currentShopping.shoppingList.items = action.payload;
+			state.currentShopping.groceryList = action.payload;
 		},
 	},
 });

@@ -64,7 +64,7 @@ namespace grocery_mate_backend.Migrations
                 {
                     GroceryRequestId = table.Column<Guid>(type: "uuid", nullable: false),
                     ClientUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ContractorUserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ContractorUserId = table.Column<Guid>(type: "uuid", nullable: true),
                     RatingId = table.Column<Guid>(type: "uuid", nullable: true),
                     ShoppingListId = table.Column<Guid>(type: "uuid", nullable: false),
                     State = table.Column<int>(type: "integer", nullable: false)

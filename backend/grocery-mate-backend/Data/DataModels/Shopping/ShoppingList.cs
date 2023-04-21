@@ -8,12 +8,12 @@ public class ShoppingList
     public Guid ShoppingListId { get; set; }
     public List<ShoppingListItem> Items { get; set; }
 
-    public ShoppingList(ShoppingListDto shoppingListDto)
+    public ShoppingList(List<ShoppingListDto>shoppingListDto)
     {
         Items = new List<ShoppingListItem>();
-        foreach (var grocery in shoppingListDto.Items)
+        foreach (var grocery in shoppingListDto)
         {
-            Items.Add(new ShoppingListItem(grocery));
+            Items.Add(new ShoppingListItem(grocery.Description));
         }
     }
 

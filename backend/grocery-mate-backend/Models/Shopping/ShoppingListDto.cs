@@ -5,10 +5,10 @@ namespace grocery_mate_backend.Models.Shopping;
 
 public class ShoppingListDto
 {
-    [Required] public List<string> Items { get; }
+    public string Description { get; set; }
     
     public ShoppingListDto()
     {
-        Items = new List<string>();
+         Description= string.Empty;
     }
 }

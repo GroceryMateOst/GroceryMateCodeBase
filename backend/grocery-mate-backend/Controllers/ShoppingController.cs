@@ -22,7 +22,7 @@ public class ShoppingController : BaseController
     }
 
     [HttpPost("groceryRequest")]
-    public async Task<ActionResult<GroceryRequestDto>> PostGroceryRequest([FromQuery] GroceryRequestDto requestDto)
+    public async Task<ActionResult<GroceryRequestDto>> PostGroceryRequest(GroceryRequestDto requestDto)
     {
         const string methodName = "POST Grocery-Request";
 
@@ -51,7 +51,7 @@ public class ShoppingController : BaseController
             return BadRequest("User not found");
         }
 
-        if (GroceryValidation.ValidateRequestState(requestDto.RequestState))
+        if (!GroceryValidation.ValidateRequestState(requestDto.RequestState))
         {
             GmLogger.GetInstance()?.Warn(methodName, "GroceryRequestState is invalid");
             return BadRequest("Invalid request");
@@ -61,8 +61,8 @@ public class ShoppingController : BaseController
         DateTime toDate;
         try
         {
-            fromDate = DateTime.Parse(requestDto.fromDate, null);
-            toDate = DateTime.Parse(requestDto.fromDate, null);
+            fromDate = DateTime.Parse(requestDto.FromDate, null).ToUniversalTime();
+            toDate = DateTime.Parse(requestDto.ToDate, null).ToUniversalTime();
         }
         catch (Exception e)
         {

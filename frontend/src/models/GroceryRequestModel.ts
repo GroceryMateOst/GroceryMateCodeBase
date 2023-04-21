@@ -1,14 +1,13 @@
-export interface ShoppingModel {
-	userId: string;
-	contractorId: string;
+export interface GroceryRequestModel {
+	preferredStore: string;
+	requestState: string;
 	fromDate: string;
 	toDate: string;
 	note: string;
-	shoppingList: ShoppingList;
+	groceryList: ShoppingItem[];
 }
 
 export interface ShoppingList {
-	preferedStore: string;
 	items: ShoppingItem[];
 }
 

@@ -4,20 +4,20 @@ namespace grocery_mate_backend.Models.Shopping;
 
 public class GroceryRequestDto
 {
-    [Required] public ShoppingListDto ShoppingListDto { get; set; }
+    public List<ShoppingListDto> GroceryList { get; set; }
     public string PreferredStore { get; set; }
-    [Required] public string RequestState { get; set; }
-    public string fromDate { get; set; }
-    public string toDate { get; set; }
-    public string note { get; set; }
+    public string RequestState { get; set; }
+    public string FromDate { get; set; }
+    public string ToDate { get; set; }
+    public string Note { get; set; }
 
     public GroceryRequestDto()
     {
-        ShoppingListDto = new ShoppingListDto();
+        GroceryList = new List<ShoppingListDto>();
         PreferredStore = string.Empty;
         RequestState = string.Empty;
-        fromDate = string.Empty;
-        toDate = string.Empty;
-        note = string.Empty;
+        FromDate = string.Empty;
+        ToDate = string.Empty;
+        Note = string.Empty;
     }
 }
