@@ -1,4 +1,5 @@
-using grocery_mate_backend.BusinessLogic.Validation.Authentication;
+using System.Globalization;
+using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Shopping;
 using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
@@ -19,72 +20,60 @@ public class ShoppingController : BaseController
     {
         _unitOfWork = unitOfWork;
     }
-    
+
     [HttpPost("groceryRequest")]
-    public async Task<ActionResult<GroceryRequestDto>> PostGroceryRequest([FromQuery] GroceryRequestDto requestDto
-    )
+    public async Task<ActionResult<GroceryRequestDto>> PostGroceryRequest([FromQuery] GroceryRequestDto requestDto)
     {
         const string methodName = "POST Grocery-Request";
 
-        if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
+        if (!ValidationBase.ValidateModelState(ModelState, methodName))
             return BadRequest("Invalid Request!");
-        
-        if (!UserValidation.ValidateUserMail(requestDto.ClientMail, methodName) ||
-            !UserValidation.ValidateUserMail(requestDto.ContractorMail, methodName))
-            return BadRequest("Invalid Mail-Address!");
 
-        var user = await _unitOfWork.User.FindUserByMail(requestDto.ClientMail);
-        var contractor = await _unitOfWork.User.FindUserByMail(requestDto.ContractorMail);
+        var identityUserNam = User.Identity?.Name;
+        if (identityUserNam == null)
+        {
+            GmLogger.GetInstance()?.Warn(methodName, "Couldn't find user by give JWT-Token");
+            return BadRequest("Couldn't authenticate user due bad credentials");
+        }
 
-        if (!UserValidation.ValidateUser(user, methodName) ||
-            !UserValidation.ValidateUser(contractor, methodName))
-            return BadRequest("Client or Contractor not found!");
+        var id = (await _unitOfWork.Authentication.FindIdentityUser(identityUserNam)).Id;
+        if (id == null)
+        {
+            GmLogger.GetInstance()?.Warn(methodName, "User with given identityId not found");
+            return BadRequest("User not found");
+        }
 
+        var user = await _unitOfWork.User.FindUserByIdentityId(id);
+
+        if (user == null)
+        {
+            GmLogger.GetInstance()?.Warn(methodName, "User with given identityId does not exist");
+            return BadRequest("User not found");
+        }
+
+        if (GroceryValidation.ValidateRequestState(requestDto.RequestState))
+        {
+            GmLogger.GetInstance()?.Warn(methodName, "GroceryRequestState is invalid");
+            return BadRequest("Invalid request");
+        }
+
+        DateTime fromDate;
+        DateTime toDate;
         try
         {
-            GroceryValidation.ValidateGroceryList(requestDto, user, contractor);
+            fromDate = DateTime.Parse(requestDto.fromDate, null);
+            toDate = DateTime.Parse(requestDto.fromDate, null);
         }
         catch (Exception e)
         {
-            return BadRequest(e.Message);
+            GmLogger.GetInstance()?.Warn(methodName, "GroceryRequestState is invalid");
+            return BadRequest("Invalid date");
         }
-
-        var validatedGroceryRequest = GroceryValidation.CreateValidatedGroceryRequest(requestDto, user, contractor);
-
-        GroceryRequest? groceryRequest = new GroceryRequest();
-        
-        // TODO umbau zu published-only
-        switch (requestDto.RequestState?.ToLower())
-        {
-            case "published":
-            {
-                groceryRequest = new GroceryRequest(validatedGroceryRequest);
-                groceryRequest.State = RatingState.P;
-                break;
-            }
-
-            case "accepted":
-            {
-                groceryRequest =
-                    await _unitOfWork.Shopping.FindGroceryRequest(user.EmailAddress, contractor.EmailAddress);
-                if (!GroceryValidation.ValidateGroceryRequest(groceryRequest, methodName))
-                    groceryRequest.State = RatingState.A;
-                break;
-            }
-            
-            case "fulfilled":
-            {
-                groceryRequest =
-                    await _unitOfWork.Shopping.FindGroceryRequest(user.EmailAddress, contractor.EmailAddress);
-                if (!GroceryValidation.ValidateGroceryRequest(groceryRequest, methodName))
-                    groceryRequest.State = RatingState.F;
-                break;
-            }
-        }
+        var groceryRequest = new GroceryRequest(user, requestDto, fromDate, toDate);
 
         try
         {
-            _unitOfWork.Shopping.Add(groceryRequest);
+            await _unitOfWork.Shopping.Add(groceryRequest);
             await _unitOfWork.CompleteAsync();
         }
         catch (Exception e)
