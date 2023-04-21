@@ -39,9 +39,7 @@ const CreateShoppingRequest = () => {
 	};
 
 	const handleShoppingItemChange = (index: number, value: string) => {
-		console.log(`index: ${index} value: ${value}`);
 		const newItems = [...currentShopping.shoppingList.items];
-		console.log(newItems);
 		newItems[index] = { description: value };
 		dispatch(changeCurrentShoppingItems(newItems));
 	};
@@ -61,8 +59,8 @@ const CreateShoppingRequest = () => {
 			const body: ShoppingModel = {
 				userId: '',
 				contractorId: '',
-				fromDate: values.daterange[0],
-				toDate: values.daterange[1],
+				fromDate: values.daterange[0].toJSON(),
+				toDate: values.daterange[1].toJSON(),
 				note: values.note,
 				shoppingList: currentShopping.shoppingList,
 			};

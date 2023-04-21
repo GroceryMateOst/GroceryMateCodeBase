@@ -8,7 +8,7 @@ export default class ShoppingService extends AxiosBaseService {
 
 	public async createShopping(body: ShoppingModel): Promise<void> {
 		return this.instance
-			.post<ShoppingModel>('', body)
+			.post<ShoppingModel>('/createGroceryRequest', body)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}

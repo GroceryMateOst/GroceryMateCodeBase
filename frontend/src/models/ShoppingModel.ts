@@ -1,8 +1,8 @@
 export interface ShoppingModel {
 	userId: string;
 	contractorId: string;
-	fromDate: Date;
-	toDate: Date;
+	fromDate: string;
+	toDate: string;
 	note: string;
 	shoppingList: ShoppingList;
 }

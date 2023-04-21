@@ -9,8 +9,8 @@ export interface ShoppingState {
 const initialShopping: ShoppingModel = {
 	userId: '',
 	contractorId: '',
-	fromDate: new Date(),
-	toDate: new Date(),
+	fromDate: '',
+	toDate: '',
 	note: '',
 	shoppingList: {
 		preferedStore: '',
