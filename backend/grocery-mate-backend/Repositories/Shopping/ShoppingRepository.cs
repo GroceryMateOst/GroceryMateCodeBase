@@ -45,7 +45,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
     public async Task<bool> Add(GroceryRequest request, User user)
     {
         _context.Attach(user);
-        user.GroceryRequests.Add(request);
+        user.GroceryRequestsClients?.Add(request);
         await _context.SaveChangesAsync();
         return true;
     }

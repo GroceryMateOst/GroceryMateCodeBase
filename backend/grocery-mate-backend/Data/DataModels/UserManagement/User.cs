@@ -19,7 +19,10 @@ public class User
     public Guid? AddressId { get; set; }
     
     [InverseProperty("Client")]
-    public ICollection<GroceryRequest> GroceryRequests { get; set; }
+    public ICollection<GroceryRequest>? GroceryRequestsClients { get; set; }
+    
+    [InverseProperty("Contractor")]
+    public ICollection<GroceryRequest>? GroceryRequestsContractor { get; set; }
 
     public User(CreateUserDto dto)
     {
@@ -59,6 +62,7 @@ public class User
         Password = string.Empty;
         Identity = new IdentityUser();
         ResidencyDetails = string.Empty;
-        GroceryRequests = new List<GroceryRequest>();
+        GroceryRequestsClients = new List<GroceryRequest>();
+        GroceryRequestsContractor = new List<GroceryRequest>();
     }
 }

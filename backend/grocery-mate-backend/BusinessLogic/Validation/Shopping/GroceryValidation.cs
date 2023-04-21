@@ -13,7 +13,6 @@ public static class GroceryValidation
     }
 }
 
-//todo clean up this shit
 // public class ValidatedShoppingList
 // {
 //     public List<string> ShoppingList { get; set; }

@@ -20,7 +20,7 @@ const { RangePicker } = DatePicker;
 interface NewShoppingFormData {
 	daterange: Date[];
 	note: string;
-	preferedstore: string;
+	preferredstore: string;
 }
 
 const CreateShoppingRequest = () => {
@@ -56,8 +56,8 @@ const CreateShoppingRequest = () => {
 			const body: GroceryRequestModel = {
 				fromDate: values.daterange[0].toJSON(),
 				toDate: values.daterange[1].toJSON(),
-				note: 'Bla',
-				preferredStore: 'Coop',
+				note: values.note,
+				preferredStore: values.preferredstore,
 				requestState: 'published',
 				groceryList: currentShopping.groceryList,
 			};
@@ -77,7 +77,7 @@ const CreateShoppingRequest = () => {
 				form={form}
 			>
 				<div className="mb-8">
-					<Form.Item name="notes" label="Generelle Hinweise zum Einkauf">
+					<Form.Item name="note" label="Generelle Hinweise zum Einkauf">
 						<TextArea />
 					</Form.Item>
 					<Form.Item
