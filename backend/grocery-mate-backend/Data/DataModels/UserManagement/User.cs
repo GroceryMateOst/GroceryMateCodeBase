@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models;
 
 using Microsoft.AspNetCore.Identity;
@@ -14,10 +15,11 @@ public class User
     [Required] public string EmailAddress { get; set; }
     [Required] [NotMapped] public string Password { get; set; }
     public IdentityUser? Identity { get; set; }
-
     public string? ResidencyDetails { get; set; }
-
     public Guid? AddressId { get; set; }
+    
+    [InverseProperty("Client")]
+    public ICollection<GroceryRequest> GroceryRequests { get; set; }
 
     public User(CreateUserDto dto)
     {
@@ -57,5 +59,6 @@ public class User
         Password = string.Empty;
         Identity = new IdentityUser();
         ResidencyDetails = string.Empty;
+        GroceryRequests = new List<GroceryRequest>();
     }
 }

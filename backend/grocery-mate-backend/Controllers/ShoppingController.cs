@@ -5,6 +5,7 @@ using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
+using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,26 +30,10 @@ public class ShoppingController : BaseController
         if (!ValidationBase.ValidateModelState(ModelState, methodName))
             return BadRequest("Invalid Request!");
 
-        var identityUserNam = User.Identity?.Name;
-        if (identityUserNam == null)
-        {
-            GmLogger.GetInstance()?.Warn(methodName, "Couldn't find user by give JWT-Token");
-            return BadRequest("Couldn't authenticate user due bad credentials");
-        }
-
-        var id = (await _unitOfWork.Authentication.FindIdentityUser(identityUserNam)).Id;
-        if (id == null)
-        {
-            GmLogger.GetInstance()?.Warn(methodName, "User with given identityId not found");
-            return BadRequest("User not found");
-        }
-
-        var user = await _unitOfWork.User.FindUserByIdentityId(id);
-
+        var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
         {
-            GmLogger.GetInstance()?.Warn(methodName, "User with given identityId does not exist");
-            return BadRequest("User not found");
+            return BadRequest("User is not authenticated");
         }
 
         if (!GroceryValidation.ValidateRequestState(requestDto.RequestState))
@@ -57,23 +42,13 @@ public class ShoppingController : BaseController
             return BadRequest("Invalid request");
         }
 
-        DateTime fromDate;
-        DateTime toDate;
         try
         {
-            fromDate = DateTime.Parse(requestDto.FromDate, null).ToUniversalTime();
-            toDate = DateTime.Parse(requestDto.ToDate, null).ToUniversalTime();
-        }
-        catch (Exception e)
-        {
-            GmLogger.GetInstance()?.Warn(methodName, "GroceryRequestState is invalid");
-            return BadRequest("Invalid date");
-        }
-        var groceryRequest = new GroceryRequest(user, requestDto, fromDate, toDate);
+            var fromDate = DateTime.Parse(requestDto.FromDate, null).ToUniversalTime();
+            var toDate = DateTime.Parse(requestDto.ToDate, null).ToUniversalTime();
+            var groceryRequest = new GroceryRequest(user, requestDto, fromDate, toDate);
 
-        try
-        {
-            await _unitOfWork.Shopping.Add(groceryRequest);
+            await _unitOfWork.Shopping.Add(groceryRequest, user);
             await _unitOfWork.CompleteAsync();
         }
         catch (Exception e)
@@ -84,5 +59,25 @@ public class ShoppingController : BaseController
 
         GmLogger.GetInstance()?.Trace(methodName, "Grocery-Request successfully saved");
         return Ok();
+    }
+
+    [HttpGet("groceryRequest")]
+    public async Task<ActionResult<GroceryResponseDto>> GetAllGroceryRequest()
+    {
+        const string methodName = "POST Grocery-Request";
+
+        if (!ValidationBase.ValidateModelState(ModelState, methodName))
+            return BadRequest("Invalid Request!");
+
+        var groceryRequests = await _unitOfWork.Shopping.GetAllGroceryRequests();
+        
+        var requests = new List<GroceryResponseDto>();
+        foreach (var groceryRequest in groceryRequests)
+        {
+            var address = await _unitOfWork.Address.FindAddressByGuid(groceryRequest.Client.AddressId);
+            requests.Add(new GroceryResponseDto(groceryRequest, address));
+        }
+
+        return Ok(requests);
     }
 }

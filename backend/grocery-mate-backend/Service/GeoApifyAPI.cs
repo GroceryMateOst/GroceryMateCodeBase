@@ -8,11 +8,11 @@ public static class GeoApifyApi
     private const string BaseUrl = "https://api.geoapify.com/v1/geocode/search?";
 
     public static async Task<(double lon, double lat)> GetCoordinates(
-        string street, 
-        string houseNr, 
+        string street,
+        string houseNr,
         string city,
-        int postcode, 
-        string state, 
+        int postcode,
+        string state,
         string apiKey)
     {
         using (HttpClient client = new())
@@ -26,6 +26,12 @@ public static class GeoApifyApi
                                                  "bias=countrycode:de,at,ch&" +
                                                  "format=json&" +
                                                  $"apiKey={apiKey}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return (0, 0); //todo probably not the best solution
+            }
+
             var addressData = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
 
             var lon = Convert.ToDouble(addressData?.results[0].lon);

@@ -7,8 +7,8 @@ public class ShoppingListDto
 {
     public string Description { get; set; }
     
-    public ShoppingListDto()
+    public ShoppingListDto(string description)
     {
-         Description= string.Empty;
+         Description= description;
     }
 }

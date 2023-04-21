@@ -3,7 +3,6 @@ using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Utility.Log;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace grocery_mate_backend.Controllers.Repo.Shopping;
@@ -16,7 +15,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
     {
         _context = context;
     }
-//todo maybe delete this
+
     public Task<GroceryRequest?> FindGroceryRequest(string clientMail, string contractorMail)
     {
         try
@@ -35,9 +34,19 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
         }
     }
 
-    public async Task<bool> Add(GroceryRequest request)
+    public Task<List<GroceryRequest>> GetAllGroceryRequests()
     {
-        var a = _context.GroceryRequests.Add(request);
+        return Task.FromResult(_context.GroceryRequests
+            .Where(req => req.State == GroceryRequestState.Published)
+            .Take(10)
+            .ToList());
+    }
+
+    public async Task<bool> Add(GroceryRequest request, User user)
+    {
+        _context.Attach(user);
+        user.GroceryRequests.Add(request);
+        await _context.SaveChangesAsync();
         return true;
     }
 }

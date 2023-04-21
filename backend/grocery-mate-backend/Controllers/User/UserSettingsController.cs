@@ -5,6 +5,7 @@ using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement.Address;
 using grocery_mate_backend.Models.Settings;
+using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,22 +30,7 @@ public class UserSettingsController : BaseController
     {
         const string methodName = "REST Get User-Settings";
         
-        var identityUserNam = User.Identity.Name;
-        if (identityUserNam == null)
-        {
-            GmLogger.GetInstance()?.Warn(methodName,"Couldn't find user by give JWT-Token");
-            return BadRequest("Couldn't authenticate user due bad credentials");
-        }
-        
-        var id = (await _unitOfWork.Authentication.FindIdentityUser(identityUserNam)).Id;
-        if (id == null)
-        {
-            GmLogger.GetInstance()?.Warn(methodName, "User with given identityId not found");
-            return BadRequest("User not found");
-        }
-        
-        var user = await _unitOfWork.User.FindUserByIdentityId(id);
-        
+        var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
         {
             GmLogger.GetInstance()?.Warn(methodName, "User with given identityId does not exist");
@@ -70,7 +56,7 @@ public class UserSettingsController : BaseController
 
         var newAddress = await _unitOfWork.Address.FindOrCreateUserAddress(requestDto.Address);
         var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result;
-        if (!ValidationBase.ValidateAddress(oldAddress, methodName))
+        if (!ValidationBase.ValidateAddress(oldAddress, methodName)) 
             await _unitOfWork.Address.RemoveAddress(oldAddress, user);
 
         user.AddressId = newAddress?.AddressId;

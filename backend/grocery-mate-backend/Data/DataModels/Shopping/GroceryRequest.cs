@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models.Shopping;
 
@@ -8,7 +9,10 @@ namespace grocery_mate_backend.Data.DataModels.Shopping;
 public class GroceryRequest
 {
     public Guid GroceryRequestId { get; set; }
-    [Required] public User Client { get; set; }
+    
+    [Required] 
+    [ForeignKey("GroceryRequests")]
+    public User Client { get; set; }
     public User? Contractor { get; set; }
     public Rating? Rating { get; set; }
     [Required] public ShoppingList? ShoppingList { get; set; }
