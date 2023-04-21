@@ -2,7 +2,7 @@ using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Data.DataModels.UserManagement.Address;
 using grocery_mate_backend.Models;
-using grocery_mate_backend.Sandbox;
+
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
@@ -54,7 +54,7 @@ public partial class ServiceIntegrationTests
             "Anna",
             "Bernasconi",
             "a.b@outlook.com",
-            Symbols.Empty,
+            string.Empty,
             "test123ABC!");
         var userTwo = new User(_userDtoTwo);
 

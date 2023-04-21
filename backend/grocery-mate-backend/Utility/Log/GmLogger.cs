@@ -1,4 +1,4 @@
-using grocery_mate_backend.Sandbox;
+
 using NLog;
 using ILogger = grocery_mate_backend.Services.Utility.ILogger;
 
@@ -37,13 +37,13 @@ public class GmLogger : ILogger
     public void Info(string method, string message, string? arg = null)
     {
         GetLogger("groceryMateLoggerRule")
-            ?.Info(Symbols.Space + GenerateLogMsg(method, message, arg));
+            ?.Info($" {GenerateLogMsg(method, message, arg)}");
     }
 
 
     public void Warn(string method, string message, string? arg = null)
     {
-        GetLogger("groceryMateLoggerRule")?.Warn(Symbols.Space + GenerateLogMsg(method, message, arg));
+        GetLogger("groceryMateLoggerRule")?.Warn($" {GenerateLogMsg(method, message, arg)}" );
     }
 
     public void Error(string method, string message, string? arg = null)
@@ -54,7 +54,7 @@ public class GmLogger : ILogger
     private string GenerateLogMsg(string method, string message, string? arg = null)
     {
         return arg == null
-            ? $"{Symbols.Space}[{method}]{Symbols.Space}{message}"
-            : $"{Symbols.Space}[{method}]{Symbols.Space}{message} Arg: {arg}";
+            ? $" [{method}] {message}"
+            : $" [{method}] {message} Arg: {arg}";
     }
 }

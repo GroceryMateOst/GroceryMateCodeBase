@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using grocery_mate_backend.BusinessLogic.Validation.Shopping;
 using grocery_mate_backend.Data.DataModels.UserManagement;
+using grocery_mate_backend.Models.Shopping;
 
 namespace grocery_mate_backend.Data.DataModels.Shopping;
 
@@ -9,18 +9,25 @@ public class GroceryRequest
 {
     public Guid GroceryRequestId { get; set; }
     [Required] public User Client { get; set; }
-    [Required] public User Contractor { get; set; }
+    [Required] public User? Contractor { get; set; }
     public Rating? Rating { get; set; }
     [Required] public ShoppingList? ShoppingList { get; set; }
-    [Required] public RatingState State { get; set; }
+    public DateTime FromDate { get; set; }
+    public DateTime ToDate { get; set; }
+    public string Note { get; set; }
+    public string PreferredStore { get; set; }
+    [Required] public GroceryRequestState State { get; set; }
 
-    public GroceryRequest(ValidatedGroceryRequest validatedGroceryRequest)
+    public GroceryRequest(User client, GroceryRequestDto requestDto, DateTime fromDate, DateTime toDate)
     {
-        Client = validatedGroceryRequest.Client;
-        Contractor = validatedGroceryRequest.Contractor;
+        Client = client;
         Rating = new Rating();
-        ShoppingList = new ShoppingList(validatedGroceryRequest.ShoppingList);
-        State = validatedGroceryRequest.State;
+        ShoppingList = new ShoppingList(requestDto.ShoppingListDto);
+        State = Enum.Parse<GroceryRequestState>(requestDto.RequestState);
+        FromDate = fromDate;
+        ToDate = toDate;
+        Note = requestDto.note;
+        PreferredStore = requestDto.PreferredStore;
     }
 
     public GroceryRequest()
@@ -29,14 +36,18 @@ public class GroceryRequest
         Contractor = new User();
         Rating = new Rating();
         ShoppingList = new ShoppingList();
-        State = RatingState.D;
+        FromDate = DateTime.MinValue;
+        ToDate = DateTime.MinValue;
+        Note = string.Empty;
+        PreferredStore = string.Empty;
+        State = GroceryRequestState.Unpublished;
     }
 }
 
-public enum RatingState
+public enum GroceryRequestState
 {
-    [Description("published")] P = 1,
-    [Description("accepted")] A = 2,
-    [Description("fulfilled")] F = 3,
-    [Description("default")] D = 99,
+    [Description("unpublished")] Unpublished,
+    [Description("published")] Published,
+    [Description("accepted")] Accepted,
+    [Description("fulfilled")] Fulfilled
 }

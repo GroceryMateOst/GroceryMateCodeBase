@@ -7,88 +7,38 @@ namespace grocery_mate_backend.BusinessLogic.Validation.Shopping;
 
 public static class GroceryValidation
 {
-    public static bool ValidateGroceryList(GroceryRequestDto requestDto, User client,
-        User contractor)
+    public static bool ValidateRequestState(string requestState)
     {
-        var requestStateLower = requestDto.RequestState.ToLower();
-
-        if (client.Equals(contractor))
-        {
-            throw new InvalidGroceryRequestException("User may not be client!");
-        }
-
-        if (requestStateLower is not ("published" or "accepted" or "fulfilled"))
-        {
-            throw new InvalidGroceryRequestException("Invalid Request-State!");
-        }
-
-        return true;
-    }
-
-    public static ValidatedGroceryRequest CreateValidatedGroceryRequest(GroceryRequestDto requestDto, User client,
-        User contractor)
-    {
-        var ratingState = RatingState.D;
-        var requestStateLower = requestDto.RequestState.ToLower();
-
-        ratingState = requestStateLower switch
-        {
-            "published" => RatingState.P,
-            "accepted" => RatingState.A,
-            "fulfilled" => RatingState.F,
-            _ => ratingState
-        };
-
-        return new ValidatedGroceryRequest(
-            client,
-            contractor,
-            ValidateShoppingList(requestDto.ShoppingList),
-            ratingState
-        );
-    }
-
-    public static bool ValidateGroceryRequest(GroceryRequest? groceryRequest, string methodName)
-    {
-        if (groceryRequest != null) return true;
-        GmLogger.GetInstance()?.Warn(methodName, "Invalid Grocery-Request!");
-        return false;
-    }
-
-    private static ValidatedShoppingList ValidateShoppingList(ShoppingListDto shoppingListDto)
-    {
-        var items = new ValidatedShoppingList();
-        if (shoppingListDto.Items.Any(item => item.Equals(null) || item.Length > 125))
-        {
-            throw new InvalidGroceryRequestException("Invalid shopping list position!");
-        }
-
-        items.ShoppingList = shoppingListDto.Items;
-        return items;
+        return requestState is "unpublished" or "published";
     }
 }
 
+//todo clean up this shit
 public class ValidatedShoppingList
 {
-    public List<string> ShoppingList { get; set; } = new List<string>();
+    public List<string> ShoppingList { get; set; }
 
-    public void Add(string item)
+    public ValidatedShoppingList(ShoppingListDto shoppingList)
     {
-        ShoppingList.Add(item);
+        ShoppingList = shoppingList.Items;
     }
 }
 
 public class ValidatedGroceryRequest
 {
     public User Client { get; set; }
-    public User Contractor { get; set; }
+    public User? Contractor { get; set; }
     public ValidatedShoppingList ShoppingList { get; set; }
-    public RatingState State { get; set; }
+    
+    public string PreferredStore { get; set; }
+    public GroceryRequestState State { get; set; }
 
-    public ValidatedGroceryRequest(User client, User contractor, ValidatedShoppingList shoppingList, RatingState state)
+    public ValidatedGroceryRequest(User client, ValidatedShoppingList shoppingList, string preferredStore,
+        GroceryRequestState state)
     {
         Client = client;
-        Contractor = contractor;
         ShoppingList = shoppingList;
+        PreferredStore = preferredStore;
         State = state;
     }
 }

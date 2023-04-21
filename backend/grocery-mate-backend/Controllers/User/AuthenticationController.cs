@@ -3,7 +3,7 @@ using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Authentication;
-using grocery_mate_backend.Sandbox;
+
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +43,7 @@ public class AuthenticationController : BaseController
 
         GmLogger.GetInstance()?.Trace(methodName, "successfully created");
 
-        userDto.Password = Symbols.Empty;
+        userDto.Password = string.Empty;
         return Created("", userDto);
     }
 

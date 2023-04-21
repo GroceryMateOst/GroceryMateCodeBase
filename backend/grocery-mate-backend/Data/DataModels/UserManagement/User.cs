@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using grocery_mate_backend.Models;
-using grocery_mate_backend.Sandbox;
+
 using Microsoft.AspNetCore.Identity;
 
 namespace grocery_mate_backend.Data.DataModels.UserManagement;
@@ -32,7 +32,7 @@ public class User
         FirstName = firstName;
         SecondName = secondName;
         EmailAddress = emailAddress;
-        Password = Symbols.Empty;
+        Password = string.Empty;
     }
 
     public User(Guid userId, string firstName, string secondName, string emailAddress, string password,
@@ -51,11 +51,11 @@ public class User
     public User()
     {
         UserId = Guid.Empty;
-        FirstName = Symbols.Empty;
-        SecondName = Symbols.Empty;
-        EmailAddress = Symbols.Empty;
-        Password = Symbols.Empty;
+        FirstName = string.Empty;
+        SecondName = string.Empty;
+        EmailAddress = string.Empty;
+        Password = string.Empty;
         Identity = new IdentityUser();
-        ResidencyDetails = Symbols.Empty;
+        ResidencyDetails = string.Empty;
     }
 }

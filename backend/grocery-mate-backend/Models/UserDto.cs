@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using grocery_mate_backend.Sandbox;
+
 
 namespace grocery_mate_backend.Models;
 
@@ -23,15 +23,15 @@ public class UserDto
         FirstName = firstName;
         SecondName = secondName;
         EmailAddress = emailAddress;
-        ResidencyDetails = Symbols.Empty;
+        ResidencyDetails = string.Empty;
     }
 
     public UserDto()
     {
-        FirstName = Symbols.Empty;
-        SecondName = Symbols.Empty;
-        EmailAddress = Symbols.Empty;
-        ResidencyDetails = Symbols.Empty;
+        FirstName = string.Empty;
+        SecondName = string.Empty;
+        EmailAddress = string.Empty;
+        ResidencyDetails = string.Empty;
     }
 }
 
@@ -51,8 +51,8 @@ public class CreateUserDto : UserDto
         Password = password;
     }
 
-    public CreateUserDto() : base(Symbols.Empty, Symbols.Empty, Symbols.Empty)
+    public CreateUserDto() : base(string.Empty, string.Empty, string.Empty)
     {
-        Password = Symbols.Empty;
+        Password = string.Empty;
     }
 }

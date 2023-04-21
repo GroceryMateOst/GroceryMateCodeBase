@@ -16,7 +16,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
     {
         _context = context;
     }
-
+//todo maybe delete this
     public Task<GroceryRequest?> FindGroceryRequest(string clientMail, string contractorMail)
     {
         try

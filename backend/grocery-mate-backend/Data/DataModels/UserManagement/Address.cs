@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using grocery_mate_backend.Models;
-using grocery_mate_backend.Sandbox;
+
 
 namespace grocery_mate_backend.Data.DataModels.UserManagement.Address;
 
@@ -29,11 +29,11 @@ public class Address
 
     public Address()
     {
-        Street = Symbols.Empty;
-        HouseNr = Symbols.Empty;
+        Street = string.Empty;
+        HouseNr = string.Empty;
         ZipCode = -1;
-        City = Symbols.Empty;
-        State = Symbols.Empty;
+        City = string.Empty;
+        State = string.Empty;
         Users = new List<User>();
     }
 }
