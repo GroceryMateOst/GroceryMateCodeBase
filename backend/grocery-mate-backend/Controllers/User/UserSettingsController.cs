@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
@@ -24,20 +25,30 @@ public class UserSettingsController : BaseController
 
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<UserDataDto>> GetUserSettings([FromQuery] UserDataRequestDto userMail)
+    public async Task<ActionResult<UserDataDto>> GetUserSettings()
     {
         const string methodName = "REST Get User-Settings";
-        if (!ModelState.IsValid)
+        
+        var identityUserNam = User.Identity.Name;
+        if (identityUserNam == null)
         {
-            GmLogger.GetInstance()?.Warn(methodName, "Invalid request model!");
-            return BadRequest("Invalid Request!");
+            GmLogger.GetInstance()?.Warn(methodName,"Couldn't find user by give JWT-Token");
+            return BadRequest("Couldn't authenticate user due bad credentials");
         }
-
-        var user = _unitOfWork.User.FindUserByMail(userMail.email).Result;
+        
+        var id = (await _unitOfWork.Authentication.FindIdentityUser(identityUserNam)).Id;
+        if (id == null)
+        {
+            GmLogger.GetInstance()?.Warn(methodName, "User with given identityId not found");
+            return BadRequest("User not found");
+        }
+        
+        var user = await _unitOfWork.User.FindUserByIdentityId(id);
+        
         if (user == null)
         {
-            GmLogger.GetInstance()?.Warn(methodName, "User with given eMail-Adr. not found");
-            return BadRequest("User with given eMail-Adr. not found");
+            GmLogger.GetInstance()?.Warn(methodName, "User with given identityId does not exist");
+            return BadRequest("User not found");
         }
 
         var address = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result ?? new Address();

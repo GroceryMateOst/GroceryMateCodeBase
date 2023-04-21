@@ -6,4 +6,5 @@ namespace grocery_mate_backend.Controllers.Repo.Settings;
 public interface IUserRepository : IGenericRepository<User>
 {
     Task<User?> FindUserByMail(string email);
+    Task<User?> FindUserByIdentityId(string id);
 }

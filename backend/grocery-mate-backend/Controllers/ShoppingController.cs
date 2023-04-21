@@ -19,15 +19,7 @@ public class ShoppingController : BaseController
     {
         _unitOfWork = unitOfWork;
     }
-
-    [HttpPost("createGroceryRequest")]
-    public async Task<OkResult> PostCreateGroceryRequest([FromQuery] Object any)
-    {
-        var test = any;
-        return Ok();
-    }
-
-
+    
     [HttpPost("groceryRequest")]
     public async Task<ActionResult<GroceryRequestDto>> PostGroceryRequest([FromQuery] GroceryRequestDto requestDto
     )
