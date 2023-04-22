@@ -10,10 +10,10 @@ public class UnitOfWork : IUnitOfWork, IDisposable
 {
     private readonly GroceryContext _context;
 
-    public IAuthenticationRepository Authentication { get; }
-    public IUserRepository User { get; }
-    public IShoppingRepository Shopping { get; }
-    public IAddressRepository Address { get; }
+    public override IAuthenticationRepository Authentication { get; }
+    public override IUserRepository User { get; }
+    public override IShoppingRepository Shopping { get; }
+    public override IAddressRepository Address { get; }
 
 
     public UnitOfWork(GroceryContext context, IConfiguration configuration, UserManager<IdentityUser> userManager)
@@ -25,12 +25,12 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         Authentication = new AuthenticationRepository(context, userManager, configuration);
     }
 
-    public async Task CompleteAsync()
+    public override async Task CompleteAsync()
     {
         await _context.SaveChangesAsync();
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
         _context.Dispose();
     }

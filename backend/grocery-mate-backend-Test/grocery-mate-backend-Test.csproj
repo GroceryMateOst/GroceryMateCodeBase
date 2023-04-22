@@ -39,7 +39,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Integration\Repo\Shopping\" />
+      <Folder Include="Integration\" />
     </ItemGroup>
 
 </Project>

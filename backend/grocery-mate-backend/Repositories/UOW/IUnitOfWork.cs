@@ -4,12 +4,12 @@ using grocery_mate_backend.Controllers.Repo.Shopping;
 
 namespace grocery_mate_backend.Controllers.Repo.UOW;
 
-public interface IUnitOfWork
+public abstract class IUnitOfWork
 {
-    IAuthenticationRepository Authentication { get; }
-    IUserRepository User { get; }
-    IShoppingRepository Shopping { get; }
-    IAddressRepository Address { get; }
-    Task CompleteAsync();
-    void Dispose();
+    public abstract IAuthenticationRepository Authentication { get; }
+    public abstract IUserRepository User { get; }
+    public abstract IShoppingRepository Shopping { get; }
+    public abstract IAddressRepository Address { get; }
+    public abstract Task CompleteAsync();
+    public abstract void Dispose();
 }

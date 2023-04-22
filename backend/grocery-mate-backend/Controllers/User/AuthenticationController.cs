@@ -3,7 +3,6 @@ using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Authentication;
-
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -57,8 +56,7 @@ public class AuthenticationController : BaseController
 
         var identityUser = _unitOfWork.Authentication.FindIdentityUser(requestDto.EmailAddress).Result;
         if (!UserValidation.ValidateUser(identityUser, methodName))
-            return
-                BadRequest("User with given eMail-Adr. not found");
+            return BadRequest("User with given eMail-Adr. not found");
 
         var passwordCheck = _unitOfWork.Authentication.CheckPassword(identityUser, requestDto.Password);
         if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
