@@ -7,7 +7,6 @@ import { setIsAuthenticated } from '../../redux/userSlice';
 
 const Header = () => {
 	const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
-
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
