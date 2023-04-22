@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { setIsLoading, setIsAuthenticated } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import UserService from '../services/user-service';
-import Spinner from '../components/LoadingSpinner';
+import Spinner from '../components/General/LoadingSpinner';
 
 interface LoginFormData {
 	email: string;

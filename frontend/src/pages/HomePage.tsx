@@ -1,4 +1,4 @@
-﻿import CreateRequestCard from '../components/CreateRequestCard';
+﻿import CreateRequestCard from '../components/General/CreateRequestCard';
 import GroceryListOverView from '../components/GroceryListOverView/GroceryListOverView';
 
 const HomePage = () => {

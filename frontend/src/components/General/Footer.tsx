@@ -1,4 +1,4 @@
-﻿import GroceryMateLogo from '../assets/GroceryMateLogo';
+﻿import GroceryMateLogo from '../../assets/GroceryMateLogo';
 
 const Footer = () => {
 	return (
