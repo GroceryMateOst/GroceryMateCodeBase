@@ -1,4 +1,3 @@
-using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Shopping;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.Shopping;
@@ -25,35 +24,29 @@ public class ShoppingController : BaseController
     {
         const string methodName = "POST Grocery-Request";
 
-        if (!ValidationBase.ValidateModelState(ModelState, methodName))
-            return BadRequest("Invalid Request!");
-
-        var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
-        if (user == null)
-        {
-            return BadRequest("User is not authenticated");
-        }
-
-        if (!GroceryValidation.ValidateRequestState(requestDto.RequestState) && 
-            !GroceryValidation.ValidateGroceryList(requestDto.GroceryList))
+        if (!ModelState.IsValid && !GroceryValidation.Validate(requestDto))
         {
             GmLogger.GetInstance()?.Warn(methodName, "GroceryRequestState is invalid");
-            return BadRequest("Invalid request");
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
+
+        var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
+        if (user == null) return BadRequest(ResponseErrorMessages.NotAuthorised);
+        
+        var groceryRequest = new GroceryRequest(
+            user, requestDto,
+            DateTime.Parse(requestDto.FromDate, null).ToUniversalTime(),
+            DateTime.Parse(requestDto.ToDate, null).ToUniversalTime());
         
         try
         {
-            var fromDate = DateTime.Parse(requestDto.FromDate, null).ToUniversalTime();
-            var toDate = DateTime.Parse(requestDto.ToDate, null).ToUniversalTime();
-            var groceryRequest = new GroceryRequest(user, requestDto, fromDate, toDate);
-
             await _unitOfWork.Shopping.Add(groceryRequest, user);
             await _unitOfWork.CompleteAsync();
         }
         catch (Exception e)
         {
             GmLogger.GetInstance()?.Trace(methodName, e.Message);
-            return BadRequest("Something went wrong! Pls. try again");
+            return BadRequest(ResponseErrorMessages.NotSaved);
         }
 
         GmLogger.GetInstance()?.Trace(methodName, "Grocery-Request successfully saved");
@@ -63,20 +56,32 @@ public class ShoppingController : BaseController
     [HttpGet("groceryRequest")]
     public async Task<ActionResult<GroceryResponseDto>> GetAllGroceryRequest()
     {
-        const string methodName = "POST Grocery-Request";
+        const string methodName = "GET Grocery-Request";
 
-        if (!ValidationBase.ValidateModelState(ModelState, methodName))
-            return BadRequest("Invalid Request!");
+        if (!ModelState.IsValid)
+        {
+            GmLogger.GetInstance()?.Warn(methodName, "Invalid ModelState due to bad credentials");
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
+        }
 
-        var groceryRequests = await _unitOfWork.Shopping.GetAllGroceryRequests();
-
+        List<GroceryRequest> groceryRequests;
+        try
+        {
+            groceryRequests = await _unitOfWork.Shopping.GetAllGroceryRequests();
+        }
+        catch (Exception e)
+        {
+            GmLogger.GetInstance()?.Trace(methodName, e.Message);
+            return BadRequest(ResponseErrorMessages.NotFound);
+        }
+            
         var requests = new List<GroceryResponseDto>();
         foreach (var groceryRequest in groceryRequests)
         {
             var address = await _unitOfWork.Address.FindAddressByGuid(groceryRequest.Client.AddressId);
             requests.Add(new GroceryResponseDto(groceryRequest, address));
         }
-
+        GmLogger.GetInstance()?.Trace(methodName, "Grocery-Response successfully mapped");
         return Ok(requests);
     }
 }

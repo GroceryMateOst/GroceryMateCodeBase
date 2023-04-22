@@ -33,7 +33,7 @@ public class UserSettingsController : BaseController
         if (user == null)
         {
             GmLogger.GetInstance()?.Warn(methodName, "User with given identityId does not exist");
-            return BadRequest("User not found");
+            return BadRequest(ResponseErrorMessages.SettingsError);
         }
 
         var address = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result ?? new Address();
@@ -47,13 +47,13 @@ public class UserSettingsController : BaseController
         const string methodName = "REST Set User-Settings";
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
-            return BadRequest("Invalid Request!");
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
         {
             GmLogger.GetInstance()?.Warn(methodName, "User with given identityId does not exist");
-            return BadRequest("User not found");
+            return BadRequest(ResponseErrorMessages.NotAuthorised);
         }
         
         var newAddress = await _unitOfWork.Address.FindOrCreateUserAddress(requestDto.Address);

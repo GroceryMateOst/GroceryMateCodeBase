@@ -45,13 +45,12 @@ public class GroceryRequest
         ToDate = DateTime.MinValue;
         Note = string.Empty;
         PreferredStore = string.Empty;
-        State = GroceryRequestState.Unpublished;
+        State = GroceryRequestState.Published;
     }
 }
 
 public enum GroceryRequestState
 {
-    [Description("unpublished")] Unpublished,
     [Description("published")] Published,
     [Description("accepted")] Accepted,
     [Description("fulfilled")] Fulfilled

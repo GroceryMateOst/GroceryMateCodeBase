@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace grocery_mate_backend.Models.Shopping;
 
 public class GroceryRequestDto
@@ -10,7 +8,7 @@ public class GroceryRequestDto
     public string FromDate { get; set; }
     public string ToDate { get; set; }
     public string Note { get; set; }
-
+    
     public GroceryRequestDto()
     {
         GroceryList = new List<ShoppingListDto>();

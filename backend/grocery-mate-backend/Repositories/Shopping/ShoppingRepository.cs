@@ -20,7 +20,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
         return Task.FromResult(_context.GroceryRequests
             .Where(req => req.State == GroceryRequestState.Published)
             .Include(request => request.Client)
-            .Include(request => request.ShoppingList!.Items)
+            .Include(request => request.ShoppingList.Items)
             .OrderBy(request => request.ToDate)
             .Take(10)
             .ToList());

@@ -1,4 +1,3 @@
-using grocery_mate_backend.BusinessLogic.Validation.Shopping;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Utility.Log;

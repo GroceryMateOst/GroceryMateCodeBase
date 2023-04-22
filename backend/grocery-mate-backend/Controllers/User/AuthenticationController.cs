@@ -28,13 +28,13 @@ public class AuthenticationController : BaseController
         var userDm = new User(userDto);
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
-            return BadRequest("Invalid Request!");
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var identityUser = new IdentityUser() {UserName = userDm.EmailAddress, Email = userDm.EmailAddress};
         var result = _unitOfWork.Authentication.SaveNewIdentityUser(identityUser, userDm).Result;
 
         if (!AuthenticationValidation.ValidateIdentityUserCreation(result, methodName))
-            return BadRequest("Invalid User-details");
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         userDm.Identity = identityUser;
         await _unitOfWork.Authentication.Add(userDm);
@@ -52,15 +52,15 @@ public class AuthenticationController : BaseController
         const string methodName = "REST Log-In";
 
         if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
-            return BadRequest("Invalid Request!");
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var identityUser = _unitOfWork.Authentication.FindIdentityUser(requestDto.EmailAddress).Result;
         if (!UserValidation.ValidateUser(identityUser, methodName))
-            return BadRequest("User with given eMail-Adr. not found");
+            return BadRequest(ResponseErrorMessages.InvalidLogin);
 
         var passwordCheck = _unitOfWork.Authentication.CheckPassword(identityUser, requestDto.Password);
         if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
-            return BadRequest("Invalid Username or Password");
+            return BadRequest(ResponseErrorMessages.InvalidLogin);
 
         var token = _unitOfWork.Authentication.CreateToken(identityUser);
         GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");
