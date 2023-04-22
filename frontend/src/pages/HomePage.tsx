@@ -1,4 +1,6 @@
-﻿const HomePage = () => {
+﻿import CreateRequestCard from '../components/CreateRequestCard';
+
+const HomePage = () => {
 	return (
 		<div className="px-6">
 			<h2>Um Was geht es?</h2>
@@ -11,6 +13,9 @@
 				eligendi sunt praesentium assumenda odit iure laudantium, rem corporis
 				vero blanditiis at, quo corrupti temporibus molestiae?
 			</p>
+			<div className="mt-16 flex justify-center">
+				<CreateRequestCard></CreateRequestCard>
+			</div>
 		</div>
 	);
 };

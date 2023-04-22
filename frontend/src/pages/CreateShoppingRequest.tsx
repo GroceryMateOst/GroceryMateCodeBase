@@ -3,17 +3,14 @@ import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import {
 	GroceryRequestModel,
-	ShoppingList,
 	ShoppingItem,
 } from '../models/GroceryRequestModel';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import {
-	addCurrentShopping,
-	changeCurrentShoppingItems,
-} from '../redux/shoppingSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { changeCurrentShoppingItems } from '../redux/shoppingSlice';
+import { useNavigate } from 'react-router-dom';
 import ShoppingService from '../services/shopping-service';
 import { setIsLoading } from '../redux/userSlice';
+import { useEffect } from 'react';
 
 const { RangePicker } = DatePicker;
 
@@ -31,6 +28,16 @@ const CreateShoppingRequest = () => {
 	const currentShopping: GroceryRequestModel = useAppSelector(
 		(state) => state.shopping.currentShopping
 	);
+
+	const isAuthenticated: boolean = useAppSelector(
+		(state) => state.user.isAuthenticated
+	);
+
+	/*useEffect(() => {
+		if (!isAuthenticated) {
+			navigate('/login');
+		}
+	}); */
 
 	const removeShoppingItem = (index: number) => {
 		const newItems = [...currentShopping.groceryList];

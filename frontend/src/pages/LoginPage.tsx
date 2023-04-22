@@ -96,7 +96,7 @@ const LoginPage = () => {
 					</Button>
 				</Form.Item>
 				<Form.Item {...tailFormItemLayout}>
-					Or <Link to="/register">register now</Link>
+					Oder <Link to="/register">registrie dich</Link> jetzt
 				</Form.Item>
 			</Form>
 			{isLoading && (

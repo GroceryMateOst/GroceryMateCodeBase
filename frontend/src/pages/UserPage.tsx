@@ -5,21 +5,25 @@ import UserService from '../services/user-service';
 import { useEffect } from 'react';
 import { setIsLoading } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useNavigate } from 'react-router-dom';
 
 const UserPage = () => {
 	const [form] = Form.useForm<UserModelComplete>();
 	const dispatch = useAppDispatch();
-	const isLoading = useAppSelector((state) => state.user.isLoading);
+	const navigate = useNavigate();
 
-	const getUser = async (userService: UserService, email: string) => {
+	const isLoading = useAppSelector((state) => state.user.isLoading);
+	const isAuthenticated: boolean = useAppSelector(
+		(state) => state.user.isAuthenticated
+	);
+
+	const getUser = async (userService: UserService) => {
 		dispatch(setIsLoading(true));
 		try {
-			const response = await userService.getUserSettings(email);
+			const response = await userService.getUserSettings();
 			form.setFieldsValue({
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-				...response.user,
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-				...response.address,
+				...response?.user,
+				...response?.address,
 			});
 		} finally {
 			dispatch(setIsLoading(false));
@@ -27,12 +31,15 @@ const UserPage = () => {
 	};
 
 	useEffect(() => {
-		const email = localStorage.getItem('userEmail');
-		if (email) {
-			const userService = new UserService();
-			// eslint-disable-next-line @typescript-eslint/no-floating-promises
-			getUser(userService, email);
+		if (!isAuthenticated) {
+			navigate('/login');
 		}
+	});
+
+	useEffect(() => {
+		const userService = new UserService();
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
+		getUser(userService);
 	}, []);
 
 	const handleSubmit = async (userSettings: UserModelComplete) => {
