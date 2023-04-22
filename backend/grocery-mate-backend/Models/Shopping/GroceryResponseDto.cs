@@ -16,12 +16,9 @@ public class GroceryResponseDto
     {
         FirstName = groceryRequest.Client.FirstName;
         City = address != null ? address.City : "";
-
-        ShoppingList = groceryRequest.ShoppingList != null ? groceryRequest.ShoppingList.Items
+        ShoppingList = groceryRequest.ShoppingList.Items
             .Select(item => new ShoppingListDto(item.Grocery))
-            .ToList() 
-            : new List<ShoppingListDto>();
-
+            .ToList();
         FromDate = groceryRequest.FromDate;
         ToDate = groceryRequest.ToDate;
         PreferredStore = groceryRequest.PreferredStore;

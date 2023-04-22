@@ -2,8 +2,11 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\MarcKissling\.nuget\packages\microsoft.entityframeworkcore.inmemory\6.0.0\lib\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dd359bd0_002Dd410_002D4549_002Dbcec_002De28926185ca7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UserServiceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\application_projects\GroceryMate\Test\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
+	<s:Boolean x:Key="/Default/Environment/Highlighting/HighlightingEnabled/@EntryValue">False</s:Boolean>
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingMode/@EntryValue">OnlyFullLine</s:String>
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dd359bd0_002Dd410_002D4549_002Dbcec_002De28926185ca7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UserServiceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;ProjectFolder&gt;F0670888-82A6-439C-B717-5AE543308B40/d:Unit/d:BusinesLogic&lt;/ProjectFolder&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	
@@ -16,10 +19,8 @@
     &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::ValidationBaseTests.ValidateAddress_EmptyGuidAddress_ReturnsFalseAndLogsWarning&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f2ff0c1c_002D9f25_002D47f1_002D96ad_002Db3ccc67f0f61/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAuthenticatedUser_WithUnknownIdentityId_ReturnsNull" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.Service.UserServiceTests.GetAuthenticatedUser_WithValidIdentityName_ReturnsUser&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f2ff0c1c_002D9f25_002D47f1_002D96ad_002Db3ccc67f0f61/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAuthenticatedUser_WithUnknownIdentityId_ReturnsNull" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;ProjectFolder&gt;F0670888-82A6-439C-B717-5AE543308B40/d:Unit&lt;/ProjectFolder&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	

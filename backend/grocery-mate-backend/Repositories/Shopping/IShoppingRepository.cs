@@ -6,7 +6,6 @@ namespace grocery_mate_backend.Controllers.Repo.Shopping;
 
 public interface IShoppingRepository : IGenericRepository<GroceryRequest>
 {
-    Task<GroceryRequest?> FindGroceryRequest(string clientMail, string contractorMail);
     Task<List<GroceryRequest>> GetAllGroceryRequests();
     Task<bool> Add(GroceryRequest entity, User user);
 }

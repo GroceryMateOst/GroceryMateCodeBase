@@ -1,7 +1,5 @@
-using System.Globalization;
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Shopping;
-using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
@@ -36,12 +34,13 @@ public class ShoppingController : BaseController
             return BadRequest("User is not authenticated");
         }
 
-        if (!GroceryValidation.ValidateRequestState(requestDto.RequestState))
+        if (!GroceryValidation.ValidateRequestState(requestDto.RequestState) && 
+            !GroceryValidation.ValidateGroceryList(requestDto.GroceryList))
         {
             GmLogger.GetInstance()?.Warn(methodName, "GroceryRequestState is invalid");
             return BadRequest("Invalid request");
         }
-
+        
         try
         {
             var fromDate = DateTime.Parse(requestDto.FromDate, null).ToUniversalTime();
@@ -70,7 +69,7 @@ public class ShoppingController : BaseController
             return BadRequest("Invalid Request!");
 
         var groceryRequests = await _unitOfWork.Shopping.GetAllGroceryRequests();
-        
+
         var requests = new List<GroceryResponseDto>();
         foreach (var groceryRequest in groceryRequests)
         {
