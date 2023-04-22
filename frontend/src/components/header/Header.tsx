@@ -12,7 +12,9 @@ const Header = () => {
 
 	useEffect(() => {
 		const token = localStorage.getItem('bearerTokenGroceryMate');
+		console.log(token);
 		if (token != '' && token != null) {
+			console.log('settings is authenticated');
 			dispatch(setIsAuthenticated(true));
 		}
 	}, []);

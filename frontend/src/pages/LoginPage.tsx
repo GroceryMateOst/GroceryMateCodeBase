@@ -26,7 +26,6 @@ const LoginPage = () => {
 				password: values.password,
 			});
 			localStorage.setItem('bearerTokenGroceryMate', response.token);
-			localStorage.setItem('userEmail', values.email);
 			dispatch(setIsAuthenticated(true));
 			navigate('/');
 		} finally {

@@ -10,7 +10,6 @@ import { changeCurrentShoppingItems } from '../redux/shoppingSlice';
 import { useNavigate } from 'react-router-dom';
 import ShoppingService from '../services/shopping-service';
 import { setIsLoading } from '../redux/userSlice';
-import { useEffect } from 'react';
 
 const { RangePicker } = DatePicker;
 
@@ -28,16 +27,6 @@ const CreateShoppingRequest = () => {
 	const currentShopping: GroceryRequestModel = useAppSelector(
 		(state) => state.shopping.currentShopping
 	);
-
-	const isAuthenticated: boolean = useAppSelector(
-		(state) => state.user.isAuthenticated
-	);
-
-	/*useEffect(() => {
-		if (!isAuthenticated) {
-			navigate('/login');
-		}
-	}); */
 
 	const removeShoppingItem = (index: number) => {
 		const newItems = [...currentShopping.groceryList];
@@ -71,6 +60,7 @@ const CreateShoppingRequest = () => {
 			await shoppingService.createShopping(body);
 		} finally {
 			dispatch(setIsLoading(false));
+			navigate('/');
 		}
 	};
 
@@ -107,7 +97,7 @@ const CreateShoppingRequest = () => {
 					</p>
 					{currentShopping.groceryList.map(
 						(option: ShoppingItem, index: number) => (
-							<div key={index} className="flex items-center mb-2">
+							<div key={index} className="flex items-center mb-2 shoppingItems">
 								<Input
 									value={option.description}
 									onChange={(event) =>

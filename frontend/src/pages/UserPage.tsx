@@ -13,9 +13,6 @@ const UserPage = () => {
 	const navigate = useNavigate();
 
 	const isLoading = useAppSelector((state) => state.user.isLoading);
-	const isAuthenticated: boolean = useAppSelector(
-		(state) => state.user.isAuthenticated
-	);
 
 	const getUser = async (userService: UserService) => {
 		dispatch(setIsLoading(true));
@@ -29,12 +26,6 @@ const UserPage = () => {
 			dispatch(setIsLoading(false));
 		}
 	};
-
-	useEffect(() => {
-		if (!isAuthenticated) {
-			navigate('/login');
-		}
-	});
 
 	useEffect(() => {
 		const userService = new UserService();
