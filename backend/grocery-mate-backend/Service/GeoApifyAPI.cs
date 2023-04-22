@@ -1,4 +1,5 @@
 using System.Web;
+using GeoJSON.Net.Feature;
 using Newtonsoft.Json;
 
 namespace grocery_mate_backend.Service;
@@ -15,29 +16,26 @@ public static class GeoApifyApi
         string state,
         string apiKey)
     {
-        using (HttpClient client = new())
+        using HttpClient client = new();
+        var resp = await client.GetAsync(BaseUrl + $"?housenumber={HttpUtility.UrlEncode(houseNr)}&" +
+                                         $"street={HttpUtility.UrlEncode(street)}&" +
+                                         $"postcode={postcode}&" +
+                                         $"city={HttpUtility.UrlEncode(city)}&" +
+                                         $"state={HttpUtility.UrlEncode(state)}&" +
+                                         "country=Switzerland&" +
+                                         "bias=countrycode:de,at,ch&" +
+                                         "format=geojson&" +
+                                         $"apiKey={apiKey}");
+        resp.EnsureSuccessStatusCode();
+
+        var geoFeatures = JsonConvert.DeserializeObject<FeatureCollection>(await resp.Content.ReadAsStringAsync());
+        var geoFeature = geoFeatures?.Features.FirstOrDefault();
+        if (geoFeature == null)
         {
-            var response = await client.GetAsync(BaseUrl + $"?housenumber={HttpUtility.UrlEncode(houseNr)}&" +
-                                                 $"street={HttpUtility.UrlEncode(street)}&" +
-                                                 $"postcode={postcode}&" +
-                                                 $"city={HttpUtility.UrlEncode(city)}&" +
-                                                 $"state={HttpUtility.UrlEncode(state)}&" +
-                                                 "country=Switzerland&" +
-                                                 "bias=countrycode:de,at,ch&" +
-                                                 "format=json&" +
-                                                 $"apiKey={apiKey}");
-
-            if (!response.IsSuccessStatusCode)
-            {
-                return (0, 0); //todo probably not the best solution
-            }
-
-            var addressData = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
-
-            var lon = Convert.ToDouble(addressData?.results[0].lon);
-            var lat = Convert.ToDouble(addressData?.results[0].lat);
-
-            return (lon, lat);
+            throw new InvalidOperationException("No location found matching given data"); 
         }
+
+        var properties = geoFeature.Properties;
+        return (Convert.ToDouble(properties["lon"]), Convert.ToDouble(properties["lat"]));
     }
 }
