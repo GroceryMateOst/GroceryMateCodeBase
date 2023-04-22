@@ -30,7 +30,7 @@ function App() {
 						theme="light"
 					/>
 					<Header />
-					<div id="content" className="mt-12">
+					<div id="content" className="mt-2">
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/register" element={<RegistrationPage />} />

@@ -1,5 +1,8 @@
 import { AxiosBaseService } from './axios-base.service';
-import { GroceryRequestModel } from '../models/GroceryRequestModel';
+import {
+	GroceryRequestModel,
+	GroceryRequestResponseModel,
+} from '../models/GroceryRequestModel';
 
 export default class ShoppingService extends AxiosBaseService {
 	constructor() {
@@ -7,25 +10,15 @@ export default class ShoppingService extends AxiosBaseService {
 	}
 
 	public async createShopping(body: GroceryRequestModel): Promise<void> {
-		console.log(body);
 		return this.instance
 			.post<GroceryRequestModel>('/groceryRequest', body)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
 
-	public async getAllShoppings(): Promise<GroceryRequestModel[]> {
+	public async getAllShoppings(): Promise<GroceryRequestResponseModel[]> {
 		return this.instance
-			.get('')
-			.then(this.responseBody)
-			.catch(this.errorHandling);
-	}
-
-	public async getShoppingByUser(
-		userId: string
-	): Promise<GroceryRequestModel[]> {
-		return this.instance
-			.get(`?userid=${userId}`)
+			.get('groceryRequest')
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}

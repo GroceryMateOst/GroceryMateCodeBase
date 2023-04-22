@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 const UserPage = () => {
 	const [form] = Form.useForm<UserModelComplete>();
 	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
 
 	const isLoading = useAppSelector((state) => state.user.isLoading);
 

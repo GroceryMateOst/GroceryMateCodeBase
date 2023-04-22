@@ -1,18 +1,17 @@
-import { Card } from 'antd';
 import { Link } from 'react-router-dom';
 
 const CreateRequestCard = () => {
 	return (
-		<Card
-			title="Brauchst du Unterstützung bei einem Einkauf?"
-			extra={<Link to="/create">Klicke hier</Link>}
-			style={{ width: 500 }}
-		>
+		<div>
+			<h2>Brauchst du Unterstützung bei einem Einkauf?</h2>
 			<p>
 				Veröffentliche mit wenigen Klicks deine Einkaufsanfrage and profitiere
 				von unseren freiwilligen Helfern
 			</p>
-		</Card>
+			<button className="p-4 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95">
+				<Link to="/create">Klicke hier</Link>
+			</button>
+		</div>
 	);
 };
 

@@ -2,9 +2,8 @@
 
 const Footer = () => {
 	return (
-		<div className="bg-gray-500 self p-6 mt-auto">
+		<div className="bg-[#D9D9D9] self py-6 px-20 mt-auto">
 			<GroceryMateLogo />
-			<p>{import.meta.env.VITE_SERVER_BASE_URL}</p>
 		</div>
 	);
 };

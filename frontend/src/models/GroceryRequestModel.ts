@@ -7,8 +7,13 @@ export interface GroceryRequestModel {
 	groceryList: ShoppingItem[];
 }
 
-export interface ShoppingList {
-	items: ShoppingItem[];
+export interface GroceryRequestResponseModel {
+	firstName: string;
+	city: string;
+	shoppingList: ShoppingItem[];
+	fromDate: string;
+	toDate: string;
+	preferredStore: string;
 }
 
 export interface ShoppingItem {
