@@ -52,7 +52,7 @@ public class AddressRepository : GenericRepository<Address>, IAddressRepository
                 addressDto.City,
                 addressDto.ZipCode,
                 addressDto.State,
-                _configuration["GeoApify:Key"] ?? throw new ArgumentNullException());
+                _configuration["GeoApify:Key"] ?? throw new InvalidOperationException("Env variable not found"));
 
             address.Longitude = coordinates.lon;
             address.Latitude = coordinates.lat;

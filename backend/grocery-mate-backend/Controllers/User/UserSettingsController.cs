@@ -55,8 +55,18 @@ public class UserSettingsController : BaseController
             GmLogger.GetInstance()?.Warn(methodName, "User with given identityId does not exist");
             return BadRequest(ResponseErrorMessages.NotAuthorised);
         }
+
+        Address? newAddress;
+        try
+        {
+            newAddress = await _unitOfWork.Address.FindOrCreateUserAddress(requestDto.Address);
+        }
+        catch (Exception e)
+        {
+            GmLogger.GetInstance()?.Warn(methodName, e.Message);
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
+        }
         
-        var newAddress = await _unitOfWork.Address.FindOrCreateUserAddress(requestDto.Address);
         var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result;
         if (!ValidationBase.ValidateAddress(oldAddress, methodName))
             await _unitOfWork.Address.RemoveAddress(oldAddress, user);
