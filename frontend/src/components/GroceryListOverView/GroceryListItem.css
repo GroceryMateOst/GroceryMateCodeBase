@@ -1,0 +1,8 @@
+﻿.grocerListItem .ant-collapse-content-box {
+	background-color: #d9d9d9;
+}
+
+.grocerListItem .ant-collapse-header-text,
+.grocerListItem .ant-collapse-expand-icon {
+	color: #8fb69c;
+}

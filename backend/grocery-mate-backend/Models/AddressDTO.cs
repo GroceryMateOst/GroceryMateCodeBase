@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using grocery_mate_backend.Sandbox;
+
 
 namespace grocery_mate_backend.Models;
 
@@ -34,11 +34,11 @@ public class AddressDto
 
     public AddressDto()
     {
-        Street = Symbols.Empty;
-        HouseNr = Symbols.Empty;
+        Street = string.Empty;
+        HouseNr = string.Empty;
         ZipCode = -1;
-        City = Symbols.Empty;
-        State = Symbols.Empty;
+        City = string.Empty;
+        State = string.Empty;
     }
 }
 

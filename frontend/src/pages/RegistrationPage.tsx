@@ -4,7 +4,7 @@ import { Button, Form, Input } from 'antd';
 import { UserModel } from '../models/UserModel';
 import UserService from '../services/user-service';
 import { setIsLoading, setIsAuthenticated } from '../redux/userSlice';
-import Spinner from '../components/LoadingSpinner';
+import Spinner from '../components/General/LoadingSpinner';
 
 interface RegisterFormData {
 	email: string;

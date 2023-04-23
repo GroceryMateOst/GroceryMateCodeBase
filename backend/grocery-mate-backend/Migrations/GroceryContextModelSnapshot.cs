@@ -152,41 +152,28 @@ namespace grocery_mate_backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Shopping.Grocery", b =>
-                {
-                    b.Property<Guid>("GroceryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Category")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Size")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Unit")
-                        .HasColumnType("integer");
-
-                    b.HasKey("GroceryId");
-
-                    b.ToTable("Grocery");
-                });
-
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Shopping.GroceryRequest", b =>
                 {
                     b.Property<Guid>("GroceryRequestId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ClientUserId")
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("GroceryRequestsClients")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ContractorUserId")
+                    b.Property<Guid?>("GroceryRequestsContractors")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PreferredStore")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<Guid?>("RatingId")
                         .HasColumnType("uuid");
@@ -197,11 +184,14 @@ namespace grocery_mate_backend.Migrations
                     b.Property<int>("State")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("GroceryRequestId");
 
-                    b.HasIndex("ClientUserId");
+                    b.HasIndex("GroceryRequestsClients");
 
-                    b.HasIndex("ContractorUserId");
+                    b.HasIndex("GroceryRequestsContractors");
 
                     b.HasIndex("RatingId");
 
@@ -215,13 +205,6 @@ namespace grocery_mate_backend.Migrations
                     b.Property<Guid>("ShoppingListId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("Note")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PreferredStore")
-                        .HasColumnType("integer");
 
                     b.HasKey("ShoppingListId");
 
@@ -237,8 +220,9 @@ namespace grocery_mate_backend.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("GroceryId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Grocery")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Note")
                         .IsRequired()
@@ -251,9 +235,11 @@ namespace grocery_mate_backend.Migrations
                     b.Property<Guid?>("ShoppingListId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("ShoppingListItemId");
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.HasIndex("GroceryId");
+                    b.HasKey("ShoppingListItemId");
 
                     b.HasIndex("ShoppingListId");
 
@@ -384,16 +370,14 @@ namespace grocery_mate_backend.Migrations
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Shopping.GroceryRequest", b =>
                 {
                     b.HasOne("grocery_mate_backend.Data.DataModels.UserManagement.User", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientUserId")
+                        .WithMany("GroceryRequestsClients")
+                        .HasForeignKey("GroceryRequestsClients")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("grocery_mate_backend.Data.DataModels.UserManagement.User", "Contractor")
-                        .WithMany()
-                        .HasForeignKey("ContractorUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("GroceryRequestsContractor")
+                        .HasForeignKey("GroceryRequestsContractors");
 
                     b.HasOne("grocery_mate_backend.Data.DataModels.UserManagement.Rating", "Rating")
                         .WithMany()
@@ -416,17 +400,9 @@ namespace grocery_mate_backend.Migrations
 
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Shopping.ShoppingListItem", b =>
                 {
-                    b.HasOne("grocery_mate_backend.Data.DataModels.Shopping.Grocery", "Grocery")
-                        .WithMany()
-                        .HasForeignKey("GroceryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("grocery_mate_backend.Data.DataModels.Shopping.ShoppingList", null)
                         .WithMany("Items")
                         .HasForeignKey("ShoppingListId");
-
-                    b.Navigation("Grocery");
                 });
 
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.UserManagement.Rating", b =>
@@ -459,6 +435,13 @@ namespace grocery_mate_backend.Migrations
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.UserManagement.Address.Address", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.UserManagement.User", b =>
+                {
+                    b.Navigation("GroceryRequestsClients");
+
+                    b.Navigation("GroceryRequestsContractor");
                 });
 #pragma warning restore 612, 618
         }

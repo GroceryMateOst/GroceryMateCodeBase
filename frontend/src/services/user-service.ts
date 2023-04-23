@@ -33,11 +33,12 @@ export default class UserService extends AxiosBaseService {
 		localStorage.removeItem('userEmail');
 	}
 
-	public async getUserSettings(
-		email: string
-	): Promise<{ user: UserModel; address: Address; email: string }> {
+	public async getUserSettings(): Promise<{
+		user: UserModel;
+		address: Address;
+	}> {
 		return this.instance
-			.get(`Settings?email=${email}`)
+			.get(`Settings`)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}

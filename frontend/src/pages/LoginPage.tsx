@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { setIsLoading, setIsAuthenticated } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import UserService from '../services/user-service';
-import Spinner from '../components/LoadingSpinner';
+import Spinner from '../components/General/LoadingSpinner';
 
 interface LoginFormData {
 	email: string;
@@ -26,7 +26,6 @@ const LoginPage = () => {
 				password: values.password,
 			});
 			localStorage.setItem('bearerTokenGroceryMate', response.token);
-			localStorage.setItem('userEmail', values.email);
 			dispatch(setIsAuthenticated(true));
 			navigate('/');
 		} finally {
@@ -96,7 +95,7 @@ const LoginPage = () => {
 					</Button>
 				</Form.Item>
 				<Form.Item {...tailFormItemLayout}>
-					Or <Link to="/register">register now</Link>
+					Oder <Link to="/register">registrie dich</Link> jetzt
 				</Form.Item>
 			</Form>
 			{isLoading && (

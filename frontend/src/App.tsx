@@ -7,8 +7,9 @@ import Header from './components/header/Header';
 import HomePage from './pages/HomePage';
 import Error404Page from './pages/Error404Page';
 import UserPage from './pages/UserPage';
-import Footer from './components/Footer';
+import Footer from './components/General/Footer';
 import LoginPage from './pages/LoginPage';
+import CreateShoppingRequest from './pages/CreateShoppingRequest';
 import { ToastContainer } from 'react-toastify';
 
 function App() {
@@ -29,12 +30,13 @@ function App() {
 						theme="light"
 					/>
 					<Header />
-					<div id="content">
+					<div id="content" className="mt-2">
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/register" element={<RegistrationPage />} />
 							<Route path="/login" element={<LoginPage />} />
 							<Route path="/profile" element={<UserPage />} />
+							<Route path="/create" element={<CreateShoppingRequest />} />
 							<Route path="*" element={<Error404Page />} />
 						</Routes>
 					</div>

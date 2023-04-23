@@ -17,7 +17,7 @@ jobs:
           distribution: 'zulu' # Alternative distribution options are available.
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -42,7 +42,7 @@ jobs:
         run: dotnet tool install --global JetBrains.dotCover.GlobalTool
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACKEND }}
         shell: powershell
         run: |
@@ -52,17 +52,3 @@ jobs:
           dotnet dotcover test --dcXml="coverage.xml"
           cd ..
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN_BACKEND }}"
-  sonarcloud:
-    name: SonarCloud_Frontend
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONTEND }}
-        with:
-          projectBaseDir: frontend/
