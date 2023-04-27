@@ -23,7 +23,7 @@ public static class GeoApifyApi
                                          $"city={HttpUtility.UrlEncode(city)}&" +
                                          $"state={HttpUtility.UrlEncode(state)}&" +
                                          "country=Switzerland&" +
-                                         "bias=countrycode:de,at,ch&" +
+                                         "bias=countrycode:de,at,   ch&" +
                                          "format=geojson&" +
                                          $"apiKey={apiKey}");
         resp.EnsureSuccessStatusCode();
@@ -37,5 +37,29 @@ public static class GeoApifyApi
 
         var properties = geoFeature.Properties;
         return (Convert.ToDouble(properties["lon"]), Convert.ToDouble(properties["lat"]));
+    }
+    
+    public static async Task<string> GetCityName(int zipCode, string apiKey)
+    {
+        using HttpClient client = new();
+
+        var resp = await client.GetAsync(BaseUrl + 
+                                         $"postcode={zipCode}&" +
+                                         $"country=Switzerland" +
+                                         $"&filter=countrycode:de,at,ch" +
+                                         $"&bias=countrycode:de,at,ch" +
+                                         $"&format=geojson" + 
+                                         $"&apiKey={apiKey}");
+        resp.EnsureSuccessStatusCode();
+
+        var geoFeatures = JsonConvert.DeserializeObject<FeatureCollection>(await resp.Content.ReadAsStringAsync());
+        var geoFeature = geoFeatures?.Features.FirstOrDefault();
+        if (geoFeature == null)
+        {
+            throw new InvalidOperationException("No location found matching given data"); 
+        }
+
+        var properties = geoFeature.Properties;
+        return Convert.ToString(properties["name"]) ?? string.Empty;
     }
 }
