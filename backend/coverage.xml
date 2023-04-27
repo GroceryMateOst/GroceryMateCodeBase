@@ -8,9 +8,21 @@
 
     <!-- Remove specified files from report. Ant-style patterns are supported here.-->
     <ExcludeFileMasks>
-      <Mask>*/Models/*</Mask>
-      <Mask>*/Migrations/*</Mask>
-      <Mask>*/Data/*</Mask>
+      <Mask>**/Models/**</Mask>
+      <Mask>**/Authentication/**</Mask>
+      <Mask>**/Generic/**</Mask>
+      <Mask>**/Settings/**</Mask>
+      <Mask>**/Configs/**</Mask>
+      <Mask>**/Shopping/**</Mask>
+      <Mask>**/UOW/**</Mask>
+      <Mask>**/Migrations/**</Mask>
+      <Mask>**/Data/**</Mask>
+      <Mask>**/Controllers/**</Mask>
+      <Mask>**/Utility/**</Mask>
+      <Mask>**/Repositories/**</Mask>
+      <Mask>**/Properties/**</Mask>
+      <Mask>**/Program.cs</Mask>
+      <Mask>**/GeoApifyAPI.cs</Mask>
     </ExcludeFileMasks>
     
 
