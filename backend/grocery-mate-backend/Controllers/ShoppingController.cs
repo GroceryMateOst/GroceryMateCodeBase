@@ -29,7 +29,7 @@ public class ShoppingController : BaseController
         if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist) &&
             !GroceryValidation.Validate(requestDto))
         {
-            GmLogger.GetInstance()?.Warn(methodName, "GroceryRequestState is invalid");
+            GmLogger.Instance.Warn(methodName, "GroceryRequestState is invalid");
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
 
@@ -48,11 +48,11 @@ public class ShoppingController : BaseController
         }
         catch (Exception e)
         {
-            GmLogger.GetInstance()?.Trace(methodName, e.Message);
+            GmLogger.Instance.Trace(methodName, e.Message);
             return BadRequest(ResponseErrorMessages.NotSaved);
         }
 
-        GmLogger.GetInstance()?.Trace(methodName, "Grocery-Request successfully saved");
+        GmLogger.Instance.Trace(methodName, "Grocery-Request successfully saved");
         return Ok();
     }
 
@@ -63,7 +63,7 @@ public class ShoppingController : BaseController
 
         if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
         {
-            GmLogger.GetInstance()?.Warn(methodName, "Invalid ModelState due to bad credentials");
+            GmLogger.Instance.Warn(methodName, "Invalid ModelState due to bad credentials");
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
 
@@ -74,7 +74,7 @@ public class ShoppingController : BaseController
         }
         catch (Exception e)
         {
-            GmLogger.GetInstance()?.Trace(methodName, e.Message);
+            GmLogger.Instance.Trace(methodName, e.Message);
             return BadRequest(ResponseErrorMessages.NotFound);
         }
 
@@ -85,7 +85,7 @@ public class ShoppingController : BaseController
             requests.Add(new GroceryResponseDto(groceryRequest, address));
         }
 
-        GmLogger.GetInstance()?.Trace(methodName, "Grocery-Response successfully mapped");
+        GmLogger.Instance.Trace(methodName, "Grocery-Response successfully mapped");
         return Ok(requests);
     }
 }

@@ -66,4 +66,18 @@ public class UserServiceTests
         // Assert
         Assert.That(result, Is.Null);
     }
+    
+    [Test]
+    public async Task GetAuthenticatedUser_WhenIdentityNameIsNull_ReturnsNull()
+    {
+        // Arrange
+        string identityName = null;
+        var mockUnitOfWork = new Mock<IUnitOfWork>();
+
+        // Act
+        var result = await UserService.GetAuthenticatedUser(identityName, mockUnitOfWork.Object);
+
+        // Assert
+        Assert.That(result, Is.Null);
+    }
 }

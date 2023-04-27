@@ -11,17 +11,17 @@ public abstract class AuthenticationValidation : ValidationBase
         if (result is {Succeeded: true}) return true;
         foreach (var error in result.Errors)
         {
-            GmLogger.GetInstance()?.Trace(methodName, error.Description);
+            GmLogger.Instance.Trace(methodName, error.Description);
         }
 
-        GmLogger.GetInstance()?.Warn(methodName, "Creation of the Identity-User failed");
+        GmLogger.Instance.Warn(methodName, "Creation of the Identity-User failed");
         return false;
     }
 
     public static bool ValidateUserPassword(bool result, string methodName)
     {
         if (result) return true;
-        GmLogger.GetInstance()?.Warn(methodName, "Invalid Password");
+        GmLogger.Instance.Warn(methodName, "Invalid Password");
         return false;
     }
 }

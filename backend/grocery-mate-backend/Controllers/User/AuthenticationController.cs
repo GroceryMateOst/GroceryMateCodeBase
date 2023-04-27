@@ -42,7 +42,7 @@ public class AuthenticationController : BaseController
         await _unitOfWork.Authentication.Add(userDm);
         await _unitOfWork.CompleteAsync();
 
-        GmLogger.GetInstance()?.Trace(methodName, "successfully created");
+        GmLogger.Instance.Trace(methodName, "successfully created");
 
         userDto.Password = string.Empty;
         return Created("", userDto);
@@ -65,7 +65,7 @@ public class AuthenticationController : BaseController
             return BadRequest(ResponseErrorMessages.InvalidLogin);
 
         var token = _unitOfWork.Authentication.CreateToken(identityUser);
-        GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");
+        GmLogger.Instance.Trace(methodName, "Bearer-Token Successfully generated");
         return Ok(token);
     }
 
@@ -76,7 +76,7 @@ public class AuthenticationController : BaseController
         var token =  Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
         await _unitOfWork.TokenBlacklist.AddTokenToBlacklist(token);
    
-        GmLogger.GetInstance()?.Trace(methodName, "Token successfully revoked");
+        GmLogger.Instance.Trace(methodName, "Token successfully revoked");
         return Ok();
     }
 }

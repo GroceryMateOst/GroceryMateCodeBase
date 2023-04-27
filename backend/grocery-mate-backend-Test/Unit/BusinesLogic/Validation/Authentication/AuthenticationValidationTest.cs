@@ -61,4 +61,32 @@ public class AuthenticationValidationTests
         // Assert
         Assert.That(validationResult, Is.False);
     }
+    [Test]
+    public void ValidateIdentityUserCreation_NullIdentityResult_ReturnsFalse()
+    {
+        // Arrange
+        IdentityResult? result = null;
+        const string methodName = "TestMethodName";
+
+        // Act
+        var validationResult = AuthenticationValidation.ValidateIdentityUserCreation(result, methodName);
+
+        // Assert
+        Assert.That(validationResult, Is.False);
+    }
+
+    [Test]
+    public void ValidateUserPassword_NullPassword_ReturnsFalse()
+    {
+        // Arrange
+        const bool result = false;
+        const string methodName = "TestMethodName";
+
+        // Act
+        var validationResult = AuthenticationValidation.ValidateUserPassword(result, methodName);
+
+        // Assert
+        Assert.That(validationResult, Is.False);
+    }
+    
 }

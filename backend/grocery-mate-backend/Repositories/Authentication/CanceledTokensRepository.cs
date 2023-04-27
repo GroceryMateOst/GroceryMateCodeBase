@@ -29,15 +29,15 @@ public class CanceledTokensRepository : GenericRepository<TokenBlacklistEntry>, 
         }
         catch (Exception e)
         {
-            GmLogger.GetInstance()?.Warn("AuthenticationRepository: ", e.Message);
+            GmLogger.Instance.Warn("AuthenticationRepository: ", e.Message);
             return false;
         }
 
-        RemoveOldTokensFromBlacklist();
+        await RemoveOldTokensFromBlacklist();
         return true;
     }
 
-    private async void RemoveOldTokensFromBlacklist()
+    private async Task RemoveOldTokensFromBlacklist()
     {
         var expiredTokens = _context.CanceledTokens.Where(entry =>
             0 < DateTime.UtcNow.CompareTo(entry.CancellationDate.AddMinutes(2 * _expirationMinutes)));
@@ -54,13 +54,13 @@ public class CanceledTokensRepository : GenericRepository<TokenBlacklistEntry>, 
         {
             if (_context.CanceledTokens.Any(t => t.CanceledToken == token))
             {
-                GmLogger.GetInstance()?.Trace("CanceledTokensRepository: ", "Token was already canceled!");
+                GmLogger.Instance.Trace("CanceledTokensRepository: ", "Token was already canceled!");
                 return false;
             }
         }
         catch (Exception)
         {
-            GmLogger.GetInstance()?.Trace("CanceledTokensRepository: ", "Token-Check failed!");
+            GmLogger.Instance.Trace("CanceledTokensRepository: ", "Token-Check failed!");
             return false;
         }
 

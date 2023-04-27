@@ -36,8 +36,3 @@ public class UserDataDto
         Address = new AddressDto();
     }
 }
-
-public class UpdateUserSettingsDto : UserDataDto
-{
-    [Required] public string email { get; set; }
-}
