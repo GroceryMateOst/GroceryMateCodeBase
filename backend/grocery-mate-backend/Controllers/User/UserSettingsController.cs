@@ -81,6 +81,7 @@ public class UserSettingsController : BaseController
     }
     
   
+    [Authorize]
     [HttpGet("GetCity")]
     public async Task<ActionResult<ZipResponseDto>> GetCityNameByZip([FromQuery] int zipCode)
     {
