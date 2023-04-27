@@ -1,6 +1,6 @@
 import { Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { setIsLoading, setIsAuthenticated } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import UserService from '../services/user-service';
@@ -14,7 +14,7 @@ interface LoginFormData {
 const LoginPage = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-
+	const location = useLocation();
 	const isLoading = useAppSelector((state) => state.user.isLoading);
 
 	const handleSubmit = async (values: LoginFormData) => {
@@ -27,7 +27,9 @@ const LoginPage = () => {
 			});
 			localStorage.setItem('bearerTokenGroceryMate', response.token);
 			dispatch(setIsAuthenticated(true));
-			navigate('/');
+			if (location.pathname === '/login') {
+				navigate('/');
+			}
 		} finally {
 			dispatch(setIsLoading(false));
 		}

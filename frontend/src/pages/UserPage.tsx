@@ -5,7 +5,6 @@ import UserService from '../services/user-service';
 import { useEffect } from 'react';
 import { setIsLoading } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { useNavigate } from 'react-router-dom';
 
 const UserPage = () => {
 	const [form] = Form.useForm<UserModelComplete>();
