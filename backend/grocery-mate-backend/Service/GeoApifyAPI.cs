@@ -1,5 +1,6 @@
 using System.Web;
 using GeoJSON.Net.Feature;
+using grocery_mate_backend.Models;
 using Newtonsoft.Json;
 
 namespace grocery_mate_backend.Service;
@@ -39,7 +40,7 @@ public static class GeoApifyApi
         return (Convert.ToDouble(properties["lon"]), Convert.ToDouble(properties["lat"]));
     }
     
-    public static async Task<string> GetCityName(int zipCode, string apiKey)
+    public static async Task<ZipResponseDto> GetCityName(int zipCode, string apiKey)
     {
         using HttpClient client = new();
 
@@ -60,6 +61,7 @@ public static class GeoApifyApi
         }
 
         var properties = geoFeature.Properties;
-        return Convert.ToString(properties["name"]) ?? string.Empty;
+        return new ZipResponseDto(Convert.ToString(properties["name"]) ?? string.Empty, 
+            Convert.ToString(properties["state"]) ?? string.Empty);
     }
 }
