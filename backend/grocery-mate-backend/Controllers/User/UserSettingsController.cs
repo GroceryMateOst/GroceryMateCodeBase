@@ -1,9 +1,8 @@
-using System.Security.Claims;
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
-using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement.Address;
+using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Settings;
 using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
@@ -83,7 +82,7 @@ public class UserSettingsController : BaseController
     
   
     [HttpGet("GetCity")]
-    public async Task<ActionResult<String>> GetCityNameByZip([FromQuery] int zipCode)
+    public async Task<ActionResult<ZipResponseDto>> GetCityNameByZip([FromQuery] int zipCode)
     {
         const string methodName = "REST Get City name by zip";
 
