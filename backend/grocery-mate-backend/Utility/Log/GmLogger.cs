@@ -1,4 +1,3 @@
-
 using NLog;
 using ILogger = grocery_mate_backend.Services.Utility.ILogger;
 
@@ -6,52 +5,43 @@ namespace grocery_mate_backend.Utility.Log;
 
 public class GmLogger : ILogger
 {
-    private static GmLogger? _instance;
-    private static Logger? _logger;
+    private static readonly Lazy<GmLogger> lazy =
+        new Lazy<GmLogger>(() => new GmLogger());
 
-    public static GmLogger? GetInstance()
-    {
-        if (_instance == null)
-            _instance = new GmLogger();
-        return _instance;
-    }
+    private readonly Logger logger;
 
-    private static Logger? GetLogger(string logger)
+    public static GmLogger Instance => lazy.Value;
+
+    private GmLogger()
     {
-        if (_logger == null)
-            _logger = LogManager.GetLogger(logger);
-        return _logger;
+        logger = LogManager.GetLogger("groceryMateLoggerRule");
     }
 
     public void Trace(string method, string message, string? arg = null)
     {
-        GetLogger("groceryMateLoggerRule")?.Trace(GenerateLogMsg(method, message, arg));
+        logger.Trace(GenerateLogMsg(method, message, arg));
     }
-
     public void Debug(string method, string message, string? arg = null)
     {
-        GetLogger("groceryMateLoggerRule")?.Debug(GenerateLogMsg(method, message, arg));
+        logger.Debug(GenerateLogMsg(method, message, arg));
     }
-
 
     public void Info(string method, string message, string? arg = null)
     {
-        GetLogger("groceryMateLoggerRule")
-            ?.Info($" {GenerateLogMsg(method, message, arg)}");
+        logger.Info(GenerateLogMsg(method, message, arg));
     }
-
 
     public void Warn(string method, string message, string? arg = null)
     {
-        GetLogger("groceryMateLoggerRule")?.Warn($" {GenerateLogMsg(method, message, arg)}" );
+        logger.Warn(GenerateLogMsg(method, message, arg));
     }
 
     public void Error(string method, string message, string? arg = null)
     {
-        GetLogger("groceryMateLoggerRule")?.Error(GenerateLogMsg(method, message, arg));
+        logger.Error(GenerateLogMsg(method, message, arg));
     }
 
-    private string GenerateLogMsg(string method, string message, string? arg = null)
+    private static string GenerateLogMsg(string method, string message, string? arg = null)
     {
         return arg == null
             ? $" [{method}] {message}"

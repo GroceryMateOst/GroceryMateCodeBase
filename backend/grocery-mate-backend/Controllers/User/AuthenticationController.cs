@@ -1,8 +1,10 @@
+using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Authentication;
+using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +29,7 @@ public class AuthenticationController : BaseController
         const string methodName = "REST Create User";
         var userDm = new User(userDto);
 
-        if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
+        if (!ValidationBase.ValidateModel(ModelState))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var identityUser = new IdentityUser() {UserName = userDm.EmailAddress, Email = userDm.EmailAddress};
@@ -40,7 +42,7 @@ public class AuthenticationController : BaseController
         await _unitOfWork.Authentication.Add(userDm);
         await _unitOfWork.CompleteAsync();
 
-        GmLogger.GetInstance()?.Trace(methodName, "successfully created");
+        GmLogger.Instance.Trace(methodName, "successfully created");
 
         userDto.Password = string.Empty;
         return Created("", userDto);
@@ -51,7 +53,7 @@ public class AuthenticationController : BaseController
     {
         const string methodName = "REST Log-In";
 
-        if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
+        if (!ValidationBase.ValidateModel(ModelState))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var identityUser = _unitOfWork.Authentication.FindIdentityUser(requestDto.EmailAddress).Result;
@@ -63,7 +65,18 @@ public class AuthenticationController : BaseController
             return BadRequest(ResponseErrorMessages.InvalidLogin);
 
         var token = _unitOfWork.Authentication.CreateToken(identityUser);
-        GmLogger.GetInstance()?.Trace(methodName, "Bearer-Token Successfully generated");
+        GmLogger.Instance.Trace(methodName, "Bearer-Token Successfully generated");
         return Ok(token);
+    }
+
+    [HttpPost("logout")]
+    public async Task<ActionResult<AuthenticationResponseDto>> CancelBearerToken()
+    {
+        const string methodName = "REST Log-Out";
+        var token =  Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        await _unitOfWork.TokenBlacklist.AddTokenToBlacklist(token);
+   
+        GmLogger.Instance.Trace(methodName, "Token successfully revoked");
+        return Ok();
     }
 }

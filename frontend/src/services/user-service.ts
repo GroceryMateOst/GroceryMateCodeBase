@@ -5,7 +5,7 @@ import {
 	LoginResponseModel,
 	UserModelComplete,
 } from '../models/UserModel';
-import { Address } from '../models/AddressModel';
+import { Address, ZipResponse } from '../models/AddressModel';
 
 export default class UserService extends AxiosBaseService {
 	constructor() {
@@ -60,6 +60,13 @@ export default class UserService extends AxiosBaseService {
 		};
 		return this.instance
 			.post('Settings', { user, address })
+			.then(this.responseBody)
+			.catch(this.errorHandling);
+	}
+
+	public async getCityByZip(zipCode: string): Promise<ZipResponse> {
+		return this.instance
+			.get(`Settings/GetCity?zipCode=${zipCode}`)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}

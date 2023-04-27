@@ -77,7 +77,7 @@ public class AddressRepository : GenericRepository<Address>, IAddressRepository
         }
         catch (Exception e)
         {
-            GmLogger.GetInstance()?.Warn("SettingsRepository: ", "No User found!");
+            GmLogger.Instance.Warn("SettingsRepository: ", "No User found!");
             return Task.FromResult<bool?>(false);
         }
     }
