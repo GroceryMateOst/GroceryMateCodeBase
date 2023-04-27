@@ -152,6 +152,24 @@ namespace grocery_mate_backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Authentication.TokenBlacklistEntry", b =>
+                {
+                    b.Property<Guid>("TokenBlacklistEntryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CanceledToken")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CancellationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("TokenBlacklistEntryId");
+
+                    b.ToTable("CanceledTokens");
+                });
+
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Shopping.GroceryRequest", b =>
                 {
                     b.Property<Guid>("GroceryRequestId")

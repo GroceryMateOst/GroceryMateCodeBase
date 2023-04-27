@@ -17,13 +17,14 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
     private readonly UserManager<IdentityUser> _userManager;
     private readonly IConfiguration _configuration;
 
-    private const int ExpirationMinutes = 60;
+    private static int _expirationMinutes = 1;
 
     public AuthenticationRepository(GroceryContext context, UserManager<IdentityUser> userManager,
-        IConfiguration configuration) : base(context)
+        IConfiguration configuration, int expirationMinutes) : base(context)
     {
         _userManager = userManager;
         _configuration = configuration;
+        _expirationMinutes = expirationMinutes;
     }
 
     public override async Task<IEnumerable<User>> All()
@@ -32,7 +33,7 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
         {
             return await _dbSet.ToListAsync();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             GmLogger.GetInstance()?.Warn("AuthenticationRepository: ", "No User found!");
             return new List<User>();
@@ -77,7 +78,7 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
 
     public AuthenticationResponseDto CreateToken(IdentityUser user)
     {
-        var expiration = DateTime.UtcNow.AddMinutes(ExpirationMinutes);
+        var expiration = DateTime.UtcNow.AddMinutes(_expirationMinutes);
 
         var token = CreateJwtToken(
             CreateClaims(user),
@@ -95,8 +96,8 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
         };
     }
 
-    private Task<JwtSecurityToken> CreateJwtToken(Claim[] claims, SigningCredentials credentials,
-        DateTime expiration) =>
+    private Task<JwtSecurityToken>
+        CreateJwtToken(Claim[] claims, SigningCredentials credentials, DateTime expiration) =>
         Task.FromResult(new JwtSecurityToken(
             _configuration["Jwt:Issuer"],
             _configuration["Jwt:Audience"],

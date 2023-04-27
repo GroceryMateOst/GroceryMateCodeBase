@@ -1,7 +1,5 @@
-using System.Security.Claims;
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
-using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement.Address;
 using grocery_mate_backend.Models.Settings;
@@ -28,6 +26,9 @@ public class UserSettingsController : BaseController
     public async Task<ActionResult<UserDataDto>> GetUserSettings()
     {
         const string methodName = "REST Get User-Settings";
+        
+        if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
@@ -46,7 +47,7 @@ public class UserSettingsController : BaseController
     {
         const string methodName = "REST Set User-Settings";
 
-        if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
+        if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);

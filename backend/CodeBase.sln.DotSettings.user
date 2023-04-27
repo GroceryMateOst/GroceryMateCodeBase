@@ -4,24 +4,19 @@
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/Environment/Highlighting/HighlightingEnabled/@EntryValue">False</s:Boolean>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingMode/@EntryValue">OnlyFullLine</s:String>
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dd359bd0_002Dd410_002D4549_002Dbcec_002De28926185ca7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UserServiceTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;ProjectFolder&gt;F0670888-82A6-439C-B717-5AE543308B40/d:Unit/d:BusinesLogic&lt;/ProjectFolder&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	
-	
-	
-	
-	
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e2c17bda_002D47a1_002D489e_002D93b6_002D84d5c78bc0bb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ValidateAddress_EmptyGuidAddress_ReturnsFalseAndLogsWarning" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::ValidationBaseTests.ValidateAddress_EmptyGuidAddress_ReturnsFalseAndLogsWarning&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f2ff0c1c_002D9f25_002D47f1_002D96ad_002Db3ccc67f0f61/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAuthenticatedUser_WithUnknownIdentityId_ReturnsNull" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ecc35a27_002Dccec_002D4072_002Dba7f_002Df4d69bc036c0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Unit" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;ProjectFolder&gt;F0670888-82A6-439C-B717-5AE543308B40/d:Unit&lt;/ProjectFolder&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

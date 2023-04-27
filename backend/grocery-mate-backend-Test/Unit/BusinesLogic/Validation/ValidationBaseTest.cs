@@ -15,7 +15,7 @@ public class ValidationBaseTests
         const string methodName = "TestMethod";
 
         // Act
-        var result = ValidationBase.ValidateModelState(modelState, methodName);
+        var result = ValidationBase.ValidateModel(modelState);
 
         // Assert
         Assert.That(result, Is.True);
@@ -30,7 +30,7 @@ public class ValidationBaseTests
         const string methodName = "TestMethod";
 
         // Act
-        var result = ValidationBase.ValidateModelState(modelState, methodName);
+        var result = ValidationBase.ValidateModel(modelState);
 
         // Assert
         Assert.That(result, Is.False);
