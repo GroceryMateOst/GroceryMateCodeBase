@@ -43,7 +43,7 @@ public class UserSettingsController : BaseController
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult> UpdateUserSettings(UpdateUserSettingsDto requestDto)
+    public async Task<ActionResult> UpdateUserSettings(UserDataDto requestDto)
     {
         const string methodName = "REST Set User-Settings";
 
