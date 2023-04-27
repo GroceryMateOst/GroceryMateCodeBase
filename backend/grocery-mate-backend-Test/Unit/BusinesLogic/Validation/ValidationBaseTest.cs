@@ -10,74 +10,90 @@ namespace grocery_mate_backend_Test.Unit.BusinesLogic.Validation;
 
 public class ValidationBaseTests
 {
+  private Mock<ICanceledTokensRepository> _mockTokenRepository;
+
+    [SetUp]
+    public void Setup()
+    {
+        _mockTokenRepository = new Mock<ICanceledTokensRepository>();
+    }
+
     [Test]
-    public void ValidateModelState_ValidModelState_ReturnsTrue()
+    public void ValidateModel_ReturnsTrue_WhenModelIsValidAndTokenIsValid()
     {
         // Arrange
         var modelState = new ModelStateDictionary();
-        const string methodName = "TestMethod";
+        var headers = new HeaderDictionary();
+        headers["Authorization"] = "Bearer validtoken";
+
+        _mockTokenRepository.Setup(x => x.ValidateToken("validtoken")).ReturnsAsync(true);
 
         // Act
-        var result = ValidationBase.ValidateModel(modelState);
+        var result = ValidationBase.ValidateModel(modelState, headers, _mockTokenRepository.Object);
 
         // Assert
-        Assert.That(result, Is.True);
+        Assert.IsTrue(result);
     }
 
     [Test]
-    public void ValidateModelState_InvalidModelState_ReturnsFalse()
+    public void ValidateModel_ReturnsFalse_WhenModelIsInvalid()
     {
         // Arrange
         var modelState = new ModelStateDictionary();
-        modelState.AddModelError("key", "error message");
-        const string methodName = "TestMethod";
+        modelState.AddModelError("field", "error");
+
+        var headers = new HeaderDictionary();
+        headers["Authorization"] = "Bearer validtoken";
+
+        _mockTokenRepository.Setup(x => x.ValidateToken("validtoken")).ReturnsAsync(true);
 
         // Act
-        var result = ValidationBase.ValidateModel(modelState);
+        var result = ValidationBase.ValidateModel(modelState, headers, _mockTokenRepository.Object);
 
         // Assert
-        Assert.That(result, Is.False);
+        Assert.IsFalse(result);
     }
 
     [Test]
-    public void ValidateAddress_ValidAddress_ReturnsTrue()
+    public void ValidateModel_ReturnsFalse_WhenTokenIsInvalid()
     {
         // Arrange
-        var address = new Address {AddressId = Guid.NewGuid()};
-        const string methodName = "TestMethod";
+        var modelState = new ModelStateDictionary();
+        var headers = new HeaderDictionary();
+        headers["Authorization"] = "Bearer invalidtoken";
+
+        _mockTokenRepository.Setup(x => x.ValidateToken("invalidtoken")).ReturnsAsync(false);
 
         // Act
-        var result = ValidationBase.ValidateAddress(address, methodName);
+        var result = ValidationBase.ValidateModel(modelState, headers, _mockTokenRepository.Object);
 
         // Assert
-        Assert.That(result, Is.True);
+        Assert.IsFalse(result);
     }
 
     [Test]
-    public void ValidateAddress_NullAddress_ReturnsFalse()
+    public void ValidateSessionToken_ReturnsTrue_WhenTokenIsValid()
     {
         // Arrange
-        Address? address = null;
-        const string methodName = "TestMethod";
+        _mockTokenRepository.Setup(x => x.ValidateToken("validtoken")).ReturnsAsync(true);
 
         // Act
-        var result = ValidationBase.ValidateAddress(address, methodName);
+        var result = ValidationBase.ValidateSessionToken("validtoken", _mockTokenRepository.Object);
 
         // Assert
-        Assert.That(result, Is.False);
+        Assert.IsTrue(result);
     }
 
     [Test]
-    public void ValidateAddress_EmptyGuidAddress_ReturnsFalse()
+    public void ValidateSessionToken_ReturnsFalse_WhenTokenIsInvalid()
     {
         // Arrange
-        var address = new Address {AddressId = Guid.Empty};
-        const string methodName = "TestMethod";
+        _mockTokenRepository.Setup(x => x.ValidateToken("invalidtoken")).ReturnsAsync(false);
 
         // Act
-        var result = ValidationBase.ValidateAddress(address, methodName);
+        var result = ValidationBase.ValidateSessionToken("invalidtoken", _mockTokenRepository.Object);
 
         // Assert
-        Assert.That(result, Is.False);
+        Assert.IsFalse(result);
     }
 }

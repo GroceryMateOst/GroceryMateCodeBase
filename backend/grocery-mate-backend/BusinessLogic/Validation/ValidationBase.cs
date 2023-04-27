@@ -32,7 +32,7 @@ public class ValidationBase
     }
 
 
-    private static bool ValidateSessionToken(string token,
+    public static bool ValidateSessionToken(string token,
         ICanceledTokensRepository canceledTokensRepository)
     {
         return Validate(canceledTokensRepository.ValidateToken(token),
