@@ -30,7 +30,6 @@ export default class UserService extends AxiosBaseService {
 
 	public logout(): void {
 		localStorage.removeItem('bearerTokenGroceryMate');
-		localStorage.removeItem('userEmail');
 	}
 
 	public async getUserSettings(): Promise<{
@@ -59,9 +58,8 @@ export default class UserService extends AxiosBaseService {
 			emailAddress: userSettings.emailAddress,
 			residencyDetails: userSettings.residencyDetails ?? ' ',
 		};
-		const email = localStorage.getItem('userEmail');
 		return this.instance
-			.post('Settings', { user, address, email })
+			.post('Settings', { user, address })
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
