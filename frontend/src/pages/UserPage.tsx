@@ -37,6 +37,12 @@ const UserPage = () => {
 		await userService.updateUserSettings(userSettings);
 	};
 
+	const getCityByZipCode = async (zipCode: string) => {
+		const userService = new UserService();
+		const city = await userService.getCityByZip(zipCode);
+		form.setFieldValue('city', city);
+	};
+
 	return (
 		<div>
 			{isLoading ? (
@@ -135,7 +141,9 @@ const UserPage = () => {
 								},
 							]}
 						>
-							<Input />
+							<Input
+								onBlur={(element) => getCityByZipCode(element.target.value)}
+							/>
 						</Form.Item>
 						<Form.Item
 							name="city"

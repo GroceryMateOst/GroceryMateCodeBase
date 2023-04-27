@@ -65,4 +65,11 @@ export default class UserService extends AxiosBaseService {
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
+
+	public async getCityByZip(zipCode: string): Promise<string> {
+		return this.instance
+			.get(`Settings/GetCity?zip=${zipCode}`)
+			.then(this.responseBody)
+			.catch(this.errorHandling);
+	}
 }
