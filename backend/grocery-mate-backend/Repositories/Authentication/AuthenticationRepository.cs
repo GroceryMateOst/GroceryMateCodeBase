@@ -35,7 +35,7 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
         }
         catch (Exception)
         {
-            GmLogger.GetInstance()?.Warn("AuthenticationRepository: ", "No User found!");
+            GmLogger.Instance.Warn("AuthenticationRepository: ", "No User found!");
             return new List<User>();
         }
     }
@@ -48,7 +48,7 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
         }
         catch (Exception)
         {
-            GmLogger.GetInstance()?.Trace("AuthenticationRepository: ", "Password-Check failed!");
+            GmLogger.Instance.Trace("AuthenticationRepository: ", "Password-Check failed!");
             return false;
         }
     }
@@ -70,7 +70,7 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
         }
         catch (Exception)
         {
-            GmLogger.GetInstance()?.Trace("AuthenticationRepository: ", "Password-Check failed!");
+            GmLogger.Instance.Trace("AuthenticationRepository: ", "Password-Check failed!");
         }
 
         return result;
