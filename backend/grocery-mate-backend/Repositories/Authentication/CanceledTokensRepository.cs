@@ -33,11 +33,11 @@ public class CanceledTokensRepository : GenericRepository<TokenBlacklistEntry>, 
             return false;
         }
 
-        RemoveOldTokensFromBlacklist();
+        await RemoveOldTokensFromBlacklist();
         return true;
     }
 
-    private async void RemoveOldTokensFromBlacklist()
+    private async Task RemoveOldTokensFromBlacklist()
     {
         var expiredTokens = _context.CanceledTokens.Where(entry =>
             0 < DateTime.UtcNow.CompareTo(entry.CancellationDate.AddMinutes(2 * _expirationMinutes)));
