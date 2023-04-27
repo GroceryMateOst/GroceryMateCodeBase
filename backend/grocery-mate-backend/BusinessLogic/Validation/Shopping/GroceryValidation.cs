@@ -43,7 +43,7 @@ public static class GroceryValidation
     private static bool Validate<T>(T thing, string methodName, string errorMsg, GroceryPredicate<T> predicate)
     {
         if (predicate(thing)) return true;
-        GmLogger.GetInstance()?.Warn(methodName, errorMsg);
+        GmLogger.Instance.Warn(methodName, errorMsg);
         return false;
     }
 }

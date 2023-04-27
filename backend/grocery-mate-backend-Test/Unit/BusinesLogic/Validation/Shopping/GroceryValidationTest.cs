@@ -86,4 +86,23 @@ public class GroceryValidationTests
         // Assert
         Assert.That(result, Is.False);
     }
+    
+    [Test]
+    public void Validate_ValidRequestDto_ReturnsTrue()
+    {
+        // Arrange
+        var requestDto = new GroceryRequestDto
+        {
+            GroceryList = new List<ShoppingListDto> { new("sushi"), new("umami") },
+            RequestState = "published",
+            FromDate = "2023-04-01T09:00:00.000Z",
+            ToDate = "2023-04-30T17:00:00.000Z"
+        };
+
+        // Act
+        var result = GroceryValidation.Validate(requestDto);
+
+        // Assert
+        Assert.That(result, Is.True);
+    }
 }
