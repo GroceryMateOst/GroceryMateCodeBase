@@ -6,6 +6,7 @@ using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
 using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace grocery_mate_backend.Controllers.EndpointControllers;
@@ -20,7 +21,7 @@ public class ShoppingController : BaseController
     {
         _unitOfWork = unitOfWork;
     }
-
+    
     [HttpPost("groceryRequest")]
     public async Task<ActionResult<GroceryRequestDto>> PostGroceryRequest(GroceryRequestDto requestDto)
     {

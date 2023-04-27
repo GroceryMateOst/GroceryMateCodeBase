@@ -99,6 +99,4 @@ public class AuthenticationValidationTests
         // Assert
         Assert.That(result, Is.Null);
     }
-
-    
 }
