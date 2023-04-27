@@ -21,7 +21,6 @@
       <Mask>**/Utility/**</Mask>
       <Mask>**/Repositories/**</Mask>
       <Mask>**/Properties/**</Mask>
-      <Mask>**/Program.cs</Mask>
       <Mask>**/GeoApifyAPI.cs</Mask>
     </ExcludeFileMasks>
     
