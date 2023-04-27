@@ -5,3 +5,8 @@
 	city: string;
 	state: string;
 }
+
+export interface ZipResponse {
+	city: string;
+	state: string;
+}

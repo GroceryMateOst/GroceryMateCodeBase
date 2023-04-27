@@ -39,8 +39,9 @@ const UserPage = () => {
 
 	const getCityByZipCode = async (zipCode: string) => {
 		const userService = new UserService();
-		const city = await userService.getCityByZip(zipCode);
-		form.setFieldValue('city', city);
+		const response = await userService.getCityByZip(zipCode);
+		form.setFieldValue('city', response.city);
+		form.setFieldValue('state', response.state);
 	};
 
 	return (
