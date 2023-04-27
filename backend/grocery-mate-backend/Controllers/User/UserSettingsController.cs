@@ -30,11 +30,14 @@ public class UserSettingsController : BaseController
     public async Task<ActionResult<UserDataDto>> GetUserSettings()
     {
         const string methodName = "REST Get User-Settings";
+        
+        if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
         {
-            GmLogger.GetInstance()?.Warn(methodName, "User with given identityId does not exist");
+            GmLogger.Instance.Warn(methodName, "User with given identityId does not exist");
             return BadRequest(ResponseErrorMessages.SettingsError);
         }
 
@@ -44,17 +47,17 @@ public class UserSettingsController : BaseController
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult> UpdateUserSettings(UpdateUserSettingsDto requestDto)
+    public async Task<ActionResult> UpdateUserSettings(UserDataDto requestDto)
     {
         const string methodName = "REST Set User-Settings";
 
-        if (!AuthenticationValidation.ValidateModelState(ModelState, methodName))
+        if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
         {
-            GmLogger.GetInstance()?.Warn(methodName, "User with given identityId does not exist");
+            GmLogger.Instance.Warn(methodName, "User with given identityId does not exist");
             return BadRequest(ResponseErrorMessages.NotAuthorised);
         }
 
@@ -65,7 +68,7 @@ public class UserSettingsController : BaseController
         }
         catch (Exception e)
         {
-            GmLogger.GetInstance()?.Warn(methodName, e.Message);
+            GmLogger.Instance.Warn(methodName, e.Message);
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
         
