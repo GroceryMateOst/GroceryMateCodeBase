@@ -29,7 +29,7 @@ public class CanceledTokensRepository : GenericRepository<TokenBlacklistEntry>, 
         }
         catch (Exception e)
         {
-            GmLogger.GetInstance()?.Warn("AuthenticationRepository: ", e.Message);
+            GmLogger.Instance.Warn("AuthenticationRepository: ", e.Message);
             return false;
         }
 
@@ -54,13 +54,13 @@ public class CanceledTokensRepository : GenericRepository<TokenBlacklistEntry>, 
         {
             if (_context.CanceledTokens.Any(t => t.CanceledToken == token))
             {
-                GmLogger.GetInstance()?.Trace("CanceledTokensRepository: ", "Token was already canceled!");
+                GmLogger.Instance.Trace("CanceledTokensRepository: ", "Token was already canceled!");
                 return false;
             }
         }
         catch (Exception)
         {
-            GmLogger.GetInstance()?.Trace("CanceledTokensRepository: ", "Token-Check failed!");
+            GmLogger.Instance.Trace("CanceledTokensRepository: ", "Token-Check failed!");
             return false;
         }
 

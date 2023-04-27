@@ -44,14 +44,14 @@ public class ValidationBase
     public static bool ValidateAddress(Address? address, string methodName)
     {
         if (address != null && address.AddressId != Guid.Empty) return true;
-        GmLogger.GetInstance()?.Warn(methodName, "User with given eMail-Adr. not found");
+        GmLogger.Instance.Warn(methodName, "User with given eMail-Adr. not found");
         return false;
     }
 
     private static bool Validate<T>(T thing, string methodName, string errorMsg, GroceryPredicate<T> predicate)
     {
         if (predicate(thing)) return true;
-        GmLogger.GetInstance()?.Warn(methodName, errorMsg);
+        GmLogger.Instance.Warn(methodName, errorMsg);
         return false;
     }
 }
