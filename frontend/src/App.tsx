@@ -11,6 +11,8 @@ import Footer from './components/General/Footer';
 import LoginPage from './pages/LoginPage';
 import CreateShoppingRequest from './pages/CreateShoppingRequest';
 import { ToastContainer } from 'react-toastify';
+import AuthenticationWrapper from './components/AuthenticatedRoute';
+import AuthenticatedRoute from './components/AuthenticatedRoute';
 
 function App() {
 	return (
@@ -30,13 +32,24 @@ function App() {
 						theme="light"
 					/>
 					<Header />
-					<div id="content" className="mt-2">
+					<div id="content" className="mt-10">
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/register" element={<RegistrationPage />} />
 							<Route path="/login" element={<LoginPage />} />
-							<Route path="/profile" element={<UserPage />} />
-							<Route path="/create" element={<CreateShoppingRequest />} />
+							<Route
+								path="/profile"
+								element={<AuthenticatedRoute element={<UserPage />} />}
+							/>
+							<Route
+								path="/create"
+								element={
+									<AuthenticatedRoute
+										element={<CreateShoppingRequest />}
+										redirectElement={<LoginPage />}
+									/>
+								}
+							/>
 							<Route path="*" element={<Error404Page />} />
 						</Routes>
 					</div>

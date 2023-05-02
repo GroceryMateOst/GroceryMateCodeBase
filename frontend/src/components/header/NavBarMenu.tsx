@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Dropdown, MenuProps } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -6,6 +6,7 @@ import { setIsAuthenticated } from '../../redux/userSlice';
 import UserService from '../../services/user-service';
 
 const NavBarMenu = () => {
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
 
@@ -14,6 +15,7 @@ const NavBarMenu = () => {
 			const userService = new UserService();
 			await userService.logout();
 			dispatch(setIsAuthenticated(false));
+			navigate('/');
 		}
 	};
 
