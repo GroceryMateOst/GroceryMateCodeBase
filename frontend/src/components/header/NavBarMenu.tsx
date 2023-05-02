@@ -9,10 +9,10 @@ const NavBarMenu = () => {
 	const dispatch = useAppDispatch();
 	const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
 
-	const onDropdownClick: MenuProps['onClick'] = ({ key }) => {
+	const onDropdownClick: MenuProps['onClick'] = async ({ key }) => {
 		if (key == '4') {
 			const userService = new UserService();
-			userService.logout();
+			await userService.logout();
 			dispatch(setIsAuthenticated(false));
 		}
 	};
@@ -34,6 +34,10 @@ const NavBarMenu = () => {
 			key: '4',
 			label: 'Logout',
 		},
+		{
+			key: '5',
+			label: <Link to="/dashboard">Meine Einkäufe</Link>,
+		},
 	];
 
 	function getNavItems(
@@ -41,7 +45,7 @@ const NavBarMenu = () => {
 	): Array<{ key: string; label: JSX.Element | string }> {
 		const navItems = [items[0]];
 		if (userIsAuthenticated) {
-			return [...navItems, items[3]];
+			return [...navItems, items[3], items[4]];
 		} else {
 			return [...navItems, items[1], items[2]];
 		}
