@@ -6,6 +6,7 @@ using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Authentication;
 using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
@@ -69,6 +70,7 @@ public class AuthenticationController : BaseController
         return Ok(token);
     }
 
+    [Authorize]
     [HttpPost("logout")]
     public async Task<ActionResult<AuthenticationResponseDto>> CancelBearerToken()
     {
