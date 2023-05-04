@@ -6,6 +6,4 @@ public class AuthenticationResponseDto
 
     public string Email { get; set; }
     public DateTime Expiration { get; set; }
-    
-    public Guid UserId { get; set; }
 }
