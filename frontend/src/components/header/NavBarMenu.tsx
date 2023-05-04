@@ -38,7 +38,11 @@ const NavBarMenu = () => {
 		},
 		{
 			key: '5',
-			label: <Link to="/dashboard">Meine Einkäufe</Link>,
+			label: <Link to="/published">Meine Inserate</Link>,
+		},
+		{
+			key: '5',
+			label: <Link to="/accepted">Meine Aufträge</Link>,
 		},
 	];
 
@@ -47,7 +51,7 @@ const NavBarMenu = () => {
 	): Array<{ key: string; label: JSX.Element | string }> {
 		const navItems = [items[0]];
 		if (userIsAuthenticated) {
-			return [...navItems, items[3], items[4]];
+			return [...navItems, items[3], items[4], items[5], items[6]];
 		} else {
 			return [...navItems, items[1], items[2]];
 		}

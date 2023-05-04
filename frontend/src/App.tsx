@@ -13,7 +13,8 @@ import CreateShoppingRequest from './pages/CreateShoppingRequest';
 import { ToastContainer } from 'react-toastify';
 import AuthenticationWrapper from './components/AuthenticatedRoute';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
-import Dashboard from './pages/Dashboard';
+import PublishedShoppings from './pages/PublishedShoppings';
+import AcceptedShoppings from './pages/AcceptedShoppings';
 
 function App() {
 	return (
@@ -52,10 +53,19 @@ function App() {
 								}
 							/>
 							<Route
-								path="/dashboard"
+								path="/published"
 								element={
 									<AuthenticatedRoute
-										element={<Dashboard />}
+										element={<PublishedShoppings />}
+										redirectElement={<LoginPage />}
+									/>
+								}
+							/>
+							<Route
+								path="/accepted"
+								element={
+									<AuthenticatedRoute
+										element={<AcceptedShoppings />}
 										redirectElement={<LoginPage />}
 									/>
 								}
