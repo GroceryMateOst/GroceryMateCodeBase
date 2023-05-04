@@ -65,4 +65,6 @@ public class User
         GroceryRequestsClients = new List<GroceryRequest>();
         GroceryRequestsContractor = new List<GroceryRequest>();
     }
+    
+  
 }
