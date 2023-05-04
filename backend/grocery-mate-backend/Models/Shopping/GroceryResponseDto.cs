@@ -1,5 +1,5 @@
 using grocery_mate_backend.Data.DataModels.Shopping;
-using grocery_mate_backend.Data.DataModels.UserManagement.Address;
+using grocery_mate_backend.Data.DataModels.UserManagement;
 
 namespace grocery_mate_backend.Models.Shopping;
 
