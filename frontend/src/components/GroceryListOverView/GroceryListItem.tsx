@@ -23,7 +23,7 @@ const GroceryListItem = ({
 			requestState: 'accepted',
 		};
 		try {
-			const shoppingService = new ShoppingService();
+			const shoppingService: ShoppingService = new ShoppingService();
 			await shoppingService.updateShoppingState(body);
 		} catch {
 			console.log('error');
