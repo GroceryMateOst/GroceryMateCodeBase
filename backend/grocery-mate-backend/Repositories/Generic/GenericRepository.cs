@@ -46,14 +46,3 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         throw new NotImplementedException();
     }
 }
-
-public class InstanceNotFoundException : System.Exception
-{
-    public InstanceNotFoundException() : base("The searched instance could not be found in the database!")
-    {
-    }
-
-    public InstanceNotFoundException(string message) : base(message)
-    {
-    }
-}

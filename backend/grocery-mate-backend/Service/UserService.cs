@@ -8,25 +8,24 @@ public class UserService
 {
     public static async Task<User?> GetAuthenticatedUser(string? identityName, IUnitOfWork unitOfWork)
     {
-        const string methodName = "Get Authenticated User";
 
         if (identityName == null)
         {
-            GmLogger.Instance.Warn(methodName, "Couldn't find user by give JWT-Token");
+            GmLogger.Instance.Warn(LogMessages.MethodName_REST_UserFromToken, LogMessages.LogMessage_UserNotFoundByToken);
             return null;
         }
 
         var id = (await unitOfWork.Authentication.FindIdentityUser(identityName)).Id;
         if (id == null)
         {
-            GmLogger.Instance.Warn(methodName, "User with given identityId not found");
+            GmLogger.Instance.Warn(LogMessages.MethodName_REST_UserFromToken, LogMessages.LogMessage_UserNotFoundById);
             return null;
         }
 
         var user = await unitOfWork.User.FindUserByIdentityId(id);
         if (user != null) return user;
        
-        GmLogger.Instance.Warn(methodName, "User with given identityId does not exist");
+        GmLogger.Instance.Warn(LogMessages.MethodName_REST_UserFromToken, LogMessages.LogMessage_UserNotExistById);
        
         return null;
     }

@@ -26,7 +26,7 @@ public class AuthenticationController : BaseController
     [HttpPost("register")]
     public async Task<ActionResult<User>> CreateUser(CreateUserDto userDto)
     {
-        const string methodName = "REST Create User";
+
         var userDm = new User(userDto);
 
         if (!ValidationBase.ValidateModel(ModelState))
@@ -35,14 +35,14 @@ public class AuthenticationController : BaseController
         var identityUser = new IdentityUser() {UserName = userDm.EmailAddress, Email = userDm.EmailAddress};
         var result = _unitOfWork.Authentication.SaveNewIdentityUser(identityUser, userDm).Result;
 
-        if (!AuthenticationValidation.ValidateIdentityUserCreation(result, methodName))
+        if (!AuthenticationValidation.ValidateIdentityUserCreation(result, LogMessages.MethodName_REST_POST_register))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         userDm.Identity = identityUser;
         await _unitOfWork.Authentication.Add(userDm);
         await _unitOfWork.CompleteAsync();
 
-        GmLogger.Instance.Trace(methodName, "successfully created");
+        GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_register, LogMessages.LogMessage_SuccessfullyCreated);
 
         userDto.Password = string.Empty;
         return Created("", userDto);
@@ -51,32 +51,29 @@ public class AuthenticationController : BaseController
     [HttpPost("login")]
     public async Task<ActionResult<AuthenticationResponseDto>> CreateBearerToken(AuthenticationRequestDto requestDto)
     {
-        const string methodName = "REST Log-In";
-
         if (!ValidationBase.ValidateModel(ModelState))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var identityUser = _unitOfWork.Authentication.FindIdentityUser(requestDto.EmailAddress).Result;
-        if (!UserValidation.ValidateUser(identityUser, methodName))
+        if (!UserValidation.ValidateUser(identityUser, LogMessages.MethodName_REST_POST_login))
             return BadRequest(ResponseErrorMessages.InvalidLogin);
 
         var passwordCheck = _unitOfWork.Authentication.CheckPassword(identityUser, requestDto.Password);
-        if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
+        if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, LogMessages.MethodName_REST_POST_login))
             return BadRequest(ResponseErrorMessages.InvalidLogin);
 
         var token = _unitOfWork.Authentication.CreateToken(identityUser);
-        GmLogger.Instance.Trace(methodName, "Bearer-Token Successfully generated");
+        GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_login, LogMessages.LogMessage_BearerTokenGenerated);
         return Ok(token);
     }
 
     [HttpPost("logout")]
     public async Task<ActionResult<AuthenticationResponseDto>> CancelBearerToken()
     {
-        const string methodName = "REST Log-Out";
-        var token =  Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        var token =  Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
         await _unitOfWork.TokenBlacklist.AddTokenToBlacklist(token);
    
-        GmLogger.Instance.Trace(methodName, "Token successfully revoked");
+        GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_logout, LogMessages.LogMessage_TokenRevoked);
         return Ok();
     }
 }

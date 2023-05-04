@@ -1,12 +1,10 @@
 using grocery_mate_backend.BusinessLogic.Validation;
-using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.BusinessLogic.Validation.Shopping;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
 using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace grocery_mate_backend.Controllers.EndpointControllers;
@@ -25,12 +23,10 @@ public class ShoppingController : BaseController
     [HttpPost("groceryRequest")]
     public async Task<ActionResult<GroceryRequestDto>> PostGroceryRequest(GroceryRequestDto requestDto)
     {
-        const string methodName = "POST Grocery-Request";
-
         if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist) &&
             !GroceryValidation.Validate(requestDto))
         {
-            GmLogger.Instance.Warn(methodName, "GroceryRequestState is invalid");
+            GmLogger.Instance.Warn(LogMessages.MethodName_REST_POST_groceryRequest, LogMessages.LogMessage_InvalidGroceryRequestState);
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
 
@@ -49,22 +45,20 @@ public class ShoppingController : BaseController
         }
         catch (Exception e)
         {
-            GmLogger.Instance.Trace(methodName, e.Message);
+            GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_groceryRequest, e.Message);
             return BadRequest(ResponseErrorMessages.NotSaved);
         }
 
-        GmLogger.Instance.Trace(methodName, "Grocery-Request successfully saved");
+        GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_groceryRequest, LogMessages.LogMessage_GroceryRequestSaved);
         return Ok();
     }
 
     [HttpGet("groceryRequest")]
     public async Task<ActionResult<GroceryResponseDto>> GetAllGroceryRequest()
     {
-        const string methodName = "GET Grocery-Request";
-
         if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
         {
-            GmLogger.Instance.Warn(methodName, "Invalid ModelState due to bad credentials");
+            GmLogger.Instance.Warn(LogMessages.MethodName_REST_GET_groceryRequest, LogMessages.LogMessage_BadCredentials);
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
 
@@ -75,7 +69,7 @@ public class ShoppingController : BaseController
         }
         catch (Exception e)
         {
-            GmLogger.Instance.Trace(methodName, e.Message);
+            GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest, e.Message);
             return BadRequest(ResponseErrorMessages.NotFound);
         }
 
@@ -86,7 +80,7 @@ public class ShoppingController : BaseController
             requests.Add(new GroceryResponseDto(groceryRequest, address));
         }
 
-        GmLogger.Instance.Trace(methodName, "Grocery-Response successfully mapped");
+        GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest, LogMessages.LogMessage_GroceryResponseMapped);
         return Ok(requests);
     }
 }
