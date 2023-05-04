@@ -6,6 +6,7 @@ using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Authentication;
 using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
@@ -64,11 +65,15 @@ public class AuthenticationController : BaseController
         if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
             return BadRequest(ResponseErrorMessages.InvalidLogin);
 
-        var token = _unitOfWork.Authentication.CreateToken(identityUser);
+        var user = await _unitOfWork.User.FindUserByIdentityId(identityUser.Id);
+        if (user == null) return BadRequest(ResponseErrorMessages.NotAuthorised);
+        
+        var token = _unitOfWork.Authentication.CreateToken(identityUser, user.UserId);
         GmLogger.Instance.Trace(methodName, "Bearer-Token Successfully generated");
         return Ok(token);
     }
 
+    [Authorize]
     [HttpPost("logout")]
     public async Task<ActionResult<AuthenticationResponseDto>> CancelBearerToken()
     {

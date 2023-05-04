@@ -76,7 +76,7 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
         return result;
     }
 
-    public AuthenticationResponseDto CreateToken(IdentityUser user)
+    public AuthenticationResponseDto CreateToken(IdentityUser user, Guid userId)
     {
         var expiration = DateTime.UtcNow.AddMinutes(_expirationMinutes);
 
@@ -92,7 +92,8 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
         {
             Token = tokenHandler.WriteToken(token.Result),
             Expiration = expiration,
-            Email = user.Email
+            Email = user.Email,
+            UserId = userId
         };
     }
 
