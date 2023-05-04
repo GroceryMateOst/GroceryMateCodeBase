@@ -13,6 +13,7 @@ import CreateShoppingRequest from './pages/CreateShoppingRequest';
 import { ToastContainer } from 'react-toastify';
 import AuthenticationWrapper from './components/AuthenticatedRoute';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
+import Dashboard from './pages/Dashboard';
 
 function App() {
 	return (
@@ -46,6 +47,15 @@ function App() {
 								element={
 									<AuthenticatedRoute
 										element={<CreateShoppingRequest />}
+										redirectElement={<LoginPage />}
+									/>
+								}
+							/>
+							<Route
+								path="/dashboard"
+								element={
+									<AuthenticatedRoute
+										element={<Dashboard />}
 										redirectElement={<LoginPage />}
 									/>
 								}

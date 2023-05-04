@@ -19,9 +19,7 @@ export default class UserService extends AxiosBaseService {
 			.catch(this.errorHandling);
 	}
 
-	public async loginUser(
-		body: LoginModel
-	): Promise<{ token: string; expiration: string; email: string }> {
+	public async loginUser(body: LoginModel): Promise<LoginResponseModel> {
 		return this.instance
 			.post<LoginResponseModel>('Authentication/login', body)
 			.then(this.responseBody)
