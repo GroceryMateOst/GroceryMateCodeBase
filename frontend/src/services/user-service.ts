@@ -27,11 +27,11 @@ export default class UserService extends AxiosBaseService {
 	}
 
 	public async logout(): Promise<void> {
-		localStorage.removeItem('bearerTokenGroceryMate');
-		return this.instance
+		await this.instance
 			.post('Authentication/logout')
 			.then(this.responseBody)
 			.catch(this.errorHandling);
+		localStorage.removeItem('bearerTokenGroceryMate');
 	}
 
 	public async getUserSettings(): Promise<{

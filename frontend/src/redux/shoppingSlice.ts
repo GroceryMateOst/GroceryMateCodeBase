@@ -23,7 +23,7 @@ const initialUser: UserModelComplete = {
 	city: ' ',
 	state: ' ',
 	residencyDetails: ' ',
-}
+};
 
 const initialDetailShopping: GroceryRequestDetailModel = {
 	groceryRequestId: '',
@@ -34,7 +34,7 @@ const initialDetailShopping: GroceryRequestDetailModel = {
 	shoppingList: [],
 	contractor: initialUser,
 	client: initialUser,
-}
+};
 
 const initialShopping: GroceryRequestModel = {
 	preferredStore: ' ',
@@ -62,10 +62,16 @@ export const shoppingSlice = createSlice({
 		addAllShoppings: (state, action: PayloadAction<GroceryRequestModel[]>) => {
 			state.allShoppings = action.payload;
 		},
-		addPublishedShoppings: (state, action: PayloadAction<GroceryRequestDetailModel[]>) => {
+		addPublishedShoppings: (
+			state,
+			action: PayloadAction<GroceryRequestDetailModel[]>
+		) => {
 			state.publishedShoppings = action.payload;
 		},
-		addAcceptedShoppings: (state, action: PayloadAction<GroceryRequestDetailModel[]>) => {
+		addAcceptedShoppings: (
+			state,
+			action: PayloadAction<GroceryRequestDetailModel[]>
+		) => {
 			state.acceptedShoppings = action.payload;
 		},
 		changeCurrentShoppingItems: (
@@ -82,7 +88,7 @@ export const {
 	addAllShoppings,
 	changeCurrentShoppingItems,
 	addAcceptedShoppings,
-	addPublishedShoppings
+	addPublishedShoppings,
 } = shoppingSlice.actions;
 
 export default shoppingSlice.reducer;
