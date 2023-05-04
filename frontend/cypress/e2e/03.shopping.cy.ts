@@ -7,6 +7,14 @@ describe('User creates a new GroceryRequest with Multiple groceries and submits 
 		cy.visit('http://localhost:3000');
 	});
 
+	it('Should login the user', () => {
+		cy.get('.ant-dropdown-trigger').trigger('mouseover');
+		cy.get('.ant-dropdown').contains('Login').click();
+		cy.get('#normal_login_email').type(constants.EMAIL);
+		cy.get('#normal_login_password').type(constants.PASSWORD);
+		cy.get('button[type="submit"]').click();
+		cy.url().should('eq', 'http://localhost:3000/');
+	});
 	it('should navigate to the "Create" page when clicking the corresponding link', () => {
 		cy.get('a[href*="create"]').click();
 		cy.url().should('include', '/create');

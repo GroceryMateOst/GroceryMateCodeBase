@@ -1,12 +1,12 @@
 export const constants = {
-	EMAIL: 'test13@test.com',
+	EMAIL: 'test17@test.com',
 	PASSWORD: 'p@ssw0rd2023A',
 	FIRST_NAME: 'John',
 	LAST_NAME: 'Doe',
 	STREET: 'Gasse',
 	NUMBER: '1a',
-	ZIP: '9050',
-	CITY: 'Appenzell',
-	STATE: 'Appenzell Innerrhoden',
+	ZIP: '9000',
+	CITY: 'St. Gallen',
+	STATE: 'St. Gallen',
 	DETAILS: 'Please come here by foot',
 };
