@@ -26,6 +26,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
         return _context.User
                 .Where(u => u.Identity.Id == id)
+                .Include(user => user.Address)
                 .FirstOrDefaultAsync();
     }
 }

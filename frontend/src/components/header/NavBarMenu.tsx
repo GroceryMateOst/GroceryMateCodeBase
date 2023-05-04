@@ -9,10 +9,10 @@ const NavBarMenu = () => {
 	const dispatch = useAppDispatch();
 	const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
 
-	const onDropdownClick: MenuProps['onClick'] = ({ key }) => {
+	const onDropdownClick: MenuProps['onClick'] = async ({ key }) => {
 		if (key == '4') {
 			const userService = new UserService();
-			userService.logout();
+			await userService.logout();
 			dispatch(setIsAuthenticated(false));
 		}
 	};

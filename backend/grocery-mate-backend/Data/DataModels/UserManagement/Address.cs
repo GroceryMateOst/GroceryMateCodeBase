@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using grocery_mate_backend.Models;
 
 
-namespace grocery_mate_backend.Data.DataModels.UserManagement.Address;
+namespace grocery_mate_backend.Data.DataModels.UserManagement;
 
 public class Address
 {

@@ -1,8 +1,6 @@
-using Castle.Core.Logging;
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement;
-using grocery_mate_backend.Data.DataModels.UserManagement.Address;
 using grocery_mate_backend.Service;
 using Microsoft.AspNetCore.Identity;
 using Moq;
@@ -51,7 +49,7 @@ public class UserServiceTests
         // Assert
         Assert.That(result, Is.Null);
     }
-    
+
     [Test]
     public async Task GetAuthenticatedUser_WithNullUser_ReturnsNull()
     {
@@ -69,7 +67,7 @@ public class UserServiceTests
         // Assert
         Assert.That(result, Is.Null);
     }
-    
+
     [Test]
     public async Task GetAuthenticatedUser_WhenIdentityNameIsNull_ReturnsNull()
     {
@@ -83,7 +81,7 @@ public class UserServiceTests
         // Assert
         Assert.That(result, Is.Null);
     }
-    
+
     [Test]
     public void ValidateAddress_WithValidAddress_ReturnsTrue()
     {
@@ -122,6 +120,4 @@ public class UserServiceTests
         // Assert
         Assert.That(result, Is.False);
     }
-
-  
 }

@@ -23,6 +23,7 @@ public class CanceledTokensRepository : GenericRepository<TokenBlacklistEntry>, 
     {
         try
         {
+            if (string.IsNullOrEmpty(token)) return true;
             var blacklistEntry = new TokenBlacklistEntry(token, DateTime.UtcNow);
             _context.CanceledTokens.Add(blacklistEntry);
             await _context.SaveChangesAsync();

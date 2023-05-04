@@ -1,14 +1,14 @@
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.Controllers.Repo.UOW;
-using grocery_mate_backend.Data.DataModels.UserManagement.Address;
+using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models.Settings;
 using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace grocery_mate_backend.Controllers.EndpointControllers;
+namespace grocery_mate_backend.Controllers;
 
 [ApiController]
 [Route("api/v0/User/Settings")]
@@ -26,7 +26,7 @@ public class UserSettingsController : BaseController
     public async Task<ActionResult<UserDataDto>> GetUserSettings()
     {
         const string methodName = "REST Get User-Settings";
-        
+
         if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
@@ -67,7 +67,7 @@ public class UserSettingsController : BaseController
             GmLogger.Instance.Warn(methodName, e.Message);
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
-        
+
         var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result;
         if (!ValidationBase.ValidateAddress(oldAddress, methodName))
             await _unitOfWork.Address.RemoveAddress(oldAddress, user);
