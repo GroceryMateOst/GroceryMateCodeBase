@@ -23,19 +23,19 @@ public class UserSettingsController : BaseController
 
     [Authorize]
     [HttpGet]
-        public async Task<ActionResult<UserDataDto>> GetUserSettings()
-        {
-            const string methodName = "REST Get User-Settings";
-            
-            if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
-                return BadRequest(ResponseErrorMessages.InvalidRequest);
+    public async Task<ActionResult<UserDataDto>> GetUserSettings()
+    {
+        const string methodName = "REST Get User-Settings";
 
-            var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
-            if (user == null)
-            {
-                GmLogger.Instance.Warn(methodName, "User with given identityId does not exist");
-                return BadRequest(ResponseErrorMessages.SettingsError);
-            }
+        if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
+
+        var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
+        if (user == null)
+        {
+            GmLogger.Instance.Warn(methodName, "User with given identityId does not exist");
+            return BadRequest(ResponseErrorMessages.SettingsError);
+        }
 
         var address = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result ?? new Address();
         return Ok(new UserDataDto(user, address));
@@ -67,7 +67,7 @@ public class UserSettingsController : BaseController
             GmLogger.Instance.Warn(methodName, e.Message);
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
-        
+
         var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result;
         if (!ValidationBase.ValidateAddress(oldAddress, methodName))
             await _unitOfWork.Address.RemoveAddress(oldAddress, user);
