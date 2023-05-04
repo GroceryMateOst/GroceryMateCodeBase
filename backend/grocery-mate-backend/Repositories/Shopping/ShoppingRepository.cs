@@ -14,7 +14,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
     {
         _context = context;
     }
-    
+
     public Task<List<GroceryRequest>> GetAllGroceryRequests()
     {
         return Task.FromResult(_context.GroceryRequests
@@ -22,7 +22,28 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
             .Include(request => request.Client)
             .Include(request => request.ShoppingList.Items)
             .OrderBy(request => request.ToDate)
-            .Take(10)
+            .ToList());
+    }
+
+    public Task<List<GroceryRequest>> GetGroceryRequestsAsContractor(User user)
+    {
+        return Task.FromResult(_context.GroceryRequests             
+            .Where(req => req.Contractor == user)
+            .Where(req => req.State == GroceryRequestState.Accepted)
+            .Include(request => request.ShoppingList.Items)        
+            .Include(request => request.Client) 
+            .Include(request => request.Contractor)       
+            .ToList());
+    }
+    
+    public Task<List<GroceryRequest>> GetGroceryRequestsAsClient(User user)
+    {
+        return Task.FromResult(_context.GroceryRequests             
+            .Where(req => req.Client == user)
+            .Where(req => req.State == GroceryRequestState.Published)
+            .Include(request => request.ShoppingList.Items)        
+            .Include(request => request.Client) 
+            .Include(request => request.Contractor)       
             .ToList());
     }
 
@@ -33,4 +54,5 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
         await _context.SaveChangesAsync();
         return true;
     }
+
 }
