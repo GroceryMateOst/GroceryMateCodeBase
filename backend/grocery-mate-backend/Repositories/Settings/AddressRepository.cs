@@ -46,16 +46,23 @@ public class AddressRepository : GenericRepository<Address>, IAddressRepository
 
         if (address is { Latitude: 0, Longitude: 0 })
         {
-            var coordinates = await GeoApifyApi.GetCoordinates(
-                addressDto.Street,
-                addressDto.HouseNr,
-                addressDto.City,
-                addressDto.ZipCode,
-                addressDto.State,
-                _configuration["GeoApify:Key"] ?? throw new InvalidOperationException("Env variable not found"));
+            try
+            {
+                var coordinates = await GeoApifyApi.GetCoordinates(
+                    addressDto.Street,
+                    addressDto.HouseNr,
+                    addressDto.City,
+                    addressDto.ZipCode,
+                    addressDto.State,
+                    _configuration["GeoApify:Key"] ?? throw new InvalidOperationException("Env variable not found"));
 
-            address.Longitude = coordinates.lon;
-            address.Latitude = coordinates.lat;
+                address.Longitude = coordinates.lon;
+                address.Latitude = coordinates.lat;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         return address;

@@ -92,7 +92,7 @@ public class ShoppingController : BaseController
     }
 
     [Authorize]
-    [HttpPut("groceryRequest")]
+    [HttpPut("groceryRequestState")]
     public async Task<IActionResult> UpdateRequestState(string requestId, string state)
     {
         const string methodName = "PATCH Grocery-Request-state";
