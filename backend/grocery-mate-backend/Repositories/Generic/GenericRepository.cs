@@ -22,7 +22,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
 
     public virtual async Task<T> GetById(Guid id)
     {
-        return await _dbSet.FindAsync(id);
+        throw new NotImplementedException();
     }
 
     public virtual async Task<bool> Add(T entity)

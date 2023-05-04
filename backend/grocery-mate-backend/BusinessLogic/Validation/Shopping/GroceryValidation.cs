@@ -16,17 +16,12 @@ public static class GroceryValidation
                ValidateDateTime(requestDto.ToDate);
     }
     
-    public static bool Validate(GroceryUpdateDto updateDto)
-    {
-        return ValidateRequestState(updateDto.RequestState);
-    }
-    
     public static bool ValidateRequestState(string requestState)
     {
         return Validate(requestState,
             "ValidateRequestState",
             "RequestState is incorrect",
-            item => item is "published" or "accepted" or "fulfilled");
+            item => item is "published");
     }
 
     public static bool ValidateGroceryList(List<ShoppingListDto> requestDto)

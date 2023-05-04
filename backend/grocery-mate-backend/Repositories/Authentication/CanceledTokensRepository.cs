@@ -23,10 +23,6 @@ public class CanceledTokensRepository : GenericRepository<TokenBlacklistEntry>, 
     {
         try
         {
-            if (string.IsNullOrEmpty(token))
-            {
-                throw new InvalidDataException("Token should not be Empty!");
-            }
             var blacklistEntry = new TokenBlacklistEntry(token, DateTime.UtcNow);
             _context.CanceledTokens.Add(blacklistEntry);
             await _context.SaveChangesAsync();
