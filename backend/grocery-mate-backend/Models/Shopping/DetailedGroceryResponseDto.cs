@@ -1,25 +1,17 @@
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Data.DataModels.UserManagement;
+using grocery_mate_backend.Models.Settings;
 
 namespace grocery_mate_backend.Models.Shopping;
 
 public class DetailedGroceryResponseDto : GroceryResponseBaseDto
 {
     public string RequestState { get; set; }
-    public User Client { get; set; }
-    public User Contractor { get; set; }
-
-
-    public DetailedGroceryResponseDto(List<ShoppingListDto> shoppingList, DateTime fromDate, DateTime toDate, string preferredStore, Guid groceryRequestId, string requestState, User client, User contractor) : base(shoppingList, fromDate, toDate, preferredStore)
-    {
-        GroceryRequestId = groceryRequestId;
-        RequestState = requestState;
-        Client = client;
-        Contractor = contractor;
-    }
-
+    public UserDataDto Client { get; set; }
+    public UserDataDto Contractor { get; set; }
+    
     public DetailedGroceryResponseDto(GroceryRequest groceryRequest)
-    { 
+    {
         var client = groceryRequest.Client;
         var contractor = groceryRequest.Contractor;
 
@@ -27,10 +19,10 @@ public class DetailedGroceryResponseDto : GroceryResponseBaseDto
         contractor.GroceryRequestsClients = new List<GroceryRequest>();
         client.GroceryRequestsContractor = new List<GroceryRequest>();
         contractor.GroceryRequestsContractor = new List<GroceryRequest>();
-        
+
         RequestState = groceryRequest.State.ToString();
-        Client = client;
-        Contractor = contractor;
+        Client = new UserDataDto(groceryRequest.Client, groceryRequest.Client.Address);
+        Contractor = new UserDataDto(groceryRequest.Contractor, groceryRequest.Contractor.Address);;
 
         ShoppingList = groceryRequest.ShoppingList.Items
             .Select(item => new ShoppingListDto(item.Grocery))

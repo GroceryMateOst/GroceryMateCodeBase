@@ -16,11 +16,6 @@ public static class GroceryValidation
                ValidateDateTime(requestDto.ToDate);
     }
     
-    public static bool Validate(GroceryUpdateDto updateDto)
-    {
-        return ValidateRequestState(updateDto.RequestState);
-    }
-    
     public static bool ValidateRequestState(string requestState)
     {
         return Validate(requestState,

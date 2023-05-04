@@ -1,7 +1,7 @@
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.Controllers.Repo.UOW;
-using grocery_mate_backend.Data.DataModels.UserManagement.Address;
+using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Settings;
 using grocery_mate_backend.Service;
@@ -9,7 +9,7 @@ using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace grocery_mate_backend.Controllers.EndpointControllers;
+namespace grocery_mate_backend.Controllers;
 
 [ApiController]
 [Route("api/v0/User/Settings")]

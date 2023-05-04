@@ -17,7 +17,9 @@ public class User
     public IdentityUser? Identity { get; set; }
     public string? ResidencyDetails { get; set; }
     public Guid? AddressId { get; set; }
-    
+
+    public Address? Address { get; set; }
+
     [InverseProperty("Client")]
     public ICollection<GroceryRequest>? GroceryRequestsClients { get; set; }
     

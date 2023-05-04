@@ -9,7 +9,7 @@ using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using User = grocery_mate_backend.Data.DataModels.UserManagement.User;
+using grocery_mate_backend.Data.DataModels.UserManagement;
 
 namespace grocery_mate_backend.Controllers.EndpointControllers;
 

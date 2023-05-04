@@ -1,7 +1,7 @@
 ﻿using grocery_mate_backend.Data.DataModels.Authentication;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Data.DataModels.UserManagement;
-using grocery_mate_backend.Data.DataModels.UserManagement.Address;
+using grocery_mate_backend.Data.DataModels.UserManagement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

@@ -1,7 +1,7 @@
 using grocery_mate_backend.Controllers.Repo.Generic;
 using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Data.DataModels.UserManagement;
-using grocery_mate_backend.Data.DataModels.UserManagement.Address;
+using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;

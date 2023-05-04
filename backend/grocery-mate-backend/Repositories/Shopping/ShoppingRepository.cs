@@ -31,8 +31,8 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
             .Where(req => req.Contractor == user)
             .Where(req => req.State == GroceryRequestState.Accepted)
             .Include(request => request.ShoppingList.Items)        
-            .Include(request => request.Client) 
-            .Include(request => request.Contractor)       
+            .Include(request => request.Client.Address) 
+            .Include(request => request.Contractor.Address)       
             .ToList());
     }
     
@@ -42,8 +42,8 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
             .Where(req => req.Client == user)
             .Where(req => req.State == GroceryRequestState.Published)
             .Include(request => request.ShoppingList.Items)        
-            .Include(request => request.Client) 
-            .Include(request => request.Contractor)       
+            .Include(request => request.Client.Address) 
+            .Include(request => request.Contractor.Address)       
             .ToList());
     }
 

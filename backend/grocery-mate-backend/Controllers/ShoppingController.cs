@@ -92,13 +92,13 @@ public class ShoppingController : BaseController
     }
 
     [Authorize]
-    [HttpPatch("groceryRequest")]
-    public async Task<IActionResult> UpdateRequestState([FromForm] GroceryUpdateDto updatedDto)
+    [HttpPut("groceryRequest")]
+    public async Task<IActionResult> UpdateRequestState(string requestId, string state)
     {
         const string methodName = "PATCH Grocery-Request-state";
 
         if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist) &&
-            !GroceryValidation.Validate(updatedDto))
+            !GroceryValidation.ValidateRequestState(state))
         {
             GmLogger.Instance.Warn(methodName, "GroceryRequestState is invalid");
             return BadRequest(ResponseErrorMessages.InvalidRequest);
@@ -111,9 +111,9 @@ public class ShoppingController : BaseController
 
         try
         {
-            var groceryRequestId = Guid.Parse(updatedDto.GroceryRequestId);
+            var groceryRequestId = Guid.Parse(requestId);
             groceryRequest = await _unitOfWork.Shopping.GetById(groceryRequestId);
-            groceryRequest.State = Enum.Parse<GroceryRequestState>(updatedDto.RequestState, true);
+            groceryRequest.State = Enum.Parse<GroceryRequestState>(state, true);
             groceryRequest.Contractor = user;
             await _unitOfWork.CompleteAsync();
         }

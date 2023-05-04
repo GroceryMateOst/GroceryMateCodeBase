@@ -41,7 +41,7 @@ const NavBarMenu = () => {
 			label: <Link to="/published">Meine Inserate</Link>,
 		},
 		{
-			key: '5',
+			key: '6',
 			label: <Link to="/accepted">Meine Aufträge</Link>,
 		},
 	];
