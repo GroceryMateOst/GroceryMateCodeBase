@@ -21,7 +21,7 @@ public static class GroceryValidation
         return Validate(requestState,
             "ValidateRequestState",
             "RequestState is incorrect",
-            item => item is "published");
+            item => item is "published" or "accepted" or "fulfilled");
     }
 
     public static bool ValidateGroceryList(List<ShoppingListDto> requestDto)

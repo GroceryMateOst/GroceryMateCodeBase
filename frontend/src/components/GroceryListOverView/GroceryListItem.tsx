@@ -1,6 +1,12 @@
 ﻿import './GroceryListItem.css';
-import { GroceryRequestResponseModel } from '../../models/GroceryRequestModel';
-import { Collapse } from 'antd';
+import {
+	GroceryRequestResponseModel,
+	PatchShopping,
+} from '../../models/GroceryRequestModel';
+import { Collapse, Tooltip } from 'antd';
+import { useAppSelector } from '../../redux/hooks';
+import ShoppingService from '../../services/shopping-service';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const GroceryListItem = ({
 	request,
@@ -8,6 +14,21 @@ const GroceryListItem = ({
 	request: GroceryRequestResponseModel;
 }) => {
 	const { Panel } = Collapse;
+	const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
+
+	const onRequestAccept = async (event: React.MouseEvent<HTMLElement>) => {
+		event.preventDefault();
+		const body: PatchShopping = {
+			groceryRequestId: request.groceryRequestId,
+			requestState: 'accepted',
+		};
+		try {
+			const shoppingService: ShoppingService = new ShoppingService();
+			await shoppingService.updateShoppingState(body);
+		} catch {
+			console.log('error');
+		}
+	};
 
 	const formateDate = (dateString: string) => {
 		const date = new Date(dateString);
@@ -18,7 +39,7 @@ const GroceryListItem = ({
 		<div className="bg-[#D9D9D9] max-w-[500px] mt-5">
 			<div className="flex flex-row justify-between p-5 w-fit space-x-20">
 				<div className="flex flex-col">
-					<span className="font-bold">Einnkauf von:</span>
+					<span className="font-bold">Einkauf von:</span>
 					<span>{request.firstName}</span>
 				</div>
 				<div className="flex flex-col">
@@ -35,10 +56,23 @@ const GroceryListItem = ({
 			<div>
 				<Collapse className="bg-[#D9D9D9] grocerListItem">
 					<Panel header="Mehr Anzeigen" key={1} className="bg-[#D9D9D9]">
-						<div className="flex flex-col bg-[#D9D9D9]">
-							{request.shoppingList.map((item, index) => (
-								<span key={index}>• {item.description}</span>
-							))}
+						<div className="flex flex-row justify-between">
+							<div className="flex flex-col bg-[#D9D9D9]">
+								{request.shoppingList.map((item, index) => (
+									<span key={index}>• {item.description}</span>
+								))}
+							</div>
+							{isAuthenticated && (
+								<button
+									onClick={onRequestAccept}
+									className="p-4 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95"
+								>
+									Anfrage annehmen
+									<Tooltip title="Möchtest du diesen Einkauf übernehmen? Dann klicke auf diesen Button">
+										<InfoCircleOutlined className="ml-4" />
+									</Tooltip>
+								</button>
+							)}
 						</div>
 					</Panel>
 				</Collapse>

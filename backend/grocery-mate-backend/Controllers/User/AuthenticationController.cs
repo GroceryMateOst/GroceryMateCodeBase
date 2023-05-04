@@ -4,11 +4,14 @@ using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Authentication;
+using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using grocery_mate_backend.Data.DataModels.UserManagement;
 
-namespace grocery_mate_backend.Controllers;
+namespace grocery_mate_backend.Controllers.EndpointControllers;
 
 [ApiController]
 [Route("api/v0/User/[controller]")]
@@ -22,10 +25,10 @@ public class AuthenticationController : BaseController
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<Data.DataModels.UserManagement.User>> CreateUser(CreateUserDto userDto)
+    public async Task<ActionResult<User>> CreateUser(CreateUserDto userDto)
     {
         const string methodName = "REST Create User";
-        var userDm = new Data.DataModels.UserManagement.User(userDto);
+        var userDm = new User(userDto);
 
         if (!ValidationBase.ValidateModel(ModelState))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
@@ -62,11 +65,15 @@ public class AuthenticationController : BaseController
         if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
             return BadRequest(ResponseErrorMessages.InvalidLogin);
 
-        var token = _unitOfWork.Authentication.CreateToken(identityUser);
+        var user = await _unitOfWork.User.FindUserByIdentityId(identityUser.Id);
+        if (user == null) return BadRequest(ResponseErrorMessages.NotAuthorised);
+        
+        var token = _unitOfWork.Authentication.CreateToken(identityUser, user.UserId);
         GmLogger.Instance.Trace(methodName, "Bearer-Token Successfully generated");
         return Ok(token);
     }
 
+    [Authorize]
     [HttpPost("logout")]
     public async Task<ActionResult<AuthenticationResponseDto>> CancelBearerToken()
     {

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Dropdown, MenuProps } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -6,6 +6,7 @@ import { setIsAuthenticated } from '../../redux/userSlice';
 import UserService from '../../services/user-service';
 
 const NavBarMenu = () => {
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
 
@@ -14,6 +15,7 @@ const NavBarMenu = () => {
 			const userService = new UserService();
 			await userService.logout();
 			dispatch(setIsAuthenticated(false));
+			navigate('/');
 		}
 	};
 
@@ -34,6 +36,14 @@ const NavBarMenu = () => {
 			key: '4',
 			label: 'Logout',
 		},
+		{
+			key: '5',
+			label: <Link to="/published">Meine Inserate</Link>,
+		},
+		{
+			key: '6',
+			label: <Link to="/accepted">Meine Aufträge</Link>,
+		},
 	];
 
 	function getNavItems(
@@ -41,7 +51,7 @@ const NavBarMenu = () => {
 	): Array<{ key: string; label: JSX.Element | string }> {
 		const navItems = [items[0]];
 		if (userIsAuthenticated) {
-			return [...navItems, items[3]];
+			return [...navItems, items[3], items[4], items[5], items[6]];
 		} else {
 			return [...navItems, items[1], items[2]];
 		}

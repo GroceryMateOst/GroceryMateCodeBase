@@ -3,16 +3,13 @@ using grocery_mate_backend.Data.DataModels.UserManagement;
 
 namespace grocery_mate_backend.Models.Shopping;
 
-public class GroceryResponseDto
+public class GroceryResponseDto : GroceryResponseBaseDto
 {
     public string FirstName { get; set; }
     public string City { get; set; }
-    public List<ShoppingListDto> ShoppingList { get; set; }
-    public DateTime FromDate { get; set; }
-    public DateTime ToDate { get; set; }
-    public string PreferredStore { get; set; }
 
-    public GroceryResponseDto(GroceryRequest groceryRequest, Address? address)
+
+    public GroceryResponseDto(GroceryRequest groceryRequest, Address? address, Guid groceryRequestId) : base()
     {
         FirstName = groceryRequest.Client.FirstName;
         City = address != null ? address.City : "";
@@ -22,5 +19,6 @@ public class GroceryResponseDto
         FromDate = groceryRequest.FromDate;
         ToDate = groceryRequest.ToDate;
         PreferredStore = groceryRequest.PreferredStore;
+        GroceryRequestId = groceryRequestId;
     }
 }

@@ -1,4 +1,5 @@
 using grocery_mate_backend.Controllers.Repo.Authentication;
+using grocery_mate_backend.Data.DataModels.Authentication;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Mvc.ModelBinding;

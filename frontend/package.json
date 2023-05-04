@@ -16,7 +16,6 @@
 		"cy:open-unit": "cypress open --component --browser chrome",
 		"cy:run-e2e": "cypress run --e2e",
 		"cy:run-unit": "cypress run --component",
-		"cy:e2e": "start-server-and-test start http-get://localhost:3000 cy:open-e2e",
 		"style:prettier": "prettier --check .",
 		"format": "prettier --write .",
 		"style:all": "tsc && yarn lint && yarn style:prettier",

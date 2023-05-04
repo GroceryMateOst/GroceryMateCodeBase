@@ -19,7 +19,7 @@ public class User
     public Guid? AddressId { get; set; }
 
     public Address? Address { get; set; }
-    
+
     [InverseProperty("Client")]
     public ICollection<GroceryRequest>? GroceryRequestsClients { get; set; }
     
@@ -67,4 +67,6 @@ public class User
         GroceryRequestsClients = new List<GroceryRequest>();
         GroceryRequestsContractor = new List<GroceryRequest>();
     }
+    
+  
 }

@@ -55,9 +55,8 @@ describe('User registers and gets a JWT token in return which is stored in local
 		cy.get('#basic_secondName').clear().type(constants.LAST_NAME);
 		cy.get('#basic_street').clear().type(constants.STREET);
 		cy.get('#basic_houseNr').clear().type(constants.NUMBER);
-		cy.get('#basic_zipCode').clear().type(constants.ZIP);
-		cy.get('#basic_city').clear().type(constants.CITY);
-		cy.get('#basic_state').clear().type(constants.STATE);
+		cy.get('#basic_zipCode').clear().type(constants.ZIP).blur();
+		cy.wait(5000);
 		cy.get('#basic_residencyDetails').clear().type(constants.DETAILS);
 
 		cy.get('button[type="submit"]').click();

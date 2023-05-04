@@ -1,5 +1,6 @@
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Controllers.Repo.Authentication;
+using grocery_mate_backend.Data.DataModels.UserManagement;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Moq;

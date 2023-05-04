@@ -2,6 +2,7 @@ using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement;
+using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Settings;
 using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
@@ -15,10 +16,13 @@ namespace grocery_mate_backend.Controllers;
 public class UserSettingsController : BaseController
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IConfiguration _configuration;
 
-    public UserSettingsController(IUnitOfWork unitOfWork)
+
+    public UserSettingsController(IUnitOfWork unitOfWork, IConfiguration configuration)
     {
         _unitOfWork = unitOfWork;
+        _configuration = configuration;
     }
 
     [Authorize]
@@ -26,7 +30,7 @@ public class UserSettingsController : BaseController
     public async Task<ActionResult<UserDataDto>> GetUserSettings()
     {
         const string methodName = "REST Get User-Settings";
-
+        
         if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
@@ -67,7 +71,7 @@ public class UserSettingsController : BaseController
             GmLogger.Instance.Warn(methodName, e.Message);
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
-
+        
         var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result;
         if (!ValidationBase.ValidateAddress(oldAddress, methodName))
             await _unitOfWork.Address.RemoveAddress(oldAddress, user);
@@ -77,5 +81,17 @@ public class UserSettingsController : BaseController
 
         await _unitOfWork.CompleteAsync();
         return Ok();
+    }
+    
+  
+    [Authorize]
+    [HttpGet("GetCity")]
+    public async Task<ActionResult<ZipResponseDto>> GetCityNameByZip([FromQuery] int zipCode)
+    {
+        const string methodName = "REST Get City name by zip";
+
+        var cityName = await GeoApifyApi.GetCityName(zipCode, _configuration["GeoApify:Key"] ?? throw new InvalidOperationException("Env variable not found"));
+
+        return Ok(cityName);
     }
 }

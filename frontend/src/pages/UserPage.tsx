@@ -5,7 +5,6 @@ import UserService from '../services/user-service';
 import { useEffect } from 'react';
 import { setIsLoading } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { useNavigate } from 'react-router-dom';
 
 const UserPage = () => {
 	const [form] = Form.useForm<UserModelComplete>();
@@ -35,6 +34,13 @@ const UserPage = () => {
 	const handleSubmit = async (userSettings: UserModelComplete) => {
 		const userService = new UserService();
 		await userService.updateUserSettings(userSettings);
+	};
+
+	const getCityByZipCode = async (zipCode: string) => {
+		const userService = new UserService();
+		const response = await userService.getCityByZip(zipCode);
+		form.setFieldValue('city', response.city);
+		form.setFieldValue('state', response.state);
 	};
 
 	return (
@@ -135,7 +141,9 @@ const UserPage = () => {
 								},
 							]}
 						>
-							<Input />
+							<Input
+								onBlur={(element) => getCityByZipCode(element.target.value)}
+							/>
 						</Form.Item>
 						<Form.Item
 							name="city"

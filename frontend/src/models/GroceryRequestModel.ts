@@ -1,3 +1,4 @@
+import { UserModelComplete } from './UserModel';
 export interface GroceryRequestModel {
 	preferredStore: string;
 	requestState: string;
@@ -8,6 +9,7 @@ export interface GroceryRequestModel {
 }
 
 export interface GroceryRequestResponseModel {
+	groceryRequestId: string;
 	firstName: string;
 	city: string;
 	shoppingList: ShoppingItem[];
@@ -16,6 +18,22 @@ export interface GroceryRequestResponseModel {
 	preferredStore: string;
 }
 
+export interface GroceryRequestDetailModel {
+	groceryRequestId: string;
+	requestState: string;
+	shoppingList: ShoppingItem[];
+	fromDate: string;
+	toDate: string;
+	preferredStore: string;
+	client: UserModelComplete;
+	contractor: UserModelComplete;
+}
+
 export interface ShoppingItem {
 	description: string;
+}
+
+export interface PatchShopping {
+	groceryRequestId: string;
+	requestState: string;
 }
