@@ -19,6 +19,7 @@ const SearchPage = () => {
 			const response = await shoppingService.getGroceryListsBySearchParams(
 				zipCode
 			);
+			console.log(response);
 			setGroceryRequests(response);
 		} finally {
 			setIsLoading(false);
@@ -49,10 +50,15 @@ const SearchPage = () => {
 					<SearchOutlined />
 				</Button>
 			</Space.Compact>
-			<div>
+			<div className="flex flex-col items-start">
 				{isLoading ? null : groceryRequests.length > 0 ? (
 					groceryRequests.map((request, index) => (
-						<GroceryListItem request={request} key={index} />
+						<div className="flex flex-col items-end" key={index}>
+							{request.distance > 0 && (
+								<div className="border-[#8fb69c] bg-[#8fb69c] w-fit h-fit p-2 rounded-full flex flex-col justify-center items-center relative top-10 right-[-30px]">{`${request.distance}km`}</div>
+							)}
+							<GroceryListItem request={request} />
+						</div>
 					))
 				) : (
 					<Empty
