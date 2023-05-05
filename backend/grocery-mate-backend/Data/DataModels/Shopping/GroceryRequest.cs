@@ -22,6 +22,9 @@ public class GroceryRequest
     public string Note { get; set; }
     public string PreferredStore { get; set; }
     [Required] public GroceryRequestState State { get; set; }
+    
+    [NotMapped]
+    public decimal Distance { get; set; }
 
     public GroceryRequest(User client, GroceryRequestDto requestDto, DateTime fromDate, DateTime toDate)
     {

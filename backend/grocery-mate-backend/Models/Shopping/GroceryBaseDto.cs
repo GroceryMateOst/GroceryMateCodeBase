@@ -8,7 +8,6 @@ public class GroceryResponseBaseDto
     public string PreferredStore { get; set; }
     public Guid GroceryRequestId { get; set; }
     
-    
     public GroceryResponseBaseDto(List<ShoppingListDto> shoppingList, DateTime fromDate, DateTime toDate, string preferredStore)
     {
         ShoppingList = shoppingList;

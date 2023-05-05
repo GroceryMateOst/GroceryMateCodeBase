@@ -16,13 +16,10 @@ namespace grocery_mate_backend.Controllers;
 public class UserSettingsController : BaseController
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IConfiguration _configuration;
 
-
-    public UserSettingsController(IUnitOfWork unitOfWork, IConfiguration configuration)
+    public UserSettingsController(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        _configuration = configuration;
     }
 
     [Authorize]
@@ -90,7 +87,7 @@ public class UserSettingsController : BaseController
     {
         const string methodName = "REST Get City name by zip";
 
-        var cityName = await GeoApifyApi.GetCityName(zipCode, _configuration["GeoApify:Key"] ?? throw new InvalidOperationException("Env variable not found"));
+        var cityName = await GeoApifyApi.GetCityName(zipCode);
 
         return Ok(cityName);
     }
