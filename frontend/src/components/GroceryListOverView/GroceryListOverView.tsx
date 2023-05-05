@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import ShoppingService from '../../services/shopping-service';
 import { setIsLoading } from '../../redux/userSlice';
 import GroceryListItem from './GroceryListItem';
+import { Link } from 'react-router-dom';
+import { RightOutlined } from '@ant-design/icons';
 
 const GroceryListOverView = () => {
 	const [groceryRequests, setGroceryRequests] = useState<
@@ -39,6 +41,12 @@ const GroceryListOverView = () => {
 					: groceryRequests.map((request, index) => (
 							<GroceryListItem request={request} key={index} />
 					  ))}
+			</div>
+			<div className="mt-4 font-bold">
+				<Link to="/search" className="!text-black hover:!text-[#8fb69c]">
+					Zu Alle Einkaufslisten
+					<RightOutlined />
+				</Link>
 			</div>
 		</>
 	);
