@@ -73,7 +73,6 @@ public class AuthenticationController : BaseController
         return Ok(token);
     }
 
-    [Authorize]
     [HttpPost("logout")]
     public async Task<ActionResult<AuthenticationResponseDto>> CancelBearerToken()
     {

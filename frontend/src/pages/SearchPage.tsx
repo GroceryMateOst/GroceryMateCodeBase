@@ -18,6 +18,7 @@ const SearchPage = () => {
 
 	const getFilteredRequests = async () => {
 		const shoppingService = new ShoppingService();
+		// const response = shoppingService.getGroceryListsBySearchParams('');
 	};
 
 	return (
