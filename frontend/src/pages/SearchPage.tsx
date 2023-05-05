@@ -12,14 +12,6 @@ const SearchPage = () => {
 	>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const onSearchClick = () => {
-		getFilteredRequests(plz);
-	};
-
-	useEffect(() => {
-		getFilteredRequests();
-	}, []);
-
 	const getFilteredRequests = async (zipCode?: number) => {
 		setIsLoading(true);
 		const shoppingService = new ShoppingService();
@@ -31,6 +23,15 @@ const SearchPage = () => {
 		} finally {
 			setIsLoading(false);
 		}
+	};
+
+	useEffect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
+		getFilteredRequests();
+	}, []);
+
+	const onSearchClick = async () => {
+		await getFilteredRequests(plz);
 	};
 
 	return (
