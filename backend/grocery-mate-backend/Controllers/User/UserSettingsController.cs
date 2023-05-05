@@ -1,5 +1,4 @@
 using grocery_mate_backend.BusinessLogic.Validation;
-using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models;
@@ -70,7 +69,7 @@ public class UserSettingsController : BaseController
         }
         
         var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result;
-        if (!ValidationBase.ValidateAddress(oldAddress, methodName))
+        if (!AddressValidation.ValidateAddress(oldAddress))
             await _unitOfWork.Address.RemoveAddress(oldAddress, user);
 
         user.AddressId = newAddress?.AddressId;

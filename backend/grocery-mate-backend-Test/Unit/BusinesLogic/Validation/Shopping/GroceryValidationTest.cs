@@ -1,4 +1,4 @@
-using grocery_mate_backend.BusinessLogic.Validation.Shopping;
+using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Models.Shopping;
 using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;

@@ -1,6 +1,4 @@
 using grocery_mate_backend.BusinessLogic.Validation;
-using grocery_mate_backend.BusinessLogic.Validation.Authentication;
-using grocery_mate_backend.BusinessLogic.Validation.Shopping;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
@@ -96,7 +94,8 @@ public class ShoppingController : BaseController
     {
         const string methodName = "GET Grocery-Request by Zipcode";
 
-        if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
+        if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist) &&
+            AddressValidation.ValidateZipcode(zipCode))
         {
             GmLogger.Instance.Warn(methodName, "Invalid ModelState due to bad credentials");
             return BadRequest(ResponseErrorMessages.InvalidRequest);
