@@ -1,4 +1,4 @@
-using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
+using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Utility.Log;
 using Moq;
 using NUnit.Framework;
@@ -15,7 +15,7 @@ public class UserValidationTests
         var methodName = "TestMethod";
 
         // Act
-        var result = UserValidation.ValidateUser(user, methodName);
+        var result = UserValidation.ValidateUser(user);
 
         // Assert
         Assert.That(result, Is.True);
@@ -30,7 +30,7 @@ public class UserValidationTests
         var loggerMock = new Mock<GmLogger>();
 
         // Act
-        var result = UserValidation.ValidateUser(user, methodName);
+        var result = UserValidation.ValidateUser(user);
 
         // Assert
         Assert.That(result, Is.False);
@@ -44,7 +44,7 @@ public class UserValidationTests
         var methodName = "TestMethod";
 
         // Act
-        var result = UserValidation.ValidateUserMail(mailAddress, methodName);
+        var result = UserValidation.ValidateUserMail(mailAddress);
 
         // Assert
         Assert.That(result, Is.True);
@@ -59,7 +59,7 @@ public class UserValidationTests
         var loggerMock = new Mock<GmLogger>();
 
         // Act
-        var result = UserValidation.ValidateUserMail(mailAddress, methodName);
+        var result = UserValidation.ValidateUserMail(mailAddress);
 
         // Assert
         Assert.That(result, Is.False);

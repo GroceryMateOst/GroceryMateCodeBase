@@ -2,7 +2,7 @@ using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace grocery_mate_backend.BusinessLogic.Validation.Authentication;
+namespace grocery_mate_backend.BusinessLogic.Validation;
 
 public abstract class AuthenticationValidation : ValidationBase
 {
@@ -17,11 +17,12 @@ public abstract class AuthenticationValidation : ValidationBase
         GmLogger.Instance.Warn(methodName, "Creation of the Identity-User failed");
         return false;
     }
-
-    public static bool ValidateUserPassword(bool result, string methodName)
+    
+    public static bool ValidateUserPassword(bool result)
     {
-        if (result) return true;
-        GmLogger.Instance.Warn(methodName, "Invalid Password");
-        return false;
+        return Validate(result,
+            "ValidateUserPassword",
+            "Invalid Password",
+            item => item);
     }
 }

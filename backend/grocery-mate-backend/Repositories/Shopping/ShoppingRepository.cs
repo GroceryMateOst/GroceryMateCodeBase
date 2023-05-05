@@ -27,6 +27,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
         var coordinates = await GeoApifyApi.GetCoordinatesByZipCode(zipcode);
         var groceryRequests = await Task.FromResult(_context.GroceryRequests
             .Include(req => req.Client.Address)
+            .Include(req => req.ShoppingList.Items)
             .ToList());
 
         foreach (var groceryRequest in groceryRequests)

@@ -8,7 +8,7 @@ namespace grocery_mate_backend.BusinessLogic.Validation;
 
 public class ValidationBase
 {
-    private delegate bool GroceryPredicate<in T>(T item);
+    protected delegate bool GroceryPredicate<in T>(T item);
 
     public static bool ValidateModel(ModelStateDictionary modelState)
     {
@@ -31,7 +31,6 @@ public class ValidationBase
             item => item.IsValid);
     }
 
-
     public static bool ValidateSessionToken(string token,
         ICanceledTokensRepository canceledTokensRepository)
     {
@@ -41,14 +40,7 @@ public class ValidationBase
             item => item.Result);
     }
 
-    public static bool ValidateAddress(Address? address, string methodName)
-    {
-        if (address != null && address.AddressId != Guid.Empty) return true;
-        GmLogger.Instance.Warn(methodName, "User with given eMail-Adr. not found");
-        return false;
-    }
-
-    private static bool Validate<T>(T thing, string methodName, string errorMsg, GroceryPredicate<T> predicate)
+    protected static bool Validate<T>(T thing, string methodName, string errorMsg, GroceryPredicate<T> predicate)
     {
         if (predicate(thing)) return true;
         GmLogger.Instance.Warn(methodName, errorMsg);

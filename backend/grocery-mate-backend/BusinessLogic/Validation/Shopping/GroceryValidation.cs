@@ -2,12 +2,10 @@ using grocery_mate_backend.Models.Shopping;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.IdentityModel.Tokens;
 
-namespace grocery_mate_backend.BusinessLogic.Validation.Shopping;
+namespace grocery_mate_backend.BusinessLogic.Validation;
 
-public static class GroceryValidation
+public abstract class GroceryValidation : ValidationBase
 {
-    private delegate bool GroceryPredicate<in T>(T item);
-    
     public static bool Validate(GroceryRequestDto requestDto)
     {
         return ValidateGroceryList(requestDto.GroceryList) &&
@@ -38,12 +36,5 @@ public static class GroceryValidation
             "ValidateDateTime",
             "Invalid date format",
             item => DateTime.TryParse(item, out _));
-    }
-
-    private static bool Validate<T>(T thing, string methodName, string errorMsg, GroceryPredicate<T> predicate)
-    {
-        if (predicate(thing)) return true;
-        GmLogger.Instance.Warn(methodName, errorMsg);
-        return false;
     }
 }

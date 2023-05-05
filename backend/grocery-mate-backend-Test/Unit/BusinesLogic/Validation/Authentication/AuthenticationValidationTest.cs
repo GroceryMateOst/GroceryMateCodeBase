@@ -1,10 +1,8 @@
-using Castle.Core.Logging;
-using grocery_mate_backend.BusinessLogic.Validation.Authentication;
+using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Controllers.Repo.Authentication;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Service;
-using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 using NUnit.Framework;
@@ -49,7 +47,7 @@ public class AuthenticationValidationTests
         const string methodName = "TestMethodName";
 
         // Act
-        var validationResult = AuthenticationValidation.ValidateUserPassword(result, methodName);
+        var validationResult = AuthenticationValidation.ValidateUserPassword(result);
 
         // Assert
         Assert.That(validationResult, Is.True);
@@ -63,7 +61,7 @@ public class AuthenticationValidationTests
         const string methodName = "TestMethodName";
 
         // Act
-        var validationResult = AuthenticationValidation.ValidateUserPassword(result, methodName);
+        var validationResult = AuthenticationValidation.ValidateUserPassword(result);
 
         // Assert
         Assert.That(validationResult, Is.False);
@@ -77,7 +75,7 @@ public class AuthenticationValidationTests
         const string methodName = "TestMethodName";
 
         // Act
-        var validationResult = AuthenticationValidation.ValidateUserPassword(result, methodName);
+        var validationResult = AuthenticationValidation.ValidateUserPassword(result);
 
         // Assert
         Assert.That(validationResult, Is.False);
