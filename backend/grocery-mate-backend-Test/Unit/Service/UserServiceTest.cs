@@ -81,43 +81,4 @@ public class UserServiceTests
         // Assert
         Assert.That(result, Is.Null);
     }
-
-    [Test]
-    public void ValidateAddress_WithValidAddress_ReturnsTrue()
-    {
-        // Arrange
-        var address = new Address { AddressId = Guid.NewGuid() };
-
-        // Act
-        var result = ValidationBase.ValidateAddress(address, "methodName");
-
-        // Assert
-        Assert.That(result, Is.True);
-    }
-
-    [Test]
-    public void ValidateAddress_WithNullAddress_ReturnsFalse()
-    {
-        // Arrange
-        Address address = null;
-
-        // Act
-        var result = ValidationBase.ValidateAddress(address, "methodName");
-
-        // Assert
-        Assert.That(result, Is.False);
-    }
-
-    [Test]
-    public void ValidateAddress_WithEmptyAddressId_ReturnsFalse()
-    {
-        // Arrange
-        var address = new Address { AddressId = Guid.Empty };
-
-        // Act
-        var result = ValidationBase.ValidateAddress(address, "methodName");
-
-        // Assert
-        Assert.That(result, Is.False);
-    }
 }

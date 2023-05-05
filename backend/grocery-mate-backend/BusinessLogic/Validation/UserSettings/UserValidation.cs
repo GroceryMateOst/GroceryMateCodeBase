@@ -1,21 +1,21 @@
 using grocery_mate_backend.Utility.Log;
 using Microsoft.IdentityModel.Tokens;
 
-namespace grocery_mate_backend.BusinessLogic.Validation.UserSettings;
+namespace grocery_mate_backend.BusinessLogic.Validation;
 
-public static class UserValidation
+public abstract class UserValidation : ValidationBase
 {
-    public static bool ValidateUser(Object? user, string methodName)
+    public static bool ValidateUser(object? user)
     {
-        if (user != null) return true;
-        GmLogger.Instance.Warn(methodName, "User with given eMail-Adr. not found");
-        return false;
+        return Validate(user,
+            "User with given eMail-Adr. not found",
+            item => item != null);
     }
-
-    public static bool ValidateUserMail(string mailAddress, string methodName)
+    
+    public static bool ValidateUserMail(string mailAddress)
     {
-        if (!mailAddress.IsNullOrEmpty()) return true;
-        GmLogger.Instance.Warn(methodName, "Invalid Mail-Address");
-        return false;
+        return Validate(mailAddress,
+            "Invalid Mail-Address",
+            item => !item.IsNullOrEmpty());
     }
 }

@@ -1,6 +1,4 @@
 using grocery_mate_backend.BusinessLogic.Validation;
-using grocery_mate_backend.BusinessLogic.Validation.Authentication;
-using grocery_mate_backend.BusinessLogic.Validation.Shopping;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
@@ -90,6 +88,41 @@ public class ShoppingController : BaseController
         GmLogger.Instance.Trace(methodName, "Grocery-Response successfully mapped");
         return Ok(requests);
     }
+    
+    [HttpGet("Search")]
+    public async Task<ActionResult<GroceryResponseDto>> GetGroceryRequestsByZipcode([FromQuery] int zipCode)
+    {
+        const string methodName = "GET Grocery-Request by Zipcode";
+
+        if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist) &&
+            AddressValidation.ValidateZipcode(zipCode))
+        {
+            GmLogger.Instance.Warn(methodName, "Invalid ModelState due to bad credentials");
+            return BadRequest(ResponseErrorMessages.InvalidRequest);
+        }
+
+        List<GroceryRequest> groceryRequests;
+        try
+        {
+            groceryRequests = await _unitOfWork.Shopping.GetAllGroceryRequestsByZipcode(zipCode);
+        }
+        catch (Exception e)
+        {
+            GmLogger.Instance.Trace(methodName, e.Message);
+            return BadRequest(ResponseErrorMessages.NotFound);
+        }
+
+        var requests = new List<GroceryResponseDto>();
+        foreach (var groceryRequest in groceryRequests)
+        {
+            var address = await _unitOfWork.Address.FindAddressByGuid(groceryRequest.Client.AddressId);
+            requests.Add(new GroceryResponseDto(groceryRequest, address, groceryRequest.GroceryRequestId));
+        }
+
+        GmLogger.Instance.Trace(methodName, "Grocery-Response successfully mapped");
+        return Ok(requests);
+    }
+
 
     [Authorize]
     [HttpPut("groceryRequestState")]

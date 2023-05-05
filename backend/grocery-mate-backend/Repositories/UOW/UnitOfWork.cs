@@ -24,7 +24,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         _context = context;
         User = new UserRepository(_context);
         Shopping = new ShoppingRepository(_context);
-        Address = new AddressRepository(_context, configuration);
+        Address = new AddressRepository(_context);
         Authentication = new AuthenticationRepository(context, userManager, configuration, ExpirationMinutes);
         TokenBlacklist = new CanceledTokensRepository(context, ExpirationMinutes);
     }

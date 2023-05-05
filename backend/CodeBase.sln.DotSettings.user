@@ -5,11 +5,11 @@
 	<s:Boolean x:Key="/Default/Environment/Highlighting/HighlightingEnabled/@EntryValue">False</s:Boolean>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingMode/@EntryValue">OnlyFullLine</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=439fcd4a_002D3728_002D4a19_002D8773_002D2486be11ec39/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;grocery-mate-backend-Test&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\application_projects\GroceryMate\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
+  &lt;Project Location="C:\Users\Felix\Desktop\SEProj\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ecc35a27_002Dccec_002D4072_002Dba7f_002Df4d69bc036c0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Unit" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ecc35a27_002Dccec_002D4072_002Dba7f_002Df4d69bc036c0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Unit" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;ProjectFolder&gt;F0670888-82A6-439C-B717-5AE543308B40/d:Unit&lt;/ProjectFolder&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

@@ -12,12 +12,10 @@ namespace grocery_mate_backend.Controllers.Repo.Settings;
 public class AddressRepository : GenericRepository<Address>, IAddressRepository
 {
     private readonly GroceryContext _context;
-    private readonly IConfiguration _configuration;
 
-    public AddressRepository(GroceryContext context, IConfiguration configuration) : base(context)
+    public AddressRepository(GroceryContext context) : base(context)
     {
         _context = context;
-        _configuration = configuration;
     }
 
     public async Task<Address?> FindAddressByGuid(Guid? guid)
@@ -53,8 +51,7 @@ public class AddressRepository : GenericRepository<Address>, IAddressRepository
                     addressDto.HouseNr,
                     addressDto.City,
                     addressDto.ZipCode,
-                    addressDto.State,
-                    _configuration["GeoApify:Key"] ?? throw new InvalidOperationException("Env variable not found"));
+                    addressDto.State);
 
                 address.Longitude = coordinates.lon;
                 address.Latitude = coordinates.lat;

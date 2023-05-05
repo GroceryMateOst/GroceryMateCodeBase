@@ -1,12 +1,8 @@
 using grocery_mate_backend.BusinessLogic.Validation;
-using grocery_mate_backend.BusinessLogic.Validation.Authentication;
-using grocery_mate_backend.BusinessLogic.Validation.UserSettings;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Authentication;
-using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility.Log;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using grocery_mate_backend.Data.DataModels.UserManagement;
@@ -58,11 +54,11 @@ public class AuthenticationController : BaseController
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var identityUser = _unitOfWork.Authentication.FindIdentityUser(requestDto.EmailAddress).Result;
-        if (!UserValidation.ValidateUser(identityUser, methodName))
+        if (!UserValidation.ValidateUser(identityUser))
             return BadRequest(ResponseErrorMessages.InvalidLogin);
 
         var passwordCheck = _unitOfWork.Authentication.CheckPassword(identityUser, requestDto.Password);
-        if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result, methodName))
+        if (!AuthenticationValidation.ValidateUserPassword(passwordCheck.Result))
             return BadRequest(ResponseErrorMessages.InvalidLogin);
 
         var user = await _unitOfWork.User.FindUserByIdentityId(identityUser.Id);
@@ -73,7 +69,6 @@ public class AuthenticationController : BaseController
         return Ok(token);
     }
 
-    [Authorize]
     [HttpPost("logout")]
     public async Task<ActionResult<AuthenticationResponseDto>> CancelBearerToken()
     {

@@ -11,10 +11,10 @@ import Footer from './components/General/Footer';
 import LoginPage from './pages/LoginPage';
 import CreateShoppingRequest from './pages/CreateShoppingRequest';
 import { ToastContainer } from 'react-toastify';
-import AuthenticationWrapper from './components/AuthenticatedRoute';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import PublishedShoppings from './pages/PublishedShoppings';
 import AcceptedShoppings from './pages/AcceptedShoppings';
+import SearchPage from './pages/SearchPage';
 
 function App() {
 	return (
@@ -39,6 +39,7 @@ function App() {
 							<Route path="/" element={<HomePage />} />
 							<Route path="/register" element={<RegistrationPage />} />
 							<Route path="/login" element={<LoginPage />} />
+							<Route path="/search" element={<SearchPage />} />
 							<Route
 								path="/profile"
 								element={<AuthenticatedRoute element={<UserPage />} />}

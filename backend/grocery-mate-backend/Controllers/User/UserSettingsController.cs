@@ -1,5 +1,4 @@
 using grocery_mate_backend.BusinessLogic.Validation;
-using grocery_mate_backend.BusinessLogic.Validation.Authentication;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models;
@@ -16,13 +15,10 @@ namespace grocery_mate_backend.Controllers;
 public class UserSettingsController : BaseController
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IConfiguration _configuration;
 
-
-    public UserSettingsController(IUnitOfWork unitOfWork, IConfiguration configuration)
+    public UserSettingsController(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        _configuration = configuration;
     }
 
     [Authorize]
@@ -73,7 +69,7 @@ public class UserSettingsController : BaseController
         }
         
         var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result;
-        if (!ValidationBase.ValidateAddress(oldAddress, methodName))
+        if (!AddressValidation.ValidateAddress(oldAddress))
             await _unitOfWork.Address.RemoveAddress(oldAddress, user);
 
         user.AddressId = newAddress?.AddressId;
@@ -90,7 +86,7 @@ public class UserSettingsController : BaseController
     {
         const string methodName = "REST Get City name by zip";
 
-        var cityName = await GeoApifyApi.GetCityName(zipCode, _configuration["GeoApify:Key"] ?? throw new InvalidOperationException("Env variable not found"));
+        var cityName = await GeoApifyApi.GetCityName(zipCode);
 
         return Ok(cityName);
     }
