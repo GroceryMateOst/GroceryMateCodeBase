@@ -36,7 +36,7 @@ const GroceryListItem = ({
 	};
 
 	return (
-		<div className="bg-[#D9D9D9] max-w-[500px] mt-5">
+		<div className="bg-[#D9D9D9] w-[550px] mt-5">
 			<div className="flex flex-row justify-between p-5 w-fit space-x-20">
 				<div className="flex flex-col">
 					<span className="font-bold">Einkauf von:</span>

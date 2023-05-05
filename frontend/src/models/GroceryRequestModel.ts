@@ -16,6 +16,7 @@ export interface GroceryRequestResponseModel {
 	fromDate: string;
 	toDate: string;
 	preferredStore: string;
+	distance: number;
 }
 
 export interface GroceryRequestDetailModel {

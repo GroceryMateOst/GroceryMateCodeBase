@@ -54,7 +54,7 @@ export default class ShoppingService extends AxiosBaseService {
 		zipCode?: number
 	): Promise<GroceryRequestResponseModel[]> {
 		return this.instance
-			.get(`groceryRequest/Search${zipCode ? `?zipCode=${zipCode}` : ''}`)
+			.get(`Search${zipCode ? `?zipCode=${zipCode}` : ''}`)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}
