@@ -18,13 +18,13 @@ public static class GeoApifyApi
         string apiKey)
     {
         using HttpClient client = new();
-        var resp = await client.GetAsync(BaseUrl + $"?housenumber={HttpUtility.UrlEncode(houseNr)}&" +
+        var resp = await client.GetAsync(BaseUrl + $"housenumber={HttpUtility.UrlEncode(houseNr)}&" +
                                          $"street={HttpUtility.UrlEncode(street)}&" +
                                          $"postcode={postcode}&" +
                                          $"city={HttpUtility.UrlEncode(city)}&" +
                                          $"state={HttpUtility.UrlEncode(state)}&" +
                                          "country=Switzerland&" +
-                                         "bias=countrycode:de,at,   ch&" +
+                                         "bias=countrycode:de,at,ch&" +
                                          "format=geojson&" +
                                          $"apiKey={apiKey}");
         resp.EnsureSuccessStatusCode();
@@ -61,7 +61,7 @@ public static class GeoApifyApi
         }
 
         var properties = geoFeature.Properties;
-        return new ZipResponseDto(Convert.ToString(properties["name"]) ?? string.Empty, 
+        return new ZipResponseDto(Convert.ToString(properties["city"]) ?? string.Empty, 
             Convert.ToString(properties["state"]) ?? string.Empty);
     }
 }
