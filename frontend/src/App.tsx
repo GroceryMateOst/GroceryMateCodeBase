@@ -11,7 +11,6 @@ import Footer from './components/General/Footer';
 import LoginPage from './pages/LoginPage';
 import CreateShoppingRequest from './pages/CreateShoppingRequest';
 import { ToastContainer } from 'react-toastify';
-import AuthenticationWrapper from './components/AuthenticatedRoute';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import PublishedShoppings from './pages/PublishedShoppings';
 import AcceptedShoppings from './pages/AcceptedShoppings';

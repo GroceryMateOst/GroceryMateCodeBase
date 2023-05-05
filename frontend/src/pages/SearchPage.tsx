@@ -1,24 +1,36 @@
 ﻿import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, Space } from 'antd';
+import { Button, Empty, Input, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import { GroceryRequestResponseModel } from '../models/GroceryRequestModel';
 import ShoppingService from '../services/shopping-service';
+import GroceryListItem from '../components/GroceryListOverView/GroceryListItem';
 
 const SearchPage = () => {
 	const [plz, setPlz] = useState<number>();
-	const [groceryRequests, setgroceryRequests] = useState<
+	const [groceryRequests, setGroceryRequests] = useState<
 		GroceryRequestResponseModel[]
 	>([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onSearchClick = () => {
-		console.log(plz);
+		getFilteredRequests(plz);
 	};
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		getFilteredRequests();
+	}, []);
 
-	const getFilteredRequests = async () => {
+	const getFilteredRequests = async (zipCode?: number) => {
+		setIsLoading(true);
 		const shoppingService = new ShoppingService();
-		// const response = shoppingService.getGroceryListsBySearchParams('');
+		try {
+			const response = await shoppingService.getGroceryListsBySearchParams(
+				zipCode
+			);
+			setGroceryRequests(response);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	return (
@@ -36,6 +48,19 @@ const SearchPage = () => {
 					<SearchOutlined />
 				</Button>
 			</Space.Compact>
+			<div>
+				{isLoading ? null : groceryRequests.length > 0 ? (
+					groceryRequests.map((request, index) => (
+						<GroceryListItem request={request} key={index} />
+					))
+				) : (
+					<Empty
+						className="w-fit"
+						description="Leider ergab deine Suche kein Ergebnis."
+						image={Empty.PRESENTED_IMAGE_SIMPLE}
+					/>
+				)}
+			</div>
 		</div>
 	);
 };

@@ -43,7 +43,7 @@ const GroceryListOverView = () => {
 					  ))}
 			</div>
 			<div className="mt-4 font-bold">
-				<Link to="/search" className="!text-black hover:!text-[#8fb69c]">
+				<Link to="/search" className="!text-[#8fb69c] hover:!text-black">
 					Zu Alle Einkaufslisten
 					<RightOutlined />
 				</Link>
