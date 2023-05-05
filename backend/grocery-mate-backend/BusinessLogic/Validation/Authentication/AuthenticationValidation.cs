@@ -21,7 +21,6 @@ public abstract class AuthenticationValidation : ValidationBase
     public static bool ValidateUserPassword(bool result)
     {
         return Validate(result,
-            "ValidateUserPassword",
             "Invalid Password",
             item => item);
     }

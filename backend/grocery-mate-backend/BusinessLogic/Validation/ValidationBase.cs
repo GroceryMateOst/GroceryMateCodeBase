@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using grocery_mate_backend.Controllers.Repo.Authentication;
 using grocery_mate_backend.Data.DataModels.Authentication;
 using grocery_mate_backend.Data.DataModels.UserManagement;
@@ -26,7 +27,6 @@ public class ValidationBase
     private static bool ValidateModelState(ModelStateDictionary modelState)
     {
         return Validate(modelState,
-            "ValidateModelState",
             "Invalid Model-State due to Bad credentials",
             item => item.IsValid);
     }
@@ -35,15 +35,15 @@ public class ValidationBase
         ICanceledTokensRepository canceledTokensRepository)
     {
         return Validate(canceledTokensRepository.ValidateToken(token),
-            "ValidateModelState",
             "Invalid Model-State due to Bad credentials",
             item => item.Result);
     }
 
-    protected static bool Validate<T>(T thing, string methodName, string errorMsg, GroceryPredicate<T> predicate)
+    protected static bool Validate<T>(T thing, string errorMsg, GroceryPredicate<T> predicate)
     {
         if (predicate(thing)) return true;
-        GmLogger.Instance.Warn(methodName, errorMsg);
+        var methodName = new StackTrace().GetFrame(1)?.GetMethod()?.Name ?? "Validate";
+        GmLogger.Instance.Warn(methodName,errorMsg);
         return false;
     }
 }

@@ -8,7 +8,6 @@ public abstract class UserValidation : ValidationBase
     public static bool ValidateUser(object? user)
     {
         return Validate(user,
-            "ValidateUser",
             "User with given eMail-Adr. not found",
             item => item != null);
     }
@@ -16,7 +15,6 @@ public abstract class UserValidation : ValidationBase
     public static bool ValidateUserMail(string mailAddress)
     {
         return Validate(mailAddress,
-            "ValidateUserMail",
             "Invalid Mail-Address",
             item => !item.IsNullOrEmpty());
     }

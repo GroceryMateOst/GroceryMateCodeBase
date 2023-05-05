@@ -17,7 +17,6 @@ public abstract class GroceryValidation : ValidationBase
     public static bool ValidateRequestState(string requestState)
     {
         return Validate(requestState,
-            "ValidateRequestState",
             "RequestState is incorrect",
             item => item is "published" or "accepted" or "fulfilled");
     }
@@ -25,7 +24,6 @@ public abstract class GroceryValidation : ValidationBase
     public static bool ValidateGroceryList(List<ShoppingListDto> requestDto)
     {
         return Validate(requestDto,
-            "ValidateGroceryList",
             "Shopping list is empty",
             item => item.All(groceryList => !groceryList.Description.IsNullOrEmpty()));
     }
@@ -33,7 +31,6 @@ public abstract class GroceryValidation : ValidationBase
     public static bool ValidateDateTime(string date)
     {
         return Validate(date,
-            "ValidateDateTime",
             "Invalid date format",
             item => DateTime.TryParse(item, out _));
     }
