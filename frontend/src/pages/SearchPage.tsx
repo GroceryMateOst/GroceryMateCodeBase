@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { GroceryRequestResponseModel } from '../models/GroceryRequestModel';
 import ShoppingService from '../services/shopping-service';
 import GroceryListItem from '../components/GroceryListOverView/GroceryListItem';
+import Spinner from '../components/General/LoadingSpinner';
 
 const SearchPage = () => {
 	const [plz, setPlz] = useState<number>();
@@ -50,7 +51,11 @@ const SearchPage = () => {
 				</Button>
 			</Space.Compact>
 			<div className="flex flex-col items-start">
-				{isLoading ? null : groceryRequests.length > 0 ? (
+				{isLoading ? (
+					<div className="m-40">
+						<Spinner />
+					</div>
+				) : groceryRequests.length > 0 ? (
 					groceryRequests.map((request, index) => (
 						<div className="flex flex-col items-end" key={index}>
 							{request.distance > 0 && (
