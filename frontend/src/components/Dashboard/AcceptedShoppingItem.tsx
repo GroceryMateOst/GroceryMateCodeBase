@@ -24,6 +24,7 @@ const AcceptedShoppingItem = ({
 	};
 
 	const onRequestFulfill = async (event: React.MouseEvent<HTMLElement>) => {
+		event.preventDefault();
 		const body: PatchShopping = {
 			groceryRequestId: item.groceryRequestId,
 			requestState: 'fulfilled',
@@ -35,10 +36,6 @@ const AcceptedShoppingItem = ({
 		} catch {
 			console.log('error');
 		}
-	};
-
-	const onPDFPrint = (event: React.MouseEvent<HTMLElement>) => {
-		event.preventDefault();
 	};
 
 	return (
@@ -72,14 +69,15 @@ const AcceptedShoppingItem = ({
 					</div>
 				)}
 			</div>
-			<div className="self-end mt-4">
-				<div className="py-2 px-4 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4">
+			<div className="self-end mt-4 flex row">
+				<div className=" self-center p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm ">
 					<PDFGenerator item={item} />
 				</div>
+
 				{item.requestState == 'Accepted' && (
 					<button
 						onClick={onRequestFulfill}
-						className="p-4 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4"
+						className="p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm"
 					>
 						Einkauf abschliessen
 						<Tooltip title="Hast du den Auftrag erledigt? Dann klicke bitte diesen Button">

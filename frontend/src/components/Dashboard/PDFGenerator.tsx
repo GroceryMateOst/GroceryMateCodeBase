@@ -10,10 +10,10 @@ const PDFGenerator = ({ item }: PDFGeneratorProps) => (
 	<div>
 		<PDFDownloadLink
 			document={<GroceryRequestPDF item={item} />}
-			fileName="document.pdf"
+			fileName={`Einkauf für ${item.client.user.firstName} ${item.client.user.secondName}.pdf`}
 		>
 			{({ blob, url, loading, error }) =>
-				loading ? 'Loading document...' : 'Einkauf als PDF exportieren'
+				loading ? 'Lade Dokument' : 'Einkauf als PDF exportieren'
 			}
 		</PDFDownloadLink>
 	</div>
