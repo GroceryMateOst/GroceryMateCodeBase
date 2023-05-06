@@ -1,4 +1,4 @@
-import { UserModelComplete } from './UserModel';
+import { UserModelGrocery } from './UserModel';
 export interface GroceryRequestModel {
 	preferredStore: string;
 	requestState: string;
@@ -26,8 +26,8 @@ export interface GroceryRequestDetailModel {
 	fromDate: string;
 	toDate: string;
 	preferredStore: string;
-	client: UserModelComplete;
-	contractor: UserModelComplete;
+	client: UserModelGrocery;
+	contractor: UserModelGrocery;
 }
 
 export interface ShoppingItem {

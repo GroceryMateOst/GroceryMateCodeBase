@@ -6,6 +6,7 @@ import { setIsLoading } from '../../redux/userSlice';
 import GroceryListItem from './GroceryListItem';
 import { Link } from 'react-router-dom';
 import { RightOutlined } from '@ant-design/icons';
+import Spinner from '../General/LoadingSpinner';
 
 const GroceryListOverView = () => {
 	const [groceryRequests, setGroceryRequests] = useState<
@@ -36,15 +37,19 @@ const GroceryListOverView = () => {
 				<h2>Einkaufslisten</h2>
 			</div>
 			<div>
-				{isLoading
-					? null
-					: groceryRequests.map((request, index) => (
-							<GroceryListItem request={request} key={index} />
-					  ))}
+				{isLoading ? (
+					<div className="mt-10">
+						<Spinner />
+					</div>
+				) : (
+					groceryRequests.map((request, index) => (
+						<GroceryListItem request={request} key={index} />
+					))
+				)}
 			</div>
 			<div className="mt-4 font-bold">
 				<Link to="/search" className="!text-[#8fb69c] hover:!text-black">
-					Zu Alle Einkaufslisten
+					Zu allen Einkaufslisten
 					<RightOutlined />
 				</Link>
 			</div>

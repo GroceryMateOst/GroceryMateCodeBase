@@ -34,7 +34,7 @@ function App() {
 						theme="light"
 					/>
 					<Header />
-					<div id="content" className="mt-10">
+					<div id="content" className="m-10">
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/register" element={<RegistrationPage />} />

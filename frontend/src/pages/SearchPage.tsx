@@ -19,7 +19,6 @@ const SearchPage = () => {
 			const response = await shoppingService.getGroceryListsBySearchParams(
 				zipCode
 			);
-			console.log(response);
 			setGroceryRequests(response);
 		} finally {
 			setIsLoading(false);

@@ -47,7 +47,7 @@ const GroceryListItem = ({
 					<span>{request.city}</span>
 				</div>
 				<div className="flex flex-col">
-					<span className="font-bold">Einkaufs Zeitraum</span>
+					<span className="font-bold">Einkaufs Zeitraum:</span>
 					<span>{`${formateDate(request.fromDate)} bis ${formateDate(
 						request.toDate
 					)}`}</span>
