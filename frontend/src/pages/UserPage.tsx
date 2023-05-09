@@ -2,14 +2,15 @@
 import TextArea from 'antd/es/input/TextArea';
 import { UserModelComplete } from '../models/UserModel';
 import UserService from '../services/user-service';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setIsLoading } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { toast } from 'react-toastify';
 
 const UserPage = () => {
+	const [formHasChanged, setFormHasChanged] = useState(false);
 	const [form] = Form.useForm<UserModelComplete>();
 	const dispatch = useAppDispatch();
-
 	const isLoading = useAppSelector((state) => state.user.isLoading);
 
 	const getUser = async (userService: UserService) => {
@@ -34,6 +35,17 @@ const UserPage = () => {
 	const handleSubmit = async (userSettings: UserModelComplete) => {
 		const userService = new UserService();
 		await userService.updateUserSettings(userSettings);
+		toast.success('Deine Änderungen wurden gespeicher.', {
+			position: 'top-center',
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'light',
+		});
+		setFormHasChanged(false);
 	};
 
 	const getCityByZipCode = async (zipCode: string) => {
@@ -59,6 +71,7 @@ const UserPage = () => {
 						autoComplete="off"
 						layout="vertical"
 						onFinish={handleSubmit}
+						onFieldsChange={() => setFormHasChanged(true)}
 					>
 						<Form.Item
 							name="emailAddress"
@@ -66,7 +79,7 @@ const UserPage = () => {
 							rules={[
 								{
 									type: 'email',
-									message: 'Das ist eine gültige E-Mail Adresse!',
+									message: 'Das ist eine ungültige E-Mail Adresse!',
 								},
 								{
 									required: true,
@@ -79,11 +92,10 @@ const UserPage = () => {
 						<Form.Item
 							name="firstName"
 							label="Vorname"
-							tooltip="Was ist dein Vorname?"
 							rules={[
 								{
 									required: true,
-									message: 'Bitte gebe deinen Vorname ein!',
+									message: 'Bitte gebe deinen Vornamen ein!',
 									whitespace: true,
 								},
 							]}
@@ -93,7 +105,6 @@ const UserPage = () => {
 						<Form.Item
 							name="secondName"
 							label="Nachname"
-							tooltip="Was ist dein Familienname?"
 							rules={[
 								{
 									required: true,
@@ -111,7 +122,7 @@ const UserPage = () => {
 								rules={[
 									{
 										required: true,
-										message: 'Bitte gebe an an welcher Strasse du wohnst.',
+										message: 'Bitte gebe an, an welcher Strasse du wohnst.',
 										whitespace: true,
 									},
 								]}
@@ -141,7 +152,7 @@ const UserPage = () => {
 								rules={[
 									{
 										required: true,
-										message: 'Bitte gebe eine PLZ an!',
+										message: 'Bitte gebe eine Postleizahl an!',
 										whitespace: true,
 									},
 								]}
@@ -172,7 +183,7 @@ const UserPage = () => {
 							rules={[
 								{
 									required: true,
-									message: 'bitte gebe den Kanton an in welchem du Wohnst!',
+									message: 'Bitte gebe den Kanton an in welchem du Wohnst!',
 									whitespace: true,
 								},
 							]}
@@ -186,7 +197,11 @@ const UserPage = () => {
 							<TextArea />
 						</Form.Item>
 						<Form.Item>
-							<Button type="primary" htmlType="submit">
+							<Button
+								type="primary"
+								htmlType="submit"
+								disabled={!formHasChanged}
+							>
 								Speichern
 							</Button>
 						</Form.Item>
