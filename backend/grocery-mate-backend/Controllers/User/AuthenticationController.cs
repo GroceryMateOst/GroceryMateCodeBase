@@ -20,6 +20,13 @@ public class AuthenticationController : BaseController
         _unitOfWork = unitOfWork;
     }
 
+    /**
+     * REST-Method:     POST
+     * Path:            api/v0/User/Authentication/register
+     * Request-DTO:     CreateUserDto
+     * Response-DTO:    User
+     * token required:  false
+     */
     [HttpPost("register")]
     public async Task<ActionResult<User>> CreateUser(CreateUserDto userDto)
     {
@@ -45,6 +52,13 @@ public class AuthenticationController : BaseController
         return Created("", userDto);
     }
 
+    /**
+     * REST-Method:     POST
+     * Path:            api/v0/User/Authentication/login
+     * Request-DTO:     AuthenticationRequestDto
+     * Response-DTO:    AuthenticationResponseDto
+     * token required:  false
+     */
     [HttpPost("login")]
     public async Task<ActionResult<AuthenticationResponseDto>> CreateBearerToken(AuthenticationRequestDto requestDto)
     {
@@ -63,19 +77,26 @@ public class AuthenticationController : BaseController
 
         var user = await _unitOfWork.User.FindUserByIdentityId(identityUser.Id);
         if (user == null) return BadRequest(ResponseErrorMessages.NotAuthorised);
-        
+
         var token = _unitOfWork.Authentication.CreateToken(identityUser, user.UserId);
         GmLogger.Instance.Trace(methodName, "Bearer-Token Successfully generated");
         return Ok(token);
     }
 
+    /**
+     * REST-Method:     POST
+     * Path:            api/v0/User/Authentication/logout
+     * Request-DTO:     -
+     * Response-DTO:    AuthenticationResponseDto
+     * token required:  true
+     */
     [HttpPost("logout")]
     public async Task<ActionResult<AuthenticationResponseDto>> CancelBearerToken()
     {
         const string methodName = "REST Log-Out";
-        var token =  Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
         await _unitOfWork.TokenBlacklist.AddTokenToBlacklist(token);
-   
+
         GmLogger.Instance.Trace(methodName, "Token successfully revoked");
         return Ok();
     }

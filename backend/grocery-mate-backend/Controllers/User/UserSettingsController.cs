@@ -21,6 +21,13 @@ public class UserSettingsController : BaseController
         _unitOfWork = unitOfWork;
     }
 
+    /**
+     * REST-Method:     GET
+     * Path:            api/v0/User/Settings
+     * Request-DTO:     -
+     * Response-DTO:    UserDataDto
+     * token required:  true
+     */
     [Authorize]
     [HttpGet]
     public async Task<ActionResult<UserDataDto>> GetUserSettings()
@@ -41,6 +48,13 @@ public class UserSettingsController : BaseController
         return Ok(new UserDataDto(user, address));
     }
 
+    /**
+     * REST-Method:     POST
+     * Path:            api/v0/User/Settings
+     * Request-DTO:     UserDataDto
+     * Response-DTO:    -
+     * token required:  true
+     */
     [Authorize]
     [HttpPost]
     public async Task<ActionResult> UpdateUserSettings(UserDataDto requestDto)
@@ -79,7 +93,13 @@ public class UserSettingsController : BaseController
         return Ok();
     }
     
-  
+    /**
+     * REST-Method:     GET
+     * Path:            api/v0/User/GetCity
+     * Request-DTO:     int
+     * Response-DTO:    ZipResponseDto
+     * token required:  true
+     */
     [Authorize]
     [HttpGet("GetCity")]
     public async Task<ActionResult<ZipResponseDto>> GetCityNameByZip([FromQuery] int zipCode)

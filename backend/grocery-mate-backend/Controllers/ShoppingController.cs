@@ -20,6 +20,13 @@ public class ShoppingController : BaseController
         _unitOfWork = unitOfWork;
     }
 
+    /**
+     * REST-Method:     POST
+     * Path:            api/v0/Shopping/groceryRequest
+     * Request-DTO:     GroceryRequestDto
+     * Response-DTO:    GroceryRequestDto
+     * token required:  true
+     */
     [Authorize]
     [HttpPost("groceryRequest")]
     public async Task<ActionResult<GroceryRequestDto>> PostGroceryRequest(GroceryRequestDto requestDto)
@@ -56,6 +63,13 @@ public class ShoppingController : BaseController
         return Ok();
     }
 
+    /**
+     * REST-Method:     GET
+     * Path:            api/v0/Shopping/groceryRequest
+     * Request-DTO:     -
+     * Response-DTO:    GroceryResponseDto
+     * token required:  true
+     */
     [HttpGet("groceryRequest")]
     public async Task<ActionResult<GroceryResponseDto>> GetAllGroceryRequest()
     {
@@ -89,6 +103,13 @@ public class ShoppingController : BaseController
         return Ok(requests);
     }
     
+    /**
+     * REST-Method:     GET
+     * Path:            api/v0/Shopping/Search
+     * Request-DTO:     int
+     * Response-DTO:    GroceryResponseDto
+     * token required:  true
+     */
     [HttpGet("Search")]
     public async Task<ActionResult<GroceryResponseDto>> GetGroceryRequestsByZipcode([FromQuery] int zipCode)
     {
@@ -123,7 +144,13 @@ public class ShoppingController : BaseController
         return Ok(requests);
     }
 
-
+    /**
+     * REST-Method:     PUT
+     * Path:            api/v0/Shopping/groceryRequestState
+     * Request-DTO:     string, string
+     * Response-DTO:    -
+     * token required:  true
+     */
     [Authorize]
     [HttpPut("groceryRequestState")]
     public async Task<IActionResult> UpdateRequestState(string requestId, string state)
@@ -160,6 +187,13 @@ public class ShoppingController : BaseController
         return Ok();
     }
 
+    /**
+     * REST-Method:     GET
+     * Path:            api/v0/Shopping/groceryRequest/clientRequests
+     * Request-DTO:     -
+     * Response-DTO:    DetailedGroceryResponseDto
+     * token required:  true
+     */
     [Authorize]
     [HttpGet("groceryRequest/clientRequests")]
     public async Task<ActionResult<DetailedGroceryResponseDto>> GetAllClientRequests()
@@ -187,6 +221,13 @@ public class ShoppingController : BaseController
         return Ok(requests);
     }
 
+    /**
+     * REST-Method:     GET
+     * Path:            api/v0/Shopping/groceryRequest/contractorRequests
+     * Request-DTO:     -
+     * Response-DTO:    DetailedGroceryResponseDto
+     * token required:  true
+     */
     [Authorize]
     [HttpGet("groceryRequest/contractorRequests")]
     public async Task<ActionResult<DetailedGroceryResponseDto>> GetAllContractorRequests()
