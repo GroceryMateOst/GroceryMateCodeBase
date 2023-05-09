@@ -1,5 +1,6 @@
 ﻿import CreateRequestCard from '../components/General/CreateRequestCard';
 import GroceryListOverView from '../components/GroceryListOverView/GroceryListOverView';
+import Map from '../components/Map';
 
 const HomePage = () => {
 	return (
@@ -17,6 +18,13 @@ const HomePage = () => {
 			</div>
 			<GroceryListOverView />
 			<CreateRequestCard />
+			<Map
+				zoom={20}
+				latitude={47.30682745}
+				longitude={9.082206350049724}
+				width="500px"
+				height="500px"
+			/>
 		</div>
 	);
 };
