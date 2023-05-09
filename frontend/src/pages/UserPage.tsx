@@ -1,4 +1,4 @@
-﻿import { Button, Form, Input, Skeleton } from 'antd';
+﻿import { Button, Form, Input, Skeleton, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UserModelComplete } from '../models/UserModel';
 import UserService from '../services/user-service';
@@ -104,60 +104,68 @@ const UserPage = () => {
 						>
 							<Input />
 						</Form.Item>
-						<Form.Item
-							name="street"
-							label="Strasse"
-							rules={[
-								{
-									required: true,
-									message: 'Bitte gebe an an welcher Strasse du wohnst.',
-									whitespace: true,
-								},
-							]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name="houseNr"
-							label="Hausnummer"
-							rules={[
-								{
-									required: true,
-									message: 'Bitte gib deine Hausnummer an.',
-									whitespace: true,
-								},
-							]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name="zipCode"
-							label="PLZ"
-							rules={[
-								{
-									required: true,
-									message: 'Bitte gebe eine PLZ an!',
-									whitespace: true,
-								},
-							]}
-						>
-							<Input
-								onBlur={(element) => getCityByZipCode(element.target.value)}
-							/>
-						</Form.Item>
-						<Form.Item
-							name="city"
-							label="Ort"
-							rules={[
-								{
-									required: true,
-									message: 'Bitte gebe deinen Wohnort an!',
-									whitespace: true,
-								},
-							]}
-						>
-							<Input />
-						</Form.Item>
+						<Space.Compact block>
+							<Form.Item
+								name="street"
+								label="Strasse"
+								rules={[
+									{
+										required: true,
+										message: 'Bitte gebe an an welcher Strasse du wohnst.',
+										whitespace: true,
+									},
+								]}
+								style={{ width: '75%' }}
+							>
+								<Input />
+							</Form.Item>
+							<Form.Item
+								name="houseNr"
+								label="Hausnr."
+								rules={[
+									{
+										required: true,
+										message: 'Bitte gib deine Hausnummer an.',
+										whitespace: true,
+									},
+								]}
+								style={{ width: '25%' }}
+							>
+								<Input />
+							</Form.Item>
+						</Space.Compact>
+						<Space.Compact block>
+							<Form.Item
+								name="zipCode"
+								label="PLZ"
+								rules={[
+									{
+										required: true,
+										message: 'Bitte gebe eine PLZ an!',
+										whitespace: true,
+									},
+								]}
+								style={{ width: '30%' }}
+							>
+								<Input
+									onBlur={(element) => getCityByZipCode(element.target.value)}
+								/>
+							</Form.Item>
+							<Form.Item
+								name="city"
+								label="Ort"
+								rules={[
+									{
+										required: true,
+										message: 'Bitte gebe deinen Wohnort an!',
+										whitespace: true,
+									},
+								]}
+								style={{ width: '70%' }}
+							>
+								<Input />
+							</Form.Item>
+						</Space.Compact>
 						<Form.Item
 							name="state"
 							label="Kanton"
