@@ -22,7 +22,7 @@ public class DetailedGroceryResponseDto : GroceryResponseBaseDto
 
         RequestState = groceryRequest.State.ToString();
         Client = new UserDataDto(groceryRequest.Client, groceryRequest.Client.Address);
-        Contractor = new UserDataDto(groceryRequest.Contractor, groceryRequest.Contractor.Address);;
+        Contractor = new UserDataDto(groceryRequest.Contractor, groceryRequest.Contractor?.Address);;
 
         ShoppingList = groceryRequest.ShoppingList.Items
             .Select(item => new ShoppingListDto(item.Grocery))

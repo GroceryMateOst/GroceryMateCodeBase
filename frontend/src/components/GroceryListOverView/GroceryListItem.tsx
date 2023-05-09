@@ -7,6 +7,7 @@ import { Collapse, Tooltip } from 'antd';
 import { useAppSelector } from '../../redux/hooks';
 import ShoppingService from '../../services/shopping-service';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const GroceryListItem = ({
 	request,
@@ -14,6 +15,7 @@ const GroceryListItem = ({
 	request: GroceryRequestResponseModel;
 }) => {
 	const { Panel } = Collapse;
+	const navigate = useNavigate();
 	const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
 
 	const onRequestAccept = async (event: React.MouseEvent<HTMLElement>) => {
@@ -25,8 +27,8 @@ const GroceryListItem = ({
 		try {
 			const shoppingService: ShoppingService = new ShoppingService();
 			await shoppingService.updateShoppingState(body);
-		} catch {
-			console.log('error');
+		} finally {
+			navigate('/accepted');
 		}
 	};
 
@@ -47,7 +49,7 @@ const GroceryListItem = ({
 					<span>{request.city}</span>
 				</div>
 				<div className="flex flex-col">
-					<span className="font-bold">Einkaufs Zeitraum</span>
+					<span className="font-bold">Einkaufs Zeitraum:</span>
 					<span>{`${formateDate(request.fromDate)} bis ${formateDate(
 						request.toDate
 					)}`}</span>

@@ -50,60 +50,63 @@ const LoginPage = () => {
 
 	return (
 		<div className="w-full flex justify-center">
-			<Form
-				name="normal_login"
-				className="login-form"
-				initialValues={{ remember: true }}
-				onFinish={handleSubmit}
-			>
-				<Form.Item
-					name="email"
-					label="E-mail"
-					rules={[
-						{
-							type: 'email',
-							message: 'Das ist eine gültige E-Mail Adresse!',
-						},
-						{
-							required: true,
-							message: 'Bitte gebe deine E-Mail Adresse ein!',
-						},
-					]}
-				>
-					<Input
-						prefix={<UserOutlined className="site-form-item-icon" />}
-						placeholder="E-Mail"
-					/>
-				</Form.Item>
-				<Form.Item
-					name="password"
-					label="Passwort"
-					rules={[{ required: true, message: 'Bitte gib dein Passwort ein!' }]}
-				>
-					<Input
-						prefix={<LockOutlined className="site-form-item-icon" />}
-						type="password"
-						placeholder="Passwort"
-					/>
-				</Form.Item>
-				<Form.Item style={{ marginBottom: '5px' }} {...tailFormItemLayout}>
-					<Button
-						type="primary"
-						htmlType="submit"
-						className="login-form-button"
-						style={{ width: '120px' }}
-					>
-						Log in
-					</Button>
-				</Form.Item>
-				<Form.Item {...tailFormItemLayout}>
-					Oder <Link to="/register">registrie dich</Link> jetzt
-				</Form.Item>
-			</Form>
-			{isLoading && (
-				<div className="my-16">
+			{isLoading ? (
+				<div className="mt-40">
 					<Spinner />
 				</div>
+			) : (
+				<Form
+					name="normal_login"
+					className="login-form"
+					initialValues={{ remember: true }}
+					onFinish={handleSubmit}
+				>
+					<Form.Item
+						name="email"
+						label="E-mail"
+						rules={[
+							{
+								type: 'email',
+								message: 'Das ist eine gültige E-Mail Adresse!',
+							},
+							{
+								required: true,
+								message: 'Bitte gebe deine E-Mail Adresse ein!',
+							},
+						]}
+					>
+						<Input
+							prefix={<UserOutlined className="site-form-item-icon" />}
+							placeholder="E-Mail"
+						/>
+					</Form.Item>
+					<Form.Item
+						name="password"
+						label="Passwort"
+						rules={[
+							{ required: true, message: 'Bitte gib dein Passwort ein!' },
+						]}
+					>
+						<Input
+							prefix={<LockOutlined className="site-form-item-icon" />}
+							type="password"
+							placeholder="Passwort"
+						/>
+					</Form.Item>
+					<Form.Item style={{ marginBottom: '5px' }} {...tailFormItemLayout}>
+						<Button
+							type="primary"
+							htmlType="submit"
+							className="login-form-button"
+							style={{ width: '120px' }}
+						>
+							Log in
+						</Button>
+					</Form.Item>
+					<Form.Item {...tailFormItemLayout}>
+						Oder <Link to="/register">registrie dich</Link> jetzt
+					</Form.Item>
+				</Form>
 			)}
 		</div>
 	);

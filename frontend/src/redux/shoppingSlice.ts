@@ -13,29 +13,6 @@ export interface ShoppingState {
 	publishedShoppings: GroceryRequestDetailModel[];
 }
 
-const initialUser: UserModelComplete = {
-	emailAddress: ' ',
-	firstName: ' ',
-	secondName: ' ',
-	street: ' ',
-	houseNr: ' ',
-	zipCode: ' ',
-	city: ' ',
-	state: ' ',
-	residencyDetails: ' ',
-};
-
-const initialDetailShopping: GroceryRequestDetailModel = {
-	groceryRequestId: '',
-	preferredStore: ' ',
-	requestState: ' ',
-	fromDate: ' ',
-	toDate: ' ',
-	shoppingList: [],
-	contractor: initialUser,
-	client: initialUser,
-};
-
 const initialShopping: GroceryRequestModel = {
 	preferredStore: ' ',
 	requestState: ' ',
@@ -62,18 +39,7 @@ export const shoppingSlice = createSlice({
 		addAllShoppings: (state, action: PayloadAction<GroceryRequestModel[]>) => {
 			state.allShoppings = action.payload;
 		},
-		addPublishedShoppings: (
-			state,
-			action: PayloadAction<GroceryRequestDetailModel[]>
-		) => {
-			state.publishedShoppings = action.payload;
-		},
-		addAcceptedShoppings: (
-			state,
-			action: PayloadAction<GroceryRequestDetailModel[]>
-		) => {
-			state.acceptedShoppings = action.payload;
-		},
+
 		changeCurrentShoppingItems: (
 			state,
 			action: PayloadAction<ShoppingItem[]>
@@ -87,8 +53,6 @@ export const {
 	addCurrentShopping,
 	addAllShoppings,
 	changeCurrentShoppingItems,
-	addAcceptedShoppings,
-	addPublishedShoppings,
 } = shoppingSlice.actions;
 
 export default shoppingSlice.reducer;

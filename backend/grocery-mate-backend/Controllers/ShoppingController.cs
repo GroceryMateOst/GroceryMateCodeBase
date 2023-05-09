@@ -172,7 +172,7 @@ public class ShoppingController : BaseController
         List<GroceryRequest> groceryRequests;
         try
         {
-            groceryRequests = await _unitOfWork.Shopping.GetGroceryRequestsAsContractor(user);
+            groceryRequests = await _unitOfWork.Shopping.GetGroceryRequestsAsClient(user);
         }
         catch (Exception e)
         {

@@ -61,111 +61,112 @@ const RegistrationPage = () => {
 
 	return (
 		<div className="w-full flex justify-center">
-			<Form
-				className="w-[325px]"
-				name="basic"
-				layout="vertical"
-				form={form}
-				initialValues={{ remember: true }}
-				onFinish={handleSubmit}
-				autoComplete="off"
-			>
-				<Form.Item
-					name="email"
-					label="E-mail"
-					rules={[
-						{
-							type: 'email',
-							message: 'Das ist keine gültige E-Mail Adresse!',
-						},
-						{
-							required: true,
-							message: 'Bitte gebe deine E-Mail Adresse ein!',
-						},
-					]}
-				>
-					<Input />
-				</Form.Item>
-
-				<Form.Item
-					name="firstname"
-					label="Vorname"
-					tooltip="Was ist dein Vorname?"
-					rules={[
-						{
-							required: true,
-							message: 'Bitte gebe deinen Vorname ein!',
-							whitespace: true,
-						},
-					]}
-				>
-					<Input />
-				</Form.Item>
-
-				<Form.Item
-					name="name"
-					label="Nachname"
-					tooltip="Was ist dein Familienname?"
-					rules={[
-						{
-							required: true,
-							message: 'Bitte gebe deinen Nachnamen ein!',
-							whitespace: true,
-						},
-					]}
-				>
-					<Input />
-				</Form.Item>
-
-				<Form.Item
-					name="password"
-					label="Passwort"
-					rules={[
-						{
-							required: true,
-							message: 'Bitte gebe ein Passwort ein!',
-						},
-					]}
-					hasFeedback
-				>
-					<Input.Password />
-				</Form.Item>
-
-				<Form.Item
-					name="confirm"
-					label="Bestätigung"
-					dependencies={['password']}
-					hasFeedback
-					rules={[
-						{
-							required: true,
-							message: 'Bitte bestätige dein Passwort!',
-						},
-						({ getFieldValue }) => ({
-							validator(_, value) {
-								if (!value || getFieldValue('password') === value) {
-									return Promise.resolve();
-								}
-								return Promise.reject(
-									new Error('Die beiden Passwörter stimmen nicht überein!')
-								);
-							},
-						}),
-					]}
-				>
-					<Input.Password />
-				</Form.Item>
-
-				<Form.Item {...tailFormItemLayout}>
-					<Button type="primary" htmlType="submit">
-						Registriere dich
-					</Button>
-				</Form.Item>
-			</Form>
-			{isLoading && (
-				<div className="my-16">
+			{isLoading ? (
+				<div className="mt-40">
 					<Spinner />
 				</div>
+			) : (
+				<Form
+					className="w-[325px]"
+					name="basic"
+					layout="vertical"
+					form={form}
+					initialValues={{ remember: true }}
+					onFinish={handleSubmit}
+					autoComplete="off"
+				>
+					<Form.Item
+						name="email"
+						label="E-mail"
+						rules={[
+							{
+								type: 'email',
+								message: 'Das ist keine gültige E-Mail Adresse!',
+							},
+							{
+								required: true,
+								message: 'Bitte gebe deine E-Mail Adresse ein!',
+							},
+						]}
+					>
+						<Input />
+					</Form.Item>
+
+					<Form.Item
+						name="firstname"
+						label="Vorname"
+						tooltip="Was ist dein Vorname?"
+						rules={[
+							{
+								required: true,
+								message: 'Bitte gebe deinen Vorname ein!',
+								whitespace: true,
+							},
+						]}
+					>
+						<Input />
+					</Form.Item>
+
+					<Form.Item
+						name="name"
+						label="Nachname"
+						tooltip="Was ist dein Familienname?"
+						rules={[
+							{
+								required: true,
+								message: 'Bitte gebe deinen Nachnamen ein!',
+								whitespace: true,
+							},
+						]}
+					>
+						<Input />
+					</Form.Item>
+
+					<Form.Item
+						name="password"
+						label="Passwort"
+						rules={[
+							{
+								required: true,
+								message: 'Bitte gebe ein Passwort ein!',
+							},
+						]}
+						hasFeedback
+					>
+						<Input.Password />
+					</Form.Item>
+
+					<Form.Item
+						name="confirm"
+						label="Bestätigung"
+						dependencies={['password']}
+						hasFeedback
+						rules={[
+							{
+								required: true,
+								message: 'Bitte bestätige dein Passwort!',
+							},
+							({ getFieldValue }) => ({
+								validator(_, value) {
+									if (!value || getFieldValue('password') === value) {
+										return Promise.resolve();
+									}
+									return Promise.reject(
+										new Error('Die beiden Passwörter stimmen nicht überein!')
+									);
+								},
+							}),
+						]}
+					>
+						<Input.Password />
+					</Form.Item>
+
+					<Form.Item {...tailFormItemLayout}>
+						<Button type="primary" htmlType="submit">
+							Registriere dich
+						</Button>
+					</Form.Item>
+				</Form>
 			)}
 		</div>
 	);
