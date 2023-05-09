@@ -12,7 +12,7 @@ namespace grocery_mate_backend.Controllers.EndpointControllers;
 
 [ApiController]
 [Route("api/v0/User/[controller]")]
-public class AuthenticationController : BaseController
+public class AuthenticationController : ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
 

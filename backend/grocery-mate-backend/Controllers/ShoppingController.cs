@@ -12,7 +12,7 @@ namespace grocery_mate_backend.Controllers.EndpointControllers;
 
 [ApiController]
 [Route("api/v0/[controller]")]
-public class ShoppingController : BaseController
+public class ShoppingController : ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
 
