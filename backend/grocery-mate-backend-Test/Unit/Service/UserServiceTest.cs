@@ -80,5 +80,11 @@ public class UserServiceTests
 
         // Assert
         Assert.That(result, Is.Null);
+
+
+        string Mail_Body_RequestAccepted = "Der Auftrag wurde von {0} angenommen. " +
+                                           "\nFalls Sie d";
+
+        Console.WriteLine(Mail_Body_RequestAccepted, "hans");
     }
 }
