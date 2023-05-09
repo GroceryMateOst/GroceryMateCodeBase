@@ -12,7 +12,7 @@ namespace grocery_mate_backend.Controllers;
 
 [ApiController]
 [Route("api/v0/User/Settings")]
-public class UserSettingsController : BaseController
+public class UserSettingsController : ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
 
