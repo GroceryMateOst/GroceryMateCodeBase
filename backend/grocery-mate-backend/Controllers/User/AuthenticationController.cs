@@ -42,7 +42,9 @@ public class AuthenticationController : ControllerBase
         GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_register, LogMessages.LogMessage_SuccessfullyCreated);
 
         userDto.Password = string.Empty;
-        return Created(string.Empty, userDto);
+        Created(string.Empty, userDto);
+        
+        return Ok();
     }
 
     [HttpPost("login")]

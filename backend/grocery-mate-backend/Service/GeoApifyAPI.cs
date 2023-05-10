@@ -40,7 +40,7 @@ public static class GeoApifyApi
         return (Convert.ToDouble(properties["lon"]), Convert.ToDouble(properties["lat"]));
     }
 
-    public static async Task<ZipResponseDto> GetCityName(int zipCode)
+    public static async Task<ZipCodeResponseDto> GetCityName(int zipCode)
     {
         using HttpClient client = new();
 
@@ -61,7 +61,7 @@ public static class GeoApifyApi
         }
 
         var properties = geoFeature.Properties;
-        return new ZipResponseDto(Convert.ToString(properties["city"]) ?? string.Empty,
+        return new ZipCodeResponseDto(Convert.ToString(properties["city"]) ?? string.Empty,
             Convert.ToString(properties["state"]) ?? string.Empty);
     }
 
