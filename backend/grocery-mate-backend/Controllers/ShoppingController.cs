@@ -150,22 +150,39 @@ public class ShoppingController : BaseController
             groceryRequest.State = Enum.Parse<GroceryRequestState>(state, true);
             groceryRequest.Contractor = user;
             await _unitOfWork.CompleteAsync();
+            
+            var clientMail = groceryRequest.Client.EmailAddress;
+            var contractorMail = groceryRequest.Contractor.EmailAddress;
+            var clientsFullName = $"{groceryRequest.Client.FirstName} {groceryRequest.Client.SecondName}";
+            var contractorsFullName = $"{groceryRequest.Contractor.FirstName} {groceryRequest.Contractor.SecondName}";
+            var mailSettings = _unitOfWork.Authentication.GetMailSettings();
 
             switch (groceryRequest.State)
             {
                 case GroceryRequestState.Accepted:
                 {
-                     MailNotification.ShoppingRequestAcceptedNotification(
-                        groceryRequest.Client.EmailAddress, 
-                        groceryRequest.Contractor.EmailAddress,
-                        _unitOfWork.Authentication.GetMailSettings());
+                    MailNotification.ShoppingRequestAcceptedNotificationForClient(
+                        clientMail,
+                        contractorsFullName,
+                        mailSettings);
+                    
+                    MailNotification.ShoppingRequestAcceptedNotificationForContractor(
+                        contractorMail,
+                        clientsFullName,
+                        mailSettings);
                     break;
                 }
                 case GroceryRequestState.Fulfilled:
                 {
-                    MailNotification.ShoppingRequestFulfilledNotification(
-                        groceryRequest.Client.EmailAddress, 
-                        groceryRequest.Contractor.EmailAddress);
+                    MailNotification.ShoppingRequestFulfilledNotificationForClient(
+                        clientMail,
+                        contractorsFullName,
+                        mailSettings);
+                    
+                    MailNotification.ShoppingRequestFulfilledNotificationForContractor(
+                        contractorMail,
+                        clientsFullName,
+                        mailSettings);
                     break;
                 }
             }

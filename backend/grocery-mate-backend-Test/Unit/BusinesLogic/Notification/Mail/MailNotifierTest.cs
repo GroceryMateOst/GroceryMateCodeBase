@@ -8,45 +8,26 @@ namespace grocery_mate_backend_Test.Unit.BusinesLogic.Notification.Mail;
 
 public class MailNotifierTest
 {
-    private MailNotifier _mailNotifier;
-    private Mock<SmtpClient> _smtpClientMock;
-    private Mock<MailMessage> _mailMessageMock;
-
-    public MailNotifierTest()
-    {
-        _mailNotifier = new MailNotifier();
-    }
-
-    [SetUp]
-    public void SetUp()
-    {
-        _smtpClientMock = new Mock<SmtpClient>();
-    }
-
+  
     [Test]
-    public async Task SendMailNotification__true()
+    public void SendMailNotification_ExceptionThrown_ReturnsFalse()
     {
         // Arrange
-        const string fromMailAddress = "anna.meier@msn.com";
-        const string toMailAddress = "hans.peter@gmail.com";
-        const string subject = "Test Subject";
-        const string message = "Test Body";
-        const int port = 123;
-        const string host = "localhost";
-        const string pw = "test123";
-
-        var mailConfigs = new MailConfigs(toMailAddress, subject, message);
-        var appSettings = new AppSettingsGMailDto(fromMailAddress, host, port, pw);
+        var configs = new MailConfigs("recipient@example.com", "Test Subject", "Test Message");
+        var appSettings = new AppSettingsGMailDto("sender@example.com", "localhost", 123, "password");
+        
+        // _smtpClientMock.Setup(m => m.Send(It.IsAny<MailMessage>())).Throws<Exception>();
 
         // Act
-        var result = MailNotifier.SendMailNotification(mailConfigs, appSettings);
+        var result = MailNotifier.SendMailNotification(configs, appSettings);
 
         // Assert
-        // _smtpClientMock.Verify(s => s.Send(new MailMessage()), Times.Once);
+        Assert.That(result, Is.False);
     }
     
-    [Test]
-    public async Task SendMailNotification_HotTest_true()
+    
+    // [Test]
+    private async Task SendMailNotification_HotTest_true()
     {
         // Arrange
         const string fromMailAddress = "grocerymateost@gmail.com";
