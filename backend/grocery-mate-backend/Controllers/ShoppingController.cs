@@ -1,3 +1,4 @@
+using grocery_mate_backend.BusinessLogic.Notification.Mail;
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.Shopping;
@@ -88,7 +89,7 @@ public class ShoppingController : BaseController
         GmLogger.Instance.Trace(methodName, "Grocery-Response successfully mapped");
         return Ok(requests);
     }
-    
+
     [HttpGet("Search")]
     public async Task<ActionResult<GroceryResponseDto>> GetGroceryRequestsByZipcode([FromQuery] int zipCode)
     {
@@ -149,12 +150,49 @@ public class ShoppingController : BaseController
             groceryRequest.State = Enum.Parse<GroceryRequestState>(state, true);
             groceryRequest.Contractor = user;
             await _unitOfWork.CompleteAsync();
+            
+            var clientMail = groceryRequest.Client.EmailAddress;
+            var contractorMail = groceryRequest.Contractor.EmailAddress;
+            var clientsFullName = $"{groceryRequest.Client.FirstName} {groceryRequest.Client.SecondName}";
+            var contractorsFullName = $"{groceryRequest.Contractor.FirstName} {groceryRequest.Contractor.SecondName}";
+            var mailSettings = _unitOfWork.Authentication.GetMailSettings();
+
+            switch (groceryRequest.State)
+            {
+                case GroceryRequestState.Accepted:
+                {
+                    MailNotification.ShoppingRequestAcceptedNotificationForClient(
+                        clientMail,
+                        contractorsFullName,
+                        mailSettings);
+                    
+                    MailNotification.ShoppingRequestAcceptedNotificationForContractor(
+                        contractorMail,
+                        clientsFullName,
+                        mailSettings);
+                    break;
+                }
+                case GroceryRequestState.Fulfilled:
+                {
+                    MailNotification.ShoppingRequestFulfilledNotificationForClient(
+                        clientMail,
+                        contractorsFullName,
+                        mailSettings);
+                    
+                    MailNotification.ShoppingRequestFulfilledNotificationForContractor(
+                        contractorMail,
+                        clientsFullName,
+                        mailSettings);
+                    break;
+                }
+            }
         }
         catch (Exception e)
         {
             GmLogger.Instance.Trace(methodName, e.Message);
             return BadRequest(ResponseErrorMessages.NotFound);
         }
+
 
         GmLogger.Instance.Trace(methodName, "Grocery-Response successfully patched");
         return Ok();
@@ -180,7 +218,8 @@ public class ShoppingController : BaseController
             return BadRequest(ResponseErrorMessages.NotFound);
         }
 
-        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest)).ToList();
+        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest))
+            .ToList();
 
 
         GmLogger.Instance.Trace(methodName, "Grocery-Response successfully mapped");
@@ -192,7 +231,7 @@ public class ShoppingController : BaseController
     public async Task<ActionResult<DetailedGroceryResponseDto>> GetAllContractorRequests()
     {
         const string methodName = "GET Grocery-Request from a contractor";
-        
+
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null) return BadRequest(ResponseErrorMessages.NotAuthorised);
 
@@ -207,7 +246,8 @@ public class ShoppingController : BaseController
             return BadRequest(ResponseErrorMessages.NotFound);
         }
 
-        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest)).ToList();
+        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest))
+            .ToList();
 
         GmLogger.Instance.Trace(methodName, "Grocery-Response successfully mapped");
         return Ok(requests);

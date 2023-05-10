@@ -11,4 +11,5 @@ public interface IAuthenticationRepository : IGenericRepository<User>
     Task<IdentityUser> FindIdentityUser(string email);
     Task<IdentityResult?> SaveNewIdentityUser(IdentityUser identityUser, User user);
     AuthenticationResponseDto CreateToken(IdentityUser user, Guid userId);
+    AppSettingsGMailDto GetMailSettings();
 }
