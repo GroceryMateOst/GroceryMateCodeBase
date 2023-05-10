@@ -31,7 +31,7 @@ public class MailNotifierTest
     {
         // Arrange
         const string fromMailAddress = "grocerymateost@gmail.com";
-        const string toMailAddress = "marc.kissling@creamec.com";
+        const string toMailAddress = "marc.kissling@ost.com";
         const string subject = "GroceryMate Bestelung";
         const string message = "<p>Dies ist ein Test <br> htest</p> ";
         const int port = 587;
