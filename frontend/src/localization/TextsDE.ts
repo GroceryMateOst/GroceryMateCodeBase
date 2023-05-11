@@ -13,6 +13,7 @@
 	groceryListItemAcceptButton: 'Anfrage annehmen',
 	groceryListItemToolTip:
 		'Möchtest du diesen Einkauf übernehmen? Dann klicke auf diesen Button',
+	groceryListItemShowMore: 'Mehr Anzeigen',
 	// CreateRequestCard
 	createRequestCardTitle: 'Brauchst du Unterstützung bei einem Einkauf?',
 	createRequestCardText:
@@ -70,4 +71,27 @@
 		'Bitte fügen Sie die benötigten Artikel hinzu',
 	createShoppingRequestButtonAdd: 'Artikel hinzufügen',
 	createShoppingRequestPublish: 'Anfrage publizieren',
+	// NavBarMenu
+	navBarMenuHome: 'Startseite',
+	navBarMenuLogin: 'Anmelden',
+	navBarMenuRegistration: 'Registrieren',
+	navBarMenuLogout: 'Abmelden',
+	navBarMenuMyInserat: 'Meine Inserate',
+	navBarMenuMyOrders: 'Meine Aufträge',
+	// PublishedShoppingItem
+	publishedShoppingItemStore: 'Gewünschter Supermarkt:',
+	publishedShoppingItemTimeRange: 'Einkaufs Zeitraum:',
+	publishedShoppingItemTimeTo: 'Erledigt druch:',
+	publishedShoppingDoneBy: 'Erledigt druch:',
+	publishedShoppingItemAcceptedBy: 'Angenommen von:',
+	publishedShoppingItemShowList: 'Einkaufsliste anzeigen',
+	// AcceptedShoppingItem
+	acceptedShoppingItemClient: 'Auftraggeber:',
+	acceptedShoppingItemButtonDone: 'Einkauf abschliessen',
+	acceptedShoppingItemTip:
+		'Hast du den Auftrag erledigt? Dann klicke bitte diesen Button',
+	// SearchPage
+	searchPageTitle: 'Suche',
+	searchPageText:
+		'Bitte gib die Postleitzahl ein, um die Einkaufslisten zu filtern.',
 };

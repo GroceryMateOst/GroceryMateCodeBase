@@ -58,7 +58,11 @@ const GroceryListItem = ({
 			</div>
 			<div>
 				<Collapse className="bg-[#D9D9D9] grocerListItem">
-					<Panel header="Mehr Anzeigen" key={1} className="bg-[#D9D9D9]">
+					<Panel
+						header={Text.groceryListItemShowMore}
+						key={1}
+						className="bg-[#D9D9D9]"
+					>
 						<div className="flex flex-row justify-between">
 							<div className="flex flex-col bg-[#D9D9D9]">
 								{request.shoppingList.map((item, index) => (

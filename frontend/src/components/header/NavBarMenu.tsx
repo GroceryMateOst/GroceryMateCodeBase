@@ -4,6 +4,7 @@ import { MenuOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setIsAuthenticated } from '../../redux/userSlice';
 import UserService from '../../services/user-service';
+import { Text } from '../../localization/TextsDE';
 
 const NavBarMenu = () => {
 	const navigate = useNavigate();
@@ -22,27 +23,27 @@ const NavBarMenu = () => {
 	const items = [
 		{
 			key: '1',
-			label: <Link to="/">Home</Link>,
+			label: <Link to="/">{Text.navBarMenuHome}</Link>,
 		},
 		{
 			key: '2',
-			label: <Link to="/login">Login</Link>,
+			label: <Link to="/login">{Text.navBarMenuLogin}</Link>,
 		},
 		{
 			key: '3',
-			label: <Link to="/register">Registration</Link>,
+			label: <Link to="/register">{Text.navBarMenuRegistration}</Link>,
 		},
 		{
 			key: '4',
-			label: 'Logout',
+			label: Text.navBarMenuLogout,
 		},
 		{
 			key: '5',
-			label: <Link to="/published">Meine Inserate</Link>,
+			label: <Link to="/published">{Text.navBarMenuMyInserat}</Link>,
 		},
 		{
 			key: '6',
-			label: <Link to="/accepted">Meine Aufträge</Link>,
+			label: <Link to="/accepted">{Text.navBarMenuMyOrders}</Link>,
 		},
 	];
 

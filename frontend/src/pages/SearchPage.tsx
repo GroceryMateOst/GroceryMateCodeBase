@@ -5,6 +5,7 @@ import { GroceryRequestResponseModel } from '../models/GroceryRequestModel';
 import ShoppingService from '../services/shopping-service';
 import GroceryListItem from '../components/GroceryListOverView/GroceryListItem';
 import Spinner from '../components/General/LoadingSpinner';
+import { Text } from '../localization/TextsDE';
 
 const SearchPage = () => {
 	const [plz, setPlz] = useState<number>();
@@ -37,8 +38,8 @@ const SearchPage = () => {
 
 	return (
 		<div className="px-20 mb-10">
-			<h1>Suche</h1>
-			<p>Bitte gib die Postleitzahl ein, um die Einkaufslisten zu filtern.</p>
+			<h1>{Text.searchPageTitle}</h1>
+			<p>{Text.searchPageText}</p>
 			<Space.Compact>
 				<Input
 					type="number"

@@ -1,3 +1,4 @@
+import { Text } from '../../localization/TextsDE';
 import { GroceryRequestDetailModel } from '../../models/GroceryRequestModel';
 import { Collapse } from 'antd';
 
@@ -17,12 +18,14 @@ const PublishedShoppingItem = ({ item }: PublishedShoppingItemProps) => {
 			{' '}
 			<div className="flex flex-row justify-between p-5 w-fit space-x-20">
 				<div className="flex flex-col">
-					<span className="font-bold">Gewünschter Supermarkt:</span>
+					<span className="font-bold">{Text.publishedShoppingItemStore}</span>
 					<span>{item.preferredStore}</span>
 				</div>
 				{item.requestState !== 'Fulfilled' && (
 					<div className="flex flex-col">
-						<span className="font-bold">Einkaufs Zeitraum:</span>
+						<span className="font-bold">
+							{Text.publishedShoppingItemTimeRange}
+						</span>
 						<span>{`${formateDate(item.fromDate)} bis ${formateDate(
 							item.toDate
 						)}`}</span>
@@ -32,8 +35,8 @@ const PublishedShoppingItem = ({ item }: PublishedShoppingItemProps) => {
 					<div className="flex flex-col">
 						<span className="font-bold">
 							{item.requestState === 'Fulfilled'
-								? 'Erledigt druch:'
-								: 'Angenommen von:'}
+								? Text.publishedShoppingDoneBy
+								: Text.publishedShoppingItemAcceptedBy}
 						</span>
 						<span>
 							{item.contractor.user.firstName} {item.contractor.user.secondName}
@@ -44,7 +47,7 @@ const PublishedShoppingItem = ({ item }: PublishedShoppingItemProps) => {
 			<div>
 				<Collapse className="bg-[#D9D9D9] grocerListItem">
 					<Panel
-						header="Einkaufsliste anzeigen"
+						header={Text.publishedShoppingItemShowList}
 						key={1}
 						className="bg-[#D9D9D9]"
 					>

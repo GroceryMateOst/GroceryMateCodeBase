@@ -6,6 +6,7 @@ import ShoppingService from '../../services/shopping-service';
 import { Collapse, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import PDFGenerator from './PDFGenerator';
+import { Text } from '../../localization/TextsDE';
 
 interface PublishedShoppingItemProps {
 	item: GroceryRequestDetailModel;
@@ -33,8 +34,8 @@ const AcceptedShoppingItem = ({
 			const shoppingService: ShoppingService = new ShoppingService();
 			await shoppingService.updateShoppingState(body);
 			updateState(item);
-		} catch {
-			console.log('error');
+		} catch (err) {
+			console.error(err);
 		}
 	};
 
@@ -43,18 +44,20 @@ const AcceptedShoppingItem = ({
 			{' '}
 			<div className="flex flex-row justify-between p-5 w-fit space-x-20">
 				<div className="flex flex-col">
-					<span className="font-bold">Gewünschter Supermarkt:</span>
+					<span className="font-bold">{Text.publishedShoppingItemStore}</span>
 					<span>{item.preferredStore}</span>
 				</div>
 				<div className="flex flex-col">
-					<span className="font-bold">Einkaufs Zeitraum:</span>
+					<span className="font-bold">
+						{Text.publishedShoppingItemTimeRange}
+					</span>
 					<span>{`${formateDate(item.fromDate)} bis ${formateDate(
 						item.toDate
 					)}`}</span>
 				</div>
 				{item.requestState !== 'Published' && (
 					<div className="flex flex-col">
-						<span className="font-bold">Auftraggeber:</span>
+						<span className="font-bold">{Text.acceptedShoppingItemClient}</span>
 						<div className="flex flex-col">
 							<span>
 								{item.client.user.firstName} {item.client.user.secondName}
@@ -79,8 +82,8 @@ const AcceptedShoppingItem = ({
 						onClick={onRequestFulfill}
 						className="p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm"
 					>
-						Einkauf abschliessen
-						<Tooltip title="Hast du den Auftrag erledigt? Dann klicke bitte diesen Button">
+						{Text.acceptedShoppingItemButtonDone}
+						<Tooltip title={Text.acceptedShoppingItemTip}>
 							<InfoCircleOutlined className="ml-4" />
 						</Tooltip>
 					</button>
@@ -89,7 +92,7 @@ const AcceptedShoppingItem = ({
 			<div>
 				<Collapse className="bg-[#D9D9D9] grocerListItem">
 					<Panel
-						header="Einkaufsliste anzeigen"
+						header={Text.publishedShoppingItemShowList}
 						key={1}
 						className="bg-[#D9D9D9]"
 					>
