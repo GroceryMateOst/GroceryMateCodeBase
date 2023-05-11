@@ -3,11 +3,12 @@ import {
 	PatchShopping,
 } from '../../models/GroceryRequestModel';
 import ShoppingService from '../../services/shopping-service';
-import { Collapse, Tooltip } from 'antd';
+import { Collapse, Tooltip, Checkbox } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import PDFGenerator from './PDFGenerator';
 import { Text } from '../../localization/TextsDE';
-import { Checkbox } from 'antd';
+import './AcceptedShoppingItem.css';
+import { useState } from 'react';
 
 interface PublishedShoppingItemProps {
 	item: GroceryRequestDetailModel;
@@ -19,6 +20,7 @@ const AcceptedShoppingItem = ({
 	updateState,
 }: PublishedShoppingItemProps) => {
 	const { Panel } = Collapse;
+	const [isShoppingFinished, setIsShoppingFinished] = useState(false);
 
 	const formateDate = (dateString: string) => {
 		const date = new Date(dateString);
@@ -40,8 +42,12 @@ const AcceptedShoppingItem = ({
 		}
 	};
 
+	const onCheckBoxChange = (element: any[]) => {
+		setIsShoppingFinished(element.length === item.shoppingList.length);
+	};
+
 	return (
-		<div className="bg-[#D9D9D9] w-[700px] mt-5 flex flex-col">
+		<div className="bg-[#D9D9D9] w-[700px] mt-5 flex flex-col accepted-shopping-item">
 			{' '}
 			<div className="flex flex-row justify-between p-5 w-fit space-x-20">
 				<div className="flex flex-col">
@@ -82,11 +88,16 @@ const AcceptedShoppingItem = ({
 					>
 						<div className="flex flex-row justify-between">
 							<div className="flex flex-col bg-[#D9D9D9]">
-								{item.shoppingList.map((grocery, index) => (
-									<div key={index}>
-										<Checkbox>{grocery.description}</Checkbox>
-									</div>
-								))}
+								<Checkbox.Group
+									className="flex flex-col"
+									onChange={(e) => onCheckBoxChange(e)}
+								>
+									{item.shoppingList.map((grocery, index) => (
+										<Checkbox key={index} value={index}>
+											{grocery.description}
+										</Checkbox>
+									))}
+								</Checkbox.Group>
 							</div>
 						</div>
 					</Panel>
@@ -100,7 +111,10 @@ const AcceptedShoppingItem = ({
 				{item.requestState == 'Accepted' && (
 					<button
 						onClick={onRequestFulfill}
-						className="p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm"
+						className={`${
+							!isShoppingFinished ? 'cursor-not-allowed' : 'hover:scale-95'
+						} p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid mx-4 text-sm`}
+						disabled={!isShoppingFinished}
 					>
 						{Text.acceptedShoppingItemButtonDone}
 						<Tooltip title={Text.acceptedShoppingItemTip}>
