@@ -91,10 +91,10 @@ public class ShoppingController : ControllerBase
     }
 
     [HttpGet("search")]
-    public async Task<ActionResult<GroceryResponseDto>> GetGroceryRequestsByZipcode(ZipCodeRequestDto requestDto)
+    public async Task<ActionResult<GroceryResponseDto>> GetGroceryRequestsByZipcode([FromQuery] int zipCode)
     {
         if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist) &&
-            AddressValidation.ValidateZipcode(requestDto.ZipCode))
+            AddressValidation.ValidateZipcode(zipCode))
         {
             GmLogger.Instance.Warn(LogMessages.MethodName_REST_GET_search, LogMessages.LogMessage_BadCredentials);
             return BadRequest(ResponseErrorMessages.InvalidRequest);
@@ -103,7 +103,7 @@ public class ShoppingController : ControllerBase
         List<GroceryRequest> groceryRequests;
         try
         {
-            groceryRequests = await _unitOfWork.Shopping.GetAllGroceryRequestsByZipcode(requestDto.ZipCode);
+            groceryRequests = await _unitOfWork.Shopping.GetAllGroceryRequestsByZipcode(zipCode);
         }
         catch (Exception e)
         {
@@ -178,7 +178,6 @@ public class ShoppingController : ControllerBase
 
         var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest))
             .ToList();
-
 
         GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest_clientRequests,
             LogMessages.LogMessage_GroceryResponseMapped);

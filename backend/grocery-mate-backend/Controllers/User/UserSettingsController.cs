@@ -79,12 +79,11 @@ public class UserSettingsController : ControllerBase
         return Ok();
     }
 
-
     [Authorize]
-    [HttpGet("GetCity")]
-    public async Task<ActionResult<ZipCodeResponseDto>> GetCityNameByZip(ZipCodeRequestDto requestDto)
+    [HttpGet("getCity")]
+    public async Task<ActionResult<ZipCodeResponseDto>> GetCityNameByZip([FromQuery] int zipCode)
     {
-        var zipCodeResponseDto = await GeoApifyApi.GetCityName(requestDto.ZipCode);
+        var zipCodeResponseDto = await GeoApifyApi.GetCityName(zipCode);
         return Ok(zipCodeResponseDto);
     }
 }
