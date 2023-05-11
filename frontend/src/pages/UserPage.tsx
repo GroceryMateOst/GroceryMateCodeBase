@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { setIsLoading } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { toast } from 'react-toastify';
+import { Text } from '../localization/TextsDE';
 
 const UserPage = () => {
 	const [formHasChanged, setFormHasChanged] = useState(false);
@@ -75,15 +76,15 @@ const UserPage = () => {
 					>
 						<Form.Item
 							name="emailAddress"
-							label="E-mail"
+							label={Text.userPageEmail}
 							rules={[
 								{
 									type: 'email',
-									message: 'Das ist eine ungültige E-Mail Adresse!',
+									message: Text.userPageEmailInvalide,
 								},
 								{
 									required: true,
-									message: 'Bitte gebe deine E-Mail Adresse ein!',
+									message: Text.UserPageEmailMissing,
 								},
 							]}
 						>
@@ -91,11 +92,11 @@ const UserPage = () => {
 						</Form.Item>
 						<Form.Item
 							name="firstName"
-							label="Vorname"
+							label={Text.userPageFirstName}
 							rules={[
 								{
 									required: true,
-									message: 'Bitte gebe deinen Vornamen ein!',
+									message: Text.userPageFirstNameMissing,
 									whitespace: true,
 								},
 							]}
@@ -104,11 +105,11 @@ const UserPage = () => {
 						</Form.Item>
 						<Form.Item
 							name="secondName"
-							label="Nachname"
+							label={Text.userPageSecondName}
 							rules={[
 								{
 									required: true,
-									message: 'Bitte gebe deinen Nachnamen ein!',
+									message: Text.userPageSecondNameMissing,
 									whitespace: true,
 								},
 							]}
@@ -118,11 +119,11 @@ const UserPage = () => {
 						<Space.Compact block>
 							<Form.Item
 								name="street"
-								label="Strasse"
+								label={Text.userPageStreet}
 								rules={[
 									{
 										required: true,
-										message: 'Bitte gebe an, an welcher Strasse du wohnst.',
+										message: Text.userPageStreetMissing,
 										whitespace: true,
 									},
 								]}
@@ -132,11 +133,11 @@ const UserPage = () => {
 							</Form.Item>
 							<Form.Item
 								name="houseNr"
-								label="Hausnr."
+								label={Text.userPageHouseNr}
 								rules={[
 									{
 										required: true,
-										message: 'Bitte gib deine Hausnummer an.',
+										message: Text.userPageHouseNrMissing,
 										whitespace: true,
 									},
 								]}
@@ -148,11 +149,11 @@ const UserPage = () => {
 						<Space.Compact block>
 							<Form.Item
 								name="zipCode"
-								label="PLZ"
+								label={Text.userPageZipCode}
 								rules={[
 									{
 										required: true,
-										message: 'Bitte gebe eine Postleizahl an!',
+										message: Text.userPageZipCodeMissing,
 										whitespace: true,
 									},
 								]}
@@ -164,11 +165,11 @@ const UserPage = () => {
 							</Form.Item>
 							<Form.Item
 								name="city"
-								label="Ort"
+								label={Text.userPageCity}
 								rules={[
 									{
 										required: true,
-										message: 'Bitte gebe deinen Wohnort an!',
+										message: Text.userPageCityMissing,
 										whitespace: true,
 									},
 								]}
@@ -179,21 +180,18 @@ const UserPage = () => {
 						</Space.Compact>
 						<Form.Item
 							name="state"
-							label="Kanton"
+							label={Text.userPageState}
 							rules={[
 								{
 									required: true,
-									message: 'Bitte gebe den Kanton an in welchem du Wohnst!',
+									message: Text.userPageStateMissing,
 									whitespace: true,
 								},
 							]}
 						>
 							<Input />
 						</Form.Item>
-						<Form.Item
-							name="residencyDetails"
-							label="Details zu deinem Wohnort"
-						>
+						<Form.Item name="residencyDetails" label={Text.userPageDetails}>
 							<TextArea />
 						</Form.Item>
 						<Form.Item>
@@ -202,7 +200,7 @@ const UserPage = () => {
 								htmlType="submit"
 								disabled={!formHasChanged}
 							>
-								Speichern
+								{Text.save}
 							</Button>
 						</Form.Item>
 					</Form>

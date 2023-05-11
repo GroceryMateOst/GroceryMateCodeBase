@@ -3,6 +3,7 @@ import ShoppingService from '../services/shopping-service';
 import { GroceryRequestDetailModel } from '../models/GroceryRequestModel';
 import Spinner from '../components/General/LoadingSpinner';
 import PublishedShoppingItem from '../components/Dashboard/PublishedShoppingItem';
+import { Text } from '../localization/TextsDE';
 
 const PublishedShoppings = () => {
 	const [publishedRequests, setPublishedRequests] = useState<
@@ -41,7 +42,7 @@ const PublishedShoppings = () => {
 	return (
 		<div className="px-20">
 			<div>
-				<h2>Meine publizierten Einkaufsanfragen</h2>
+				<h2>{Text.publishedShoppingsTitle}</h2>
 			</div>
 			<div>
 				{isLoading ? (
@@ -51,27 +52,27 @@ const PublishedShoppings = () => {
 				) : (
 					<div>
 						<div>
-							<h3>Offene Inserate</h3>
+							<h3>{Text.publishedShoppingsOppen}</h3>
 							{publishedShoppings.length > 0 ? (
 								publishedShoppings
 							) : (
-								<p>Aktuell keine offenen Inserate vorhanden</p>
+								<p>{Text.publishedShoppingsNoOppen}</p>
 							)}
 						</div>
 						<div>
-							<h3>Akzeptierte Inserate</h3>
+							<h3>{Text.publishedShoppingsAccepted}</h3>
 							{acceptedShoppings.length > 0 ? (
 								acceptedShoppings
 							) : (
-								<p>Aktuell keine offenen Inserate vorhanden</p>
+								<p>{Text.publishedShoppingsNoAccepted}</p>
 							)}
 						</div>
 						<div>
-							<h3>Abgeschlossene Inserate</h3>
+							<h3>{Text.publishedShoppingsClose}</h3>
 							{fulfilledIShoppings.length > 0 ? (
 								fulfilledIShoppings
 							) : (
-								<p>Keine abgeschlossene Inserate vorhanden</p>
+								<p>{Text.publishedShoppingsNoClose}</p>
 							)}
 						</div>
 					</div>

@@ -7,6 +7,7 @@ import GroceryListItem from './GroceryListItem';
 import { Link } from 'react-router-dom';
 import { RightOutlined } from '@ant-design/icons';
 import Spinner from '../General/LoadingSpinner';
+import { Text } from '../../localization/TextsDE';
 
 const GroceryListOverView = () => {
 	const [groceryRequests, setGroceryRequests] = useState<
@@ -34,7 +35,7 @@ const GroceryListOverView = () => {
 	return (
 		<>
 			<div>
-				<h2>Einkaufslisten</h2>
+				<h2>{Text.groceryListOverViewTitle}</h2>
 			</div>
 			<div>
 				{isLoading ? (
@@ -49,7 +50,7 @@ const GroceryListOverView = () => {
 			</div>
 			<div className="mt-4 font-bold">
 				<Link to="/search" className="!text-[#8fb69c] hover:!text-black">
-					Zu allen Einkaufslisten
+					{Text.groceryListOverViewToAll}
 					<RightOutlined />
 				</Link>
 			</div>

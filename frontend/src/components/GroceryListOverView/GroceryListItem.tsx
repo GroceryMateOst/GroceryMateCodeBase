@@ -8,6 +8,7 @@ import { useAppSelector } from '../../redux/hooks';
 import ShoppingService from '../../services/shopping-service';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { Text } from '../../localization/TextsDE';
 
 const GroceryListItem = ({
 	request,
@@ -41,15 +42,15 @@ const GroceryListItem = ({
 		<div className="bg-[#D9D9D9] w-[550px] mt-5">
 			<div className="flex flex-row justify-between p-5 w-fit space-x-20">
 				<div className="flex flex-col">
-					<span className="font-bold">Einkauf von:</span>
+					<span className="font-bold">{Text.groceryListItemGroceryOf}</span>
 					<span>{request.firstName}</span>
 				</div>
 				<div className="flex flex-col">
-					<span className="font-bold">Ort:</span>
+					<span className="font-bold">{Text.groceryListItemPlace}</span>
 					<span>{request.city}</span>
 				</div>
 				<div className="flex flex-col">
-					<span className="font-bold">Einkaufs Zeitraum:</span>
+					<span className="font-bold">{Text.groceryListItemTime}</span>
 					<span>{`${formateDate(request.fromDate)} bis ${formateDate(
 						request.toDate
 					)}`}</span>
@@ -69,8 +70,8 @@ const GroceryListItem = ({
 									onClick={onRequestAccept}
 									className="p-4 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95"
 								>
-									Anfrage annehmen
-									<Tooltip title="Möchtest du diesen Einkauf übernehmen? Dann klicke auf diesen Button">
+									{Text.groceryListItemAcceptButton}
+									<Tooltip title={Text.groceryListItemToolTip}>
 										<InfoCircleOutlined className="ml-4" />
 									</Tooltip>
 								</button>
