@@ -7,6 +7,7 @@ import { Collapse, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import PDFGenerator from './PDFGenerator';
 import { Text } from '../../localization/TextsDE';
+import { Checkbox } from 'antd';
 
 interface PublishedShoppingItemProps {
 	item: GroceryRequestDetailModel;
@@ -72,7 +73,26 @@ const AcceptedShoppingItem = ({
 					</div>
 				)}
 			</div>
-			<div className="self-end mt-4 flex row">
+			<div>
+				<Collapse className="bg-[#D9D9D9] grocerListItem">
+					<Panel
+						header={Text.publishedShoppingItemShowList}
+						key={1}
+						className="bg-[#D9D9D9]"
+					>
+						<div className="flex flex-row justify-between">
+							<div className="flex flex-col bg-[#D9D9D9]">
+								{item.shoppingList.map((grocery, index) => (
+									<div key={index}>
+										<Checkbox>{grocery.description}</Checkbox>
+									</div>
+								))}
+							</div>
+						</div>
+					</Panel>
+				</Collapse>
+			</div>
+			<div className="self-end mt-4 flex row pb-5">
 				<div className=" self-center p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm ">
 					<PDFGenerator item={item} />
 				</div>
@@ -88,23 +108,6 @@ const AcceptedShoppingItem = ({
 						</Tooltip>
 					</button>
 				)}
-			</div>
-			<div>
-				<Collapse className="bg-[#D9D9D9] grocerListItem">
-					<Panel
-						header={Text.publishedShoppingItemShowList}
-						key={1}
-						className="bg-[#D9D9D9]"
-					>
-						<div className="flex flex-row justify-between">
-							<div className="flex flex-col bg-[#D9D9D9]">
-								{item.shoppingList.map((grocery, index) => (
-									<span key={index}>• {grocery.description}</span>
-								))}
-							</div>
-						</div>
-					</Panel>
-				</Collapse>
 			</div>
 		</div>
 	);
