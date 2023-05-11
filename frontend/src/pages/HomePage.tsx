@@ -12,13 +12,6 @@ const HomePage = () => {
 			</div>
 			<GroceryListOverView />
 			<CreateRequestCard />
-			<Map
-				zoom={20}
-				latitude={47.30682745}
-				longitude={9.082206350049724}
-				width="500px"
-				height="500px"
-			/>
 		</div>
 	);
 };

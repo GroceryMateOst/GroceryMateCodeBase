@@ -7,9 +7,17 @@ interface MapProps {
 	height: string;
 	width: string;
 	zoom?: number;
+	address?: string;
 }
 
-const Map = ({ latitude, longitude, height, width, zoom }: MapProps) => {
+const Map = ({
+	latitude,
+	longitude,
+	height,
+	width,
+	zoom,
+	address,
+}: MapProps) => {
 	return (
 		<MapContainer
 			center={[latitude, longitude]}
@@ -23,7 +31,14 @@ const Map = ({ latitude, longitude, height, width, zoom }: MapProps) => {
 			/>
 			<Marker position={[latitude, longitude]}>
 				<Popup>
-					A pretty CSS3 popup. <br /> Easily customizable.
+					<a
+						href={`http://maps.google.com/?q=${address ?? ''}`}
+						target="_blank"
+						rel="noreferrer noopener"
+						className="hover:text-[#8fb69c]"
+					>
+						In GoogleMaps öffnen
+					</a>
 				</Popup>
 			</Marker>
 		</MapContainer>
