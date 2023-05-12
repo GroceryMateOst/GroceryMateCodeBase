@@ -58,7 +58,7 @@ const AcceptedShoppings = () => {
 	}, []);
 
 	return (
-		<div className="px-20">
+		<div className="px-10 lg:px-20">
 			<div>
 				<h2>{Text.acceptedShoppingsTitle}</h2>
 			</div>

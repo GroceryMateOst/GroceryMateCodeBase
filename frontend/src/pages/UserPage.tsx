@@ -7,6 +7,7 @@ import { setIsLoading } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { toast } from 'react-toastify';
 import { Text } from '../localization/TextsDE';
+import { SaveOutlined } from '@ant-design/icons';
 
 const UserPage = () => {
 	const [formHasChanged, setFormHasChanged] = useState(false);
@@ -200,6 +201,7 @@ const UserPage = () => {
 								htmlType="submit"
 								disabled={!formHasChanged}
 							>
+								<SaveOutlined className="mr-[2px]" />
 								{Text.save}
 							</Button>
 						</Form.Item>

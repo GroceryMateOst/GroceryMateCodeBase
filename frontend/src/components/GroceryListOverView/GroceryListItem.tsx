@@ -39,13 +39,13 @@ const GroceryListItem = ({
 	};
 
 	return (
-		<div className="bg-[#D9D9D9] w-[550px] mt-5">
-			<div className="flex flex-row justify-between p-5 w-fit space-x-20">
-				<div className="flex flex-col">
+		<div className="bg-[#D9D9D9] mt-5 max-w-[600px]">
+			<div className="flex flex-row  justify-between p-5 w-fit flex-wrap">
+				<div className="flex flex-col mr-20 mb-2">
 					<span className="font-bold">{Text.groceryListItemGroceryOf}</span>
 					<span>{request.firstName}</span>
 				</div>
-				<div className="flex flex-col">
+				<div className="flex flex-col mr-20 mb-2">
 					<span className="font-bold">{Text.groceryListItemPlace}</span>
 					<span>{request.city}</span>
 				</div>
@@ -63,7 +63,7 @@ const GroceryListItem = ({
 						key={1}
 						className="bg-[#D9D9D9]"
 					>
-						<div className="flex flex-row justify-between">
+						<div className="flex flex-row justify-between flex-wrap">
 							<div className="flex flex-col bg-[#D9D9D9]">
 								{request.shoppingList.map((item, index) => (
 									<span key={index}>• {item.description}</span>
@@ -72,7 +72,7 @@ const GroceryListItem = ({
 							{isAuthenticated && (
 								<button
 									onClick={onRequestAccept}
-									className="p-4 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95"
+									className="p-4 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mt-5"
 								>
 									{Text.groceryListItemAcceptButton}
 									<Tooltip title={Text.groceryListItemToolTip}>

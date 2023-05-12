@@ -78,6 +78,7 @@
 	navBarMenuLogout: 'Abmelden',
 	navBarMenuMyInserat: 'Meine Inserate',
 	navBarMenuMyOrders: 'Meine Aufträge',
+	navBarMenuProfil: 'Profil',
 	// PublishedShoppingItem
 	publishedShoppingItemStore: 'Gewünschter Supermarkt:',
 	publishedShoppingItemTimeRange: 'Einkaufs Zeitraum:',

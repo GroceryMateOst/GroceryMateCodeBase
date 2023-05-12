@@ -5,7 +5,7 @@ import { Text } from '../localization/TextsDE';
 
 const HomePage = () => {
 	return (
-		<div className="px-20 mb-10">
+		<div className="mb-10 px-10 lg:px-20">
 			<div>
 				<h2 className="my-0">{Text.homePageTitle}</h2>
 				<p className="mt-0 text-lg">{Text.homePageAbout}</p>

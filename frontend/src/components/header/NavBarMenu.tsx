@@ -1,6 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Dropdown, MenuProps } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
+import {
+	HomeOutlined,
+	LoginOutlined,
+	LogoutOutlined,
+	MenuOutlined,
+	ProfileOutlined,
+	ShoppingCartOutlined,
+	UserAddOutlined,
+	UserOutlined,
+} from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setIsAuthenticated } from '../../redux/userSlice';
 import UserService from '../../services/user-service';
@@ -12,7 +21,7 @@ const NavBarMenu = () => {
 	const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
 
 	const onDropdownClick: MenuProps['onClick'] = async ({ key }) => {
-		if (key == '4') {
+		if (key == '5') {
 			const userService = new UserService();
 			await userService.logout();
 			dispatch(setIsAuthenticated(false));
@@ -23,27 +32,66 @@ const NavBarMenu = () => {
 	const items = [
 		{
 			key: '1',
-			label: <Link to="/">{Text.navBarMenuHome}</Link>,
+			label: (
+				<Link to="/">
+					<HomeOutlined className="mr-3" />
+					{Text.navBarMenuHome}
+				</Link>
+			),
 		},
 		{
 			key: '2',
-			label: <Link to="/login">{Text.navBarMenuLogin}</Link>,
+			label: (
+				<Link to="/login">
+					<LoginOutlined className="mr-3" />
+					{Text.navBarMenuLogin}
+				</Link>
+			),
 		},
 		{
 			key: '3',
-			label: <Link to="/register">{Text.navBarMenuRegistration}</Link>,
+			label: (
+				<Link to="/register">
+					<UserAddOutlined className="mr-3" />
+					{Text.navBarMenuRegistration}
+				</Link>
+			),
 		},
 		{
 			key: '4',
-			label: Text.navBarMenuLogout,
+			label: (
+				<Link to="/profile">
+					<UserOutlined className="mr-3" />
+					{Text.navBarMenuProfil}
+				</Link>
+			),
 		},
 		{
 			key: '5',
-			label: <Link to="/published">{Text.navBarMenuMyInserat}</Link>,
+			label: (
+				<>
+					<LogoutOutlined className="mr-3" />
+					{Text.navBarMenuLogout}
+				</>
+			),
 		},
 		{
 			key: '6',
-			label: <Link to="/accepted">{Text.navBarMenuMyOrders}</Link>,
+			label: (
+				<Link to="/published">
+					<ProfileOutlined className="mr-3" />
+					{Text.navBarMenuMyInserat}
+				</Link>
+			),
+		},
+		{
+			key: '7',
+			label: (
+				<Link to="/accepted">
+					<ShoppingCartOutlined className="mr-3" />
+					{Text.navBarMenuMyOrders}
+				</Link>
+			),
 		},
 	];
 

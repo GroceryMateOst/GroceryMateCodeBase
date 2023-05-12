@@ -37,7 +37,7 @@ const SearchPage = () => {
 	};
 
 	return (
-		<div className="px-20 mb-10">
+		<div className="mb-10 px-10 lg:px-20">
 			<h1>{Text.searchPageTitle}</h1>
 			<p>{Text.searchPageText}</p>
 			<Space.Compact>
