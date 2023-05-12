@@ -27,9 +27,7 @@ export default class ShoppingService extends AxiosBaseService {
 
 	public async updateShoppingState(body: PatchShopping): Promise<void> {
 		return this.instance
-			.put<PatchShopping>(
-				`/groceryRequestState?requestId=${body.groceryRequestId}&state=${body.requestState}`
-			)
+			.patch<PatchShopping>(`/groceryRequestState`, body)
 			.then(this.responseBody)
 			.catch(this.errorHandling);
 	}

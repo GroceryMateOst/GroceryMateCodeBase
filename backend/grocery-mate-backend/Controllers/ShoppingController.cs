@@ -124,7 +124,7 @@ public class ShoppingController : ControllerBase
     
     [Authorize]
     [HttpPatch("groceryRequestState")]
-    public async Task<IActionResult> UpdateRequestState([FromForm] GroceryUpdateDto updatedDto)
+    public async Task<IActionResult> UpdateRequestState(GroceryUpdateDto updatedDto)
     {
         if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist) &&
             !GroceryValidation.ValidateRequestState(updatedDto.RequestState))
