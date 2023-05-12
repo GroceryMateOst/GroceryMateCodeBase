@@ -28,7 +28,9 @@ public class UserDataDto
                 HouseNr = address.HouseNr,
                 State = address.State,
                 Street = address.Street,
-                ZipCode = address.ZipCode
+                ZipCode = address.ZipCode,
+                Longitude = address.Longitude,
+                Latitude = address.Latitude
             };
         }
         else
