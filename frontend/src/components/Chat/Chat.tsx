@@ -33,12 +33,8 @@ const Chat = ({ item, messages, connection, userid }: ChatProps) => {
 			receiver = item.client.user.userId;
 		}
 
-		try {
-			await connection?.invoke('SendMessage', currentMessage, receiver, userid);
-			setCurrentMessage('');
-		} catch (exception) {
-			console.log(exception);
-		}
+		await connection?.invoke('SendMessage', currentMessage, receiver, userid);
+		setCurrentMessage('');
 	};
 
 	return (

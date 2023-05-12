@@ -13,7 +13,7 @@ const PDFGenerator = ({ item }: PDFGeneratorProps) => (
 			document={<GroceryRequestPDF item={item} />}
 			fileName={`Einkauf für ${item.client.user.firstName} ${item.client.user.secondName}.pdf`}
 		>
-			{({ blob, url, loading, error }) =>
+			{({ loading }) =>
 				loading ? (
 					'Lade Dokument'
 				) : (

@@ -1,6 +1,6 @@
 import { GroceryRequestDetailModel } from '../../models/GroceryRequestModel';
 import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Dialog } from '@material-ui/core';
 import Chat from './Chat';
 import UserService from '../../services/user-service';
@@ -29,46 +29,39 @@ const ChatOverlay = ({ item, markMessageAsRead }: ChatOverlayProps) => {
 		if (connection != null) {
 			return;
 		}
-		try {
-			const socketConnection = new HubConnectionBuilder()
-				.withUrl(
-					// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-					`${import.meta.env.VITE_SERVER_BASE_URL}/chatsocket`
-				)
-				.build();
 
-			socketConnection.on(
-				'ReceiveMessage',
-				(messageText: string, receiverId: string, senderId: string) => {
-					setMessages((prevMessages) => [
-						...prevMessages,
-						{
-							senderId,
-							receiverId,
-							messageText,
-							messageRead: false,
-						},
-					]);
-				}
-			);
+		const socketConnection = new HubConnectionBuilder()
+			.withUrl(
+				// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+				`${import.meta.env.VITE_SERVER_BASE_URL}/chatsocket`
+			)
+			.build();
 
-			await socketConnection.start();
-			await socketConnection.invoke('JoinChat', {
-				user: userid,
-				shoppingId: item.groceryRequestId,
-			});
-			setConnection(socketConnection);
-		} catch (e) {
-			console.log(e);
-		}
+		socketConnection.on(
+			'ReceiveMessage',
+			(messageText: string, receiverId: string, senderId: string) => {
+				setMessages((prevMessages) => [
+					...prevMessages,
+					{
+						senderId,
+						receiverId,
+						messageText,
+						messageRead: false,
+					},
+				]);
+			}
+		);
+
+		await socketConnection.start();
+		await socketConnection.invoke('JoinChat', {
+			user: userid,
+			shoppingId: item.groceryRequestId,
+		});
+		setConnection(socketConnection);
 	};
 
 	const closeConnection = async () => {
-		try {
-			await connection?.stop();
-		} catch (e) {
-			console.log(e);
-		}
+		await connection?.stop();
 	};
 
 	const getPreviousMessages = async () => {

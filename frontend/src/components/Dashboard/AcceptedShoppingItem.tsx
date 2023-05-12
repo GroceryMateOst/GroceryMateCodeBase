@@ -60,13 +60,9 @@ const AcceptedShoppingItem = ({
 			groceryRequestId: item.groceryRequestId,
 			requestState: 'fulfilled',
 		};
-		try {
-			const shoppingService: ShoppingService = new ShoppingService();
-			await shoppingService.updateShoppingState(body);
-			updateState(item);
-		} catch (err) {
-			console.error(err);
-		}
+		const shoppingService: ShoppingService = new ShoppingService();
+		await shoppingService.updateShoppingState(body);
+		updateState(item);
 	};
 
 	const onCheckBoxChange = (element: CheckboxValueType[]) => {
