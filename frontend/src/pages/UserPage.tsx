@@ -1,15 +1,18 @@
-﻿import { Button, Form, Input, Skeleton } from 'antd';
+﻿import { Button, Form, Input, Skeleton, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { UserModelComplete } from '../models/UserModel';
 import UserService from '../services/user-service';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setIsLoading } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { toast } from 'react-toastify';
+import { Text } from '../localization/TextsDE';
+import { SaveOutlined } from '@ant-design/icons';
 
 const UserPage = () => {
+	const [formHasChanged, setFormHasChanged] = useState(false);
 	const [form] = Form.useForm<UserModelComplete>();
 	const dispatch = useAppDispatch();
-
 	const isLoading = useAppSelector((state) => state.user.isLoading);
 
 	const getUser = async (userService: UserService) => {
@@ -34,6 +37,17 @@ const UserPage = () => {
 	const handleSubmit = async (userSettings: UserModelComplete) => {
 		const userService = new UserService();
 		await userService.updateUserSettings(userSettings);
+		toast.success('Deine Änderungen wurden gespeicher.', {
+			position: 'top-center',
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'light',
+		});
+		setFormHasChanged(false);
 	};
 
 	const getCityByZipCode = async (zipCode: string) => {
@@ -59,18 +73,19 @@ const UserPage = () => {
 						autoComplete="off"
 						layout="vertical"
 						onFinish={handleSubmit}
+						onFieldsChange={() => setFormHasChanged(true)}
 					>
 						<Form.Item
 							name="emailAddress"
-							label="E-mail"
+							label={Text.userPageEmail}
 							rules={[
 								{
 									type: 'email',
-									message: 'Das ist eine gültige E-Mail Adresse!',
+									message: Text.userPageEmailInvalide,
 								},
 								{
 									required: true,
-									message: 'Bitte gebe deine E-Mail Adresse ein!',
+									message: Text.UserPageEmailMissing,
 								},
 							]}
 						>
@@ -78,12 +93,11 @@ const UserPage = () => {
 						</Form.Item>
 						<Form.Item
 							name="firstName"
-							label="Vorname"
-							tooltip="Was ist dein Vorname?"
+							label={Text.userPageFirstName}
 							rules={[
 								{
 									required: true,
-									message: 'Bitte gebe deinen Vorname ein!',
+									message: Text.userPageFirstNameMissing,
 									whitespace: true,
 								},
 							]}
@@ -92,94 +106,103 @@ const UserPage = () => {
 						</Form.Item>
 						<Form.Item
 							name="secondName"
-							label="Nachname"
-							tooltip="Was ist dein Familienname?"
+							label={Text.userPageSecondName}
 							rules={[
 								{
 									required: true,
-									message: 'Bitte gebe deinen Nachnamen ein!',
+									message: Text.userPageSecondNameMissing,
 									whitespace: true,
 								},
 							]}
 						>
 							<Input />
 						</Form.Item>
-						<Form.Item
-							name="street"
-							label="Strasse"
-							rules={[
-								{
-									required: true,
-									message: 'Bitte gebe an an welcher Strasse du wohnst.',
-									whitespace: true,
-								},
-							]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name="houseNr"
-							label="Hausnummer"
-							rules={[
-								{
-									required: true,
-									message: 'Bitte gib deine Hausnummer an.',
-									whitespace: true,
-								},
-							]}
-						>
-							<Input />
-						</Form.Item>
-						<Form.Item
-							name="zipCode"
-							label="PLZ"
-							rules={[
-								{
-									required: true,
-									message: 'Bitte gebe eine PLZ an!',
-									whitespace: true,
-								},
-							]}
-						>
-							<Input
-								onBlur={(element) => getCityByZipCode(element.target.value)}
-							/>
-						</Form.Item>
-						<Form.Item
-							name="city"
-							label="Ort"
-							rules={[
-								{
-									required: true,
-									message: 'Bitte gebe deinen Wohnort an!',
-									whitespace: true,
-								},
-							]}
-						>
-							<Input />
-						</Form.Item>
+						<Space.Compact block>
+							<Form.Item
+								name="street"
+								label={Text.userPageStreet}
+								rules={[
+									{
+										required: true,
+										message: Text.userPageStreetMissing,
+										whitespace: true,
+									},
+								]}
+								style={{ width: '75%' }}
+							>
+								<Input />
+							</Form.Item>
+							<Form.Item
+								name="houseNr"
+								label={Text.userPageHouseNr}
+								rules={[
+									{
+										required: true,
+										message: Text.userPageHouseNrMissing,
+										whitespace: true,
+									},
+								]}
+								style={{ width: '25%' }}
+							>
+								<Input />
+							</Form.Item>
+						</Space.Compact>
+						<Space.Compact block>
+							<Form.Item
+								name="zipCode"
+								label={Text.userPageZipCode}
+								rules={[
+									{
+										required: true,
+										message: Text.userPageZipCodeMissing,
+										whitespace: true,
+									},
+								]}
+								style={{ width: '30%' }}
+							>
+								<Input
+									onBlur={(element) => getCityByZipCode(element.target.value)}
+								/>
+							</Form.Item>
+							<Form.Item
+								name="city"
+								label={Text.userPageCity}
+								rules={[
+									{
+										required: true,
+										message: Text.userPageCityMissing,
+										whitespace: true,
+									},
+								]}
+								style={{ width: '70%' }}
+							>
+								<Input />
+							</Form.Item>
+						</Space.Compact>
 						<Form.Item
 							name="state"
-							label="Kanton"
+							label={Text.userPageState}
 							rules={[
 								{
 									required: true,
-									message: 'bitte gebe den Kanton an in welchem du Wohnst!',
+									message: Text.userPageStateMissing,
 									whitespace: true,
 								},
 							]}
 						>
 							<Input />
 						</Form.Item>
-						<Form.Item
-							name="residencyDetails"
-							label="Details zu deinem Wohnort"
-						>
+						<Form.Item name="residencyDetails" label={Text.userPageDetails}>
 							<TextArea />
 						</Form.Item>
 						<Form.Item>
-							<Button type="primary" htmlType="submit">
-								Speichern
+							<Button
+								type="primary"
+								htmlType="submit"
+								disabled={!formHasChanged}
+							>
+								<SaveOutlined className="mr-[2px]" />
+								{Text.save}
 							</Button>
 						</Form.Item>
 					</Form>

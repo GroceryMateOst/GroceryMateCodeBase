@@ -27,3 +27,11 @@ a:visited {
 .green-background {
 	background-color: #8fb69c;
 }
+
+.header {
+	position: fixed;
+	top: 50;
+	left: 0;
+	right: 0;
+	z-index: 9999;
+}

@@ -97,6 +97,17 @@ public class AuthenticationRepository : GenericRepository<User>, IAuthentication
         };
     }
 
+    public AppSettingsGMailDto GetMailSettings()
+    {
+        var sectionGMail = _configuration.GetSection("GMail");
+        return new AppSettingsGMailDto(
+            sectionGMail.GetSection("FromMail").Value, 
+            sectionGMail.GetSection("Host").Value, 
+            Convert.ToInt32(sectionGMail.GetSection("Port").Value), 
+            sectionGMail.GetSection("AppPassword").Value
+            );
+    }
+    
     private Task<JwtSecurityToken>
         CreateJwtToken(Claim[] claims, SigningCredentials credentials, DateTime expiration) =>
         Task.FromResult(new JwtSecurityToken(

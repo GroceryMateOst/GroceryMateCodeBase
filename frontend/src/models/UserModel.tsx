@@ -16,6 +16,24 @@ export interface LoginResponseModel {
 	expiration: string;
 }
 
+export interface UserModelGrocery {
+	user: {
+		firstName: string;
+		secondName: string;
+		emailAddress: string;
+		residencyDetails: string;
+	};
+	address: {
+		street: string;
+		houseNr: string;
+		zipCode: string;
+		city: string;
+		state: string;
+		latitude: number;
+		longitude: number;
+	};
+}
+
 export interface UserModelComplete {
 	emailAddress: string;
 	firstName: string;

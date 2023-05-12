@@ -20,14 +20,23 @@ public class UserDataDto
             EmailAddress = user.EmailAddress,
             ResidencyDetails = user.ResidencyDetails ?? string.Empty
         };
-        Address = new AddressDto
+        if (address is not null)
         {
-            City = address.City,
-            HouseNr = address.HouseNr,
-            State = address.State,
-            Street = address.Street,
-            ZipCode = address.ZipCode
-        };
+            Address = new AddressDto
+            {
+                City = address.City,
+                HouseNr = address.HouseNr,
+                State = address.State,
+                Street = address.Street,
+                ZipCode = address.ZipCode,
+                Longitude = address.Longitude,
+                Latitude = address.Latitude
+            };
+        }
+        else
+        {
+            Address = null;
+        }
     }
 
     public UserDataDto()

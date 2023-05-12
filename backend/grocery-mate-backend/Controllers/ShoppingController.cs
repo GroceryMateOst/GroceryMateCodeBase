@@ -1,3 +1,4 @@
+using grocery_mate_backend.BusinessLogic.Notification.Mail;
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.Shopping;
@@ -147,6 +148,42 @@ public class ShoppingController : ControllerBase
             groceryRequest.State = Enum.Parse<GroceryRequestState>(state, true);
             groceryRequest.Contractor = user;
             await _unitOfWork.CompleteAsync();
+
+            var clientMail = groceryRequest.Client.EmailAddress;
+            var contractorMail = groceryRequest.Contractor.EmailAddress;
+            var clientsFullName = $"{groceryRequest.Client.FirstName} {groceryRequest.Client.SecondName}";
+            var contractorsFullName = $"{groceryRequest.Contractor.FirstName} {groceryRequest.Contractor.SecondName}";
+            var mailSettings = _unitOfWork.Authentication.GetMailSettings();
+
+            switch (groceryRequest.State)
+            {
+                case GroceryRequestState.Accepted:
+                    {
+                        MailNotification.ShoppingRequestAcceptedNotificationForClient(
+                            clientMail,
+                            contractorsFullName,
+                            mailSettings);
+
+                        MailNotification.ShoppingRequestAcceptedNotificationForContractor(
+                            contractorMail,
+                            clientsFullName,
+                            mailSettings);
+                        break;
+                    }
+                case GroceryRequestState.Fulfilled:
+                    {
+                        MailNotification.ShoppingRequestFulfilledNotificationForClient(
+                            clientMail,
+                            contractorsFullName,
+                            mailSettings);
+
+                        MailNotification.ShoppingRequestFulfilledNotificationForContractor(
+                            contractorMail,
+                            clientsFullName,
+                            mailSettings);
+                        break;
+                    }
+            }
         }
         catch (Exception e)
         {
@@ -169,7 +206,7 @@ public class ShoppingController : ControllerBase
         List<GroceryRequest> groceryRequests;
         try
         {
-            groceryRequests = await _unitOfWork.Shopping.GetGroceryRequestsAsContractor(user);
+            groceryRequests = await _unitOfWork.Shopping.GetGroceryRequestsAsClient(user);
         }
         catch (Exception e)
         {

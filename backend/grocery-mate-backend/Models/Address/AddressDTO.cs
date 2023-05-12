@@ -23,6 +23,9 @@ public class AddressDto
     [StringLength(maximumLength: 50, ErrorMessage = "State-Name is too long")]
     public string State { get; set; }
 
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+
     public AddressDto(string street, string houseNr, int zipCode, string city, string state)
     {
         Street = street;
@@ -39,6 +42,8 @@ public class AddressDto
         ZipCode = -1;
         City = string.Empty;
         State = string.Empty;
+        Latitude = 0;
+        Longitude = 0;
     }
 }
 
