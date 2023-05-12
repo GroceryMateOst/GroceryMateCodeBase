@@ -12,6 +12,9 @@ export abstract class AxiosBaseService {
 
 	protected errorHandling = (error: any): void => {
 		const response = error?.response;
+		if(response.status === 401 && response.statusText === 'Unauthorized'){
+			localStorage.removeItem('bearerTokenGroceryMate')
+		}
 		if (response && response.data) {
 			if (response.data.type === 'not-found') {
 				const navigate = useNavigate();
