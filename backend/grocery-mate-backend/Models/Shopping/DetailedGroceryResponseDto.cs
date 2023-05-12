@@ -31,5 +31,6 @@ public class DetailedGroceryResponseDto : GroceryResponseBaseDto
         ToDate = groceryRequest.ToDate;
         PreferredStore = groceryRequest.PreferredStore;
         GroceryRequestId = groceryRequest.GroceryRequestId;
+        Note = groceryRequest.Note;
     }
 }

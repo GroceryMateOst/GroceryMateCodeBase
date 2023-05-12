@@ -29,6 +29,8 @@ export interface UserModelGrocery {
 		zipCode: string;
 		city: string;
 		state: string;
+		latitude: number;
+		longitude: number;
 	};
 }
 

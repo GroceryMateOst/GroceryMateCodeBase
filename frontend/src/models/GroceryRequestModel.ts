@@ -17,6 +17,7 @@ export interface GroceryRequestResponseModel {
 	toDate: string;
 	preferredStore: string;
 	distance: number;
+	note: string;
 }
 
 export interface GroceryRequestDetailModel {
@@ -28,6 +29,7 @@ export interface GroceryRequestDetailModel {
 	preferredStore: string;
 	client: UserModelGrocery;
 	contractor: UserModelGrocery;
+	note: string;
 }
 
 export interface ShoppingItem {

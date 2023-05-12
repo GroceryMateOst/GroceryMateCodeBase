@@ -3,6 +3,7 @@ import ShoppingService from '../services/shopping-service';
 import { GroceryRequestDetailModel } from '../models/GroceryRequestModel';
 import Spinner from '../components/General/LoadingSpinner';
 import AcceptedShoppingItem from '../components/Dashboard/AcceptedShoppingItem';
+import { Text } from '../localization/TextsDE';
 
 const AcceptedShoppings = () => {
 	const [acceptedRequests, setAcceptedRequests] = useState<
@@ -57,9 +58,9 @@ const AcceptedShoppings = () => {
 	}, []);
 
 	return (
-		<div className="px-20">
+		<div className="px-10 lg:px-20">
 			<div>
-				<h2>Meine akzeptierten Einkaufsanfragen</h2>
+				<h2>{Text.acceptedShoppingsTitle}</h2>
 			</div>
 			<div>
 				{isLoading ? (
@@ -69,19 +70,19 @@ const AcceptedShoppings = () => {
 				) : (
 					<div>
 						<div>
-							<h3>Angenommene Aufträge</h3>
+							<h3>{Text.acceptedShoppingsTitleAccepted}</h3>
 							{acceptedShoppings.length > 0 ? (
 								acceptedShoppings
 							) : (
-								<p>Aktuell keine offenen Aufträge vorhanden</p>
+								<p>{Text.acceptedShoppingsTitleNoAccepted}</p>
 							)}
 						</div>
 						<div>
-							<h3>Abgeschlossene Aufträge</h3>
+							<h3>{Text.acceptedShoppingsTitleDone}</h3>
 							{fulfilledIShoppings.length > 0 ? (
 								fulfilledIShoppings
 							) : (
-								<p>Keine abgeschlossene Aufträge vorhanden</p>
+								<p>{Text.acceptedShoppingsTitleNoDone}</p>
 							)}
 						</div>
 					</div>

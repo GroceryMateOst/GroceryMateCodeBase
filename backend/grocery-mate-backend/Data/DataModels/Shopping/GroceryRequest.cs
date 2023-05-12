@@ -15,7 +15,6 @@ public class GroceryRequest
     public User Client { get; set; }
     [ForeignKey("GroceryRequestsContractors")]
     public User? Contractor { get; set; }
-    public Rating? Rating { get; set; }
     [Required] public ShoppingList ShoppingList { get; set; }
     public DateTime FromDate { get; set; }
     public DateTime ToDate { get; set; }
@@ -29,7 +28,6 @@ public class GroceryRequest
     public GroceryRequest(User client, GroceryRequestDto requestDto, DateTime fromDate, DateTime toDate)
     {
         Client = client;
-        Rating = null;
         ShoppingList = new ShoppingList(requestDto.GroceryList);
         State = Enum.Parse<GroceryRequestState>(requestDto.RequestState,true);
         FromDate = fromDate;
@@ -42,7 +40,6 @@ public class GroceryRequest
     {
         Client = new User();
         Contractor = new User();
-        Rating = new Rating();
         ShoppingList = new ShoppingList();
         FromDate = DateTime.MinValue;
         ToDate = DateTime.MinValue;

@@ -1,5 +1,4 @@
-﻿import { Route, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../redux/hooks';
+﻿import { useAppSelector } from '../redux/hooks';
 import HomePage from '../pages/HomePage';
 
 interface AuthenticatedRouteProps {
