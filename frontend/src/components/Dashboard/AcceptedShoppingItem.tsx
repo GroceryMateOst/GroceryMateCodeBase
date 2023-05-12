@@ -51,14 +51,14 @@ const AcceptedShoppingItem = ({
 
 	return (
 		<>
-			<div className="bg-[#D9D9D9] w-[700px] mt-5 flex flex-col accepted-shopping-item">
+			<div className="bg-[#D9D9D9] max-w-[700px] mt-5 flex flex-col accepted-shopping-item">
 				{' '}
-				<div className="flex flex-row justify-between p-5 w-fit space-x-20">
-					<div className="flex flex-col">
+				<div className="flex flex-row justify-between p-5 w-fit flex-wrap">
+					<div className="flex flex-col mr-20 mb-2">
 						<span className="font-bold">{Text.publishedShoppingItemStore}</span>
 						<span>{item.preferredStore}</span>
 					</div>
-					<div className="flex flex-col">
+					<div className="flex flex-col mr-20 mb-2">
 						<span className="font-bold">
 							{Text.publishedShoppingItemTimeRange}
 						</span>
@@ -112,8 +112,8 @@ const AcceptedShoppingItem = ({
 						</Panel>
 					</Collapse>
 				</div>
-				<div className="self-end mt-4 flex row pb-5">
-					<div className=" self-center p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm ">
+				<div className="self-end mt-4 flex row pb-5 flex-wrap">
+					<div className=" self-center p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm mb-5">
 						<PDFGenerator item={item} />
 					</div>
 
@@ -122,7 +122,7 @@ const AcceptedShoppingItem = ({
 							onClick={onRequestFulfill}
 							className={`${
 								!isShoppingFinished ? 'cursor-not-allowed' : 'hover:scale-95'
-							} p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid mx-4 text-sm`}
+							} p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid mx-4 text-sm h-12`}
 							disabled={!isShoppingFinished}
 						>
 							{Text.acceptedShoppingItemButtonDone}

@@ -14,15 +14,15 @@ const PublishedShoppingItem = ({ item }: PublishedShoppingItemProps) => {
 		return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 	};
 	return (
-		<div className="bg-[#D9D9D9] w-[550px] mt-5">
+		<div className="bg-[#D9D9D9] max-w-[600px] mt-5">
 			{' '}
-			<div className="flex flex-row justify-between p-5 w-fit space-x-20">
-				<div className="flex flex-col">
+			<div className="flex flex-row justify-between p-5 w-fit flex-wrap">
+				<div className="flex flex-col mr-20 mb-2">
 					<span className="font-bold">{Text.publishedShoppingItemStore}</span>
 					<span>{item.preferredStore}</span>
 				</div>
 				{item.requestState !== 'Fulfilled' && (
-					<div className="flex flex-col">
+					<div className="flex flex-col mr-20 mb-2">
 						<span className="font-bold">
 							{Text.publishedShoppingItemTimeRange}
 						</span>
@@ -32,7 +32,7 @@ const PublishedShoppingItem = ({ item }: PublishedShoppingItemProps) => {
 					</div>
 				)}
 				{item.requestState !== 'Published' && (
-					<div className="flex flex-col">
+					<div className="flex flex-col mb-2">
 						<span className="font-bold">
 							{item.requestState === 'Fulfilled'
 								? Text.publishedShoppingDoneBy

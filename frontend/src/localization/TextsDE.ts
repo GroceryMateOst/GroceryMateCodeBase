@@ -80,11 +80,11 @@
 	navBarMenuMyOrders: 'Meine Aufträge',
 	navBarMenuProfil: 'Profil',
 	// PublishedShoppingItem
-	publishedShoppingItemStore: 'Gewünschter Supermarkt:',
+	publishedShoppingItemStore: 'Supermarkt:',
 	publishedShoppingItemTimeRange: 'Einkaufs Zeitraum:',
 	publishedShoppingItemTimeTo: 'Erledigt druch:',
 	publishedShoppingDoneBy: 'Erledigt druch:',
-	publishedShoppingItemAcceptedBy: 'Angenommen von:',
+	publishedShoppingItemAcceptedBy: 'Helfer:',
 	publishedShoppingItemShowList: 'Einkaufsliste anzeigen',
 	// AcceptedShoppingItem
 	acceptedShoppingItemClient: 'Auftraggeber:',
