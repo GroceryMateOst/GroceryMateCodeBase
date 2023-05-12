@@ -11,6 +11,7 @@ import './AcceptedShoppingItem.css';
 import { useEffect, useState } from 'react';
 import Map from '../Map';
 import Delayed from './Dealay';
+import { CheckboxValueType } from 'antd/es/checkbox/Group';
 
 interface PublishedShoppingItemProps {
 	item: GroceryRequestDetailModel;
@@ -65,7 +66,7 @@ const AcceptedShoppingItem = ({
 		}
 	};
 
-	const onCheckBoxChange = (element: any[]) => {
+	const onCheckBoxChange = (element: CheckboxValueType[]) => {
 		setIsShoppingFinished(element.length === item.shoppingList.length);
 	};
 
@@ -104,6 +105,14 @@ const AcceptedShoppingItem = ({
 								<span>
 									{item.client.address.zipCode} {item.client.address.city}
 								</span>
+								{item.client.user.residencyDetails && (
+									<div className="flex flex-col text-black">
+										<span className="font-bold">
+											{Text.acceptedShoppingItem}
+										</span>
+										<span>{item.client.user.residencyDetails}</span>
+									</div>
+								)}
 							</div>
 						</div>
 					)}
@@ -128,6 +137,15 @@ const AcceptedShoppingItem = ({
 										))}
 									</Checkbox.Group>
 								</div>
+							</div>
+							<div className="flex flex-col mt-3">
+								<span className="font-bold">
+									{Text.acceptedShoppingItemNote.replace(
+										'{}',
+										item.client.user.firstName
+									)}
+								</span>
+								<span>{item.note}</span>
 							</div>
 						</Panel>
 					</Collapse>

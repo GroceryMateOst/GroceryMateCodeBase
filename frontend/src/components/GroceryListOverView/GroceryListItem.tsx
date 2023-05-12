@@ -64,22 +64,37 @@ const GroceryListItem = ({
 						className="bg-secondary"
 					>
 						<div className="flex flex-row justify-between flex-wrap">
-							<div className="flex flex-col bg-secondary">
-								{request.shoppingList.map((item, index) => (
-									<span key={index}>• {item.description}</span>
-								))}
+							<div>
+								<div className="flex flex-col bg-secondary">
+									{request.shoppingList.map((item, index) => (
+										<span key={index}>• {item.description}</span>
+									))}
+								</div>
+								{request.note && (
+									<div className="flex flex-col mt-3">
+										<span className="font-bold">
+											{Text.acceptedShoppingItemNote.replace(
+												'{}',
+												request.firstName
+											)}
+										</span>
+										<span>{request.note}</span>
+									</div>
+								)}
 							</div>
-							{isAuthenticated && (
-								<button
-									onClick={onRequestAccept}
-									className="p-4 bg-primary border-primary shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mt-5"
-								>
-									{Text.groceryListItemAcceptButton}
-									<Tooltip title={Text.groceryListItemToolTip}>
-										<InfoCircleOutlined className="ml-4" />
-									</Tooltip>
-								</button>
-							)}
+							<div className="flex flex-col justify-end">
+								{isAuthenticated && (
+									<button
+										onClick={onRequestAccept}
+										className="p-4 bg-primary border-primary shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mt-5 h-12"
+									>
+										{Text.groceryListItemAcceptButton}
+										<Tooltip title={Text.groceryListItemToolTip}>
+											<InfoCircleOutlined className="ml-4" />
+										</Tooltip>
+									</button>
+								)}
+							</div>
 						</div>
 					</Panel>
 				</Collapse>

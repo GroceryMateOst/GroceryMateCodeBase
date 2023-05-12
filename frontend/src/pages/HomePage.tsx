@@ -1,6 +1,5 @@
 ﻿import CreateRequestCard from '../components/General/CreateRequestCard';
 import GroceryListOverView from '../components/GroceryListOverView/GroceryListOverView';
-import Map from '../components/Map';
 import { Text } from '../localization/TextsDE';
 
 const HomePage = () => {

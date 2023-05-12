@@ -17,7 +17,7 @@
 	// CreateRequestCard
 	createRequestCardTitle: 'Brauchst du Unterstützung bei einem Einkauf?',
 	createRequestCardText:
-		'Veröffentliche mit wenigen Klicks deine Einkaufsanfrage and profitiere von unseren freiwilligen Helfern',
+		'Veröffentliche mit wenigen Klicks deine Einkaufsanfrage und profitiere von unseren freiwilligen Helfern',
 	createRequestCardLink: 'Klicke hier',
 	// UserPage
 	userPageEmail: 'E-mail',
@@ -91,6 +91,8 @@
 	acceptedShoppingItemButtonDone: 'Einkauf abschliessen',
 	acceptedShoppingItemTip:
 		'Hast du den Auftrag erledigt? Dann klicke bitte diesen Button',
+	acceptedShoppingItemNote: 'Notiz von {} zum Einkauf:',
+	acceptedShoppingItem: 'Infos zur Adresse',
 	// SearchPage
 	searchPageTitle: 'Suche',
 	searchPageText:
