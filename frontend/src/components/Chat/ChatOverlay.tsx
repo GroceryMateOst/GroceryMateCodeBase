@@ -86,9 +86,9 @@ const ChatOverlay = ({ item, markMessageAsRead }: ChatOverlayProps) => {
 	const handleClickOpen = async () => {
 		await getPreviousMessages();
 		await joinChat();
-		await setAllReceivedMessagesRead();
 		await getCurrentUserId();
 		setOpen(true);
+		await setAllReceivedMessagesRead();
 	};
 
 	const handleClose = async () => {

@@ -25,7 +25,6 @@ const Chat = ({ item, messages, connection, userid }: ChatProps) => {
 
 	const sendMessage = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-		console.log('sending ' + currentMessage);
 		let receiver: string;
 
 		if (userid == item.client.user.userId) {
