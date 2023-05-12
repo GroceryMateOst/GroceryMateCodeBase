@@ -126,16 +126,29 @@ const AcceptedShoppingItem = ({
 						>
 							<div className="flex flex-row justify-between">
 								<div className="flex flex-col bg-secondary">
-									<Checkbox.Group
-										className="flex flex-col"
-										onChange={(e) => onCheckBoxChange(e)}
-									>
-										{item.shoppingList.map((grocery, index) => (
-											<Checkbox key={index} value={index}>
-												{grocery.description}
-											</Checkbox>
-										))}
-									</Checkbox.Group>
+									{item.requestState !== 'Fulfilled' ? (
+										<Checkbox.Group
+											className="flex flex-col"
+											onChange={(e) => onCheckBoxChange(e)}
+										>
+											{item.shoppingList.map((grocery, index) => (
+												<Checkbox key={index} value={index}>
+													{grocery.description}
+												</Checkbox>
+											))}
+										</Checkbox.Group>
+									) : (
+										<div>
+											{item.shoppingList.map((grocery, index) => (
+												<p key={index} className="my-1">
+													•
+													<span className="line-through">
+														{grocery.description}
+													</span>
+												</p>
+											))}
+										</div>
+									)}
 								</div>
 							</div>
 							<div className="flex flex-col mt-3">
@@ -151,10 +164,11 @@ const AcceptedShoppingItem = ({
 					</Collapse>
 				</div>
 				<div className="self-end mt-4 flex flex-wrap">
-					<div className=" self-center p-3 bg-primary border-primary shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm mb-5">
-						<PDFGenerator item={item} />
-					</div>
-
+					{item.requestState !== 'Fulfilled' && (
+						<div className=" self-center p-3 bg-primary border-primary shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm mb-5">
+							<PDFGenerator item={item} />
+						</div>
+					)}
 					{item.requestState == 'Accepted' && (
 						<button
 							onClick={onRequestFulfill}
