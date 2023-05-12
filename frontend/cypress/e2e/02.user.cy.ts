@@ -62,6 +62,8 @@ describe('User registers and gets a JWT token in return which is stored in local
 
 		cy.get('button[type="submit"]').click();
 
+		cy.wait(7000);
+
 		cy.visit('/');
 		cy.visit('/profile');
 
