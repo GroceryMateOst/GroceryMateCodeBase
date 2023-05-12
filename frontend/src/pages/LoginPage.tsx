@@ -92,7 +92,10 @@ const LoginPage = () => {
 					</Form.Item>
 					<Form.Item>
 						{Text.loginPageGoRegistration}
-						<Link to="/register">{Text.loginPageHere}</Link>.
+						<Link to="/register">
+							<span className="text-[#8fb69c]">{Text.loginPageHere}</span>
+						</Link>
+						.
 					</Form.Item>
 				</Form>
 			)}

@@ -8,7 +8,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import PDFGenerator from './PDFGenerator';
 import { Text } from '../../localization/TextsDE';
 import './AcceptedShoppingItem.css';
-import { Suspense, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Map from '../Map';
 import Delayed from './Dealay';
 
@@ -24,6 +24,26 @@ const AcceptedShoppingItem = ({
 	const { Panel } = Collapse;
 	const [isShoppingFinished, setIsShoppingFinished] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+	useEffect(() => {
+		const handleWindowResize = () => {
+			setWindowWidth(window.innerWidth);
+		};
+		window.addEventListener('resize', handleWindowResize);
+
+		return () => {
+			window.removeEventListener('resize', handleWindowResize);
+		};
+	});
+
+	const calculateSize = () => {
+		return windowWidth < 600
+			? windowWidth < 375
+				? '200px'
+				: '300px'
+			: '500px';
+	};
 
 	const formateDate = (dateString: string) => {
 		const date = new Date(dateString);
@@ -112,7 +132,7 @@ const AcceptedShoppingItem = ({
 						</Panel>
 					</Collapse>
 				</div>
-				<div className="self-end mt-4 flex row pb-5 flex-wrap">
+				<div className="self-end mt-4 flex flex-wrap">
 					<div className=" self-center p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm mb-5">
 						<PDFGenerator item={item} />
 					</div>
@@ -122,7 +142,7 @@ const AcceptedShoppingItem = ({
 							onClick={onRequestFulfill}
 							className={`${
 								!isShoppingFinished ? 'cursor-not-allowed' : 'hover:scale-95'
-							} p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid mx-4 text-sm h-12`}
+							} p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid mx-4 text-sm h-12 mb-5`}
 							disabled={!isShoppingFinished}
 						>
 							{Text.acceptedShoppingItemButtonDone}
@@ -137,15 +157,15 @@ const AcceptedShoppingItem = ({
 				open={isModalOpen}
 				footer={false}
 				onCancel={() => setIsModalOpen(false)}
-				width={550}
+				width={windowWidth < 600 ? (windowWidth < 375 ? 250 : 350) : 550}
 			>
-				<Delayed>
+				<Delayed placeHolderSize={calculateSize()}>
 					<Map
 						zoom={20}
 						latitude={47.30682745}
 						longitude={9.082206350049724}
-						width="500px"
-						height="500px"
+						width={calculateSize()}
+						height={calculateSize()}
 						address={`${item.client.address.street} ${item.client.address.houseNr} ${item.client.address.zipCode} ${item.client.address.city}`}
 					/>
 				</Delayed>

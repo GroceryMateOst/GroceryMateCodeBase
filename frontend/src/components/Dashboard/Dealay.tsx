@@ -1,12 +1,17 @@
 ﻿import { Skeleton } from 'antd';
 import { useState, useEffect } from 'react';
 
-type Props = {
+interface DelayedProps {
 	children: JSX.Element;
 	waitBeforeShow?: number;
-};
+	placeHolderSize: string;
+}
 
-const Delayed = ({ children, waitBeforeShow = 500 }: Props) => {
+const Delayed = ({
+	children,
+	waitBeforeShow = 500,
+	placeHolderSize,
+}: DelayedProps) => {
 	const [isShown, setIsShown] = useState(false);
 
 	useEffect(() => {
@@ -19,7 +24,10 @@ const Delayed = ({ children, waitBeforeShow = 500 }: Props) => {
 	return isShown ? (
 		children
 	) : (
-		<Skeleton.Image active style={{ width: '500px', height: '500px' }} />
+		<Skeleton.Image
+			active
+			style={{ width: placeHolderSize, height: placeHolderSize }}
+		/>
 	);
 };
 
