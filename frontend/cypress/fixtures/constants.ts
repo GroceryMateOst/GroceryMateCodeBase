@@ -1,5 +1,5 @@
 export const constants = {
-	EMAIL: 'test22@test.com',
+	EMAIL: 'test26@test.com',
 	PASSWORD: 'p@ssw0rd2023A',
 	FIRST_NAME: 'John',
 	LAST_NAME: 'Doe',

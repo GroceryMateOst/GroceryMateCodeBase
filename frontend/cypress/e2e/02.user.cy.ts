@@ -9,7 +9,7 @@ describe('User registers and gets a JWT token in return which is stored in local
 
 	it('Navigates to registration', () => {
 		cy.get('.ant-dropdown-trigger').trigger('mouseover');
-		cy.get('.ant-dropdown').contains('Registration').click();
+		cy.get('.ant-dropdown').contains('Registrieren').click();
 		cy.url().should('include', '/register');
 	});
 
@@ -30,9 +30,9 @@ describe('User registers and gets a JWT token in return which is stored in local
 
 	it('Shows logout but no registration & login in dropdown menu', () => {
 		cy.get('.ant-dropdown-trigger').trigger('mouseover');
-		cy.get('.ant-dropdown').contains('Logout').should('exist');
-		cy.get('.ant-dropdown').contains('Registration').should('not.exist');
-		cy.get('.ant-dropdown').contains('Login').should('not.exist');
+		cy.get('.ant-dropdown').contains('Abmelden').should('exist');
+		cy.get('.ant-dropdown').contains('Registrieren').should('not.exist');
+		cy.get('.ant-dropdown').contains('Anmelden').should('not.exist');
 	});
 
 	it('Displays user icon that links to profile on the top right', () => {
@@ -43,7 +43,8 @@ describe('User registers and gets a JWT token in return which is stored in local
 	});
 
 	it('opens the user settings and ensures the registration data is filled', () => {
-		cy.get('.anticon-user').click();
+		cy.get('.ant-dropdown-trigger').trigger('mouseover');
+		cy.get('.ant-dropdown').contains('Profil').click();
 		cy.get('#basic_emailAddress').should('have.value', constants.EMAIL);
 		cy.get('#basic_firstName').should('have.value', constants.FIRST_NAME);
 		cy.get('#basic_secondName').should('have.value', constants.LAST_NAME);
@@ -57,7 +58,7 @@ describe('User registers and gets a JWT token in return which is stored in local
 		cy.get('#basic_houseNr').clear().type(constants.NUMBER);
 		cy.get('#basic_zipCode').clear().type(constants.ZIP);
 		cy.wait(5000);
-		cy.get('#basic_residencyDetails').clear().type(constants.DETAILS);
+		cy.get('#basic_residencyDetails').clear().type(constants.DETAILS).blur();
 
 		cy.get('button[type="submit"]').click();
 
@@ -78,7 +79,7 @@ describe('User registers and gets a JWT token in return which is stored in local
 	it('Performs logout', () => {
 		cy.visit('/');
 		cy.get('.ant-dropdown-trigger').trigger('mouseover');
-		cy.get('.ant-dropdown').contains('Logout').click();
+		cy.get('.ant-dropdown').contains('Abmelden').click();
 		cy.url().should('eq', 'http://localhost:3000/');
 	});
 
