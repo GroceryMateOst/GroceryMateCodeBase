@@ -39,7 +39,7 @@ const GroceryListItem = ({
 	};
 
 	return (
-		<div className="bg-[#D9D9D9] mt-5 max-w-[600px]">
+		<div className="bg-secondary mt-5 max-w-[600px]">
 			<div className="flex flex-row  justify-between p-5 w-fit flex-wrap">
 				<div className="flex flex-col mr-20 mb-2">
 					<span className="font-bold">{Text.groceryListItemGroceryOf}</span>
@@ -57,14 +57,14 @@ const GroceryListItem = ({
 				</div>
 			</div>
 			<div>
-				<Collapse className="bg-[#D9D9D9] grocerListItem">
+				<Collapse className="bg-secondary grocerListItem">
 					<Panel
 						header={Text.groceryListItemShowMore}
 						key={1}
-						className="bg-[#D9D9D9]"
+						className="bg-secondary"
 					>
 						<div className="flex flex-row justify-between flex-wrap">
-							<div className="flex flex-col bg-[#D9D9D9]">
+							<div className="flex flex-col bg-secondary">
 								{request.shoppingList.map((item, index) => (
 									<span key={index}>• {item.description}</span>
 								))}
@@ -72,7 +72,7 @@ const GroceryListItem = ({
 							{isAuthenticated && (
 								<button
 									onClick={onRequestAccept}
-									className="p-4 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mt-5"
+									className="p-4 bg-primary border-primary shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mt-5"
 								>
 									{Text.groceryListItemAcceptButton}
 									<Tooltip title={Text.groceryListItemToolTip}>

@@ -14,7 +14,7 @@ const PublishedShoppingItem = ({ item }: PublishedShoppingItemProps) => {
 		return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
 	};
 	return (
-		<div className="bg-[#D9D9D9] max-w-[600px] mt-5">
+		<div className="bg-secondary max-w-[600px] mt-5">
 			{' '}
 			<div className="flex flex-row justify-between p-5 w-fit flex-wrap">
 				<div className="flex flex-col mr-20 mb-2">
@@ -45,14 +45,14 @@ const PublishedShoppingItem = ({ item }: PublishedShoppingItemProps) => {
 				)}
 			</div>
 			<div>
-				<Collapse className="bg-[#D9D9D9] grocerListItem">
+				<Collapse className="bg-secondary grocerListItem">
 					<Panel
 						header={Text.publishedShoppingItemShowList}
 						key={1}
-						className="bg-[#D9D9D9]"
+						className="bg-secondary"
 					>
 						<div className="flex flex-row justify-between">
-							<div className="flex flex-col bg-[#D9D9D9]">
+							<div className="flex flex-col bg-secondary">
 								{item.shoppingList.map((grocery, index) => (
 									<span key={index}>• {grocery.description}</span>
 								))}

@@ -49,7 +49,7 @@ const GroceryListOverView = () => {
 				)}
 			</div>
 			<div className="mt-4 font-bold">
-				<Link to="/search" className="!text-[#8fb69c] hover:!text-black">
+				<Link to="/search" className="!text-primary hover:!text-black">
 					{Text.groceryListOverViewToAll}
 					<RightOutlined />
 				</Link>

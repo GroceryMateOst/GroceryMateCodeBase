@@ -17,7 +17,7 @@ const Header = () => {
 	return (
 		<div className="headerContainer ">
 			<div
-				className="flex flex-row justify-between bg-[#8fb69c] px-10 lg:px-20 py-6"
+				className="flex flex-row justify-between bg-primary px-10 lg:px-20 py-6"
 				id="header"
 			>
 				<Link to="/">

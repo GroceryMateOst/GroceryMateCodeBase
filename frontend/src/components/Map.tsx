@@ -35,7 +35,7 @@ const Map = ({
 						href={`http://maps.google.com/?q=${address ?? ''}`}
 						target="_blank"
 						rel="noreferrer noopener"
-						className="hover:text-[#8fb69c]"
+						className="hover:text-primary"
 					>
 						In GoogleMaps öffnen
 					</a>

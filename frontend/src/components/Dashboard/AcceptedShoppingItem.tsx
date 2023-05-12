@@ -71,7 +71,7 @@ const AcceptedShoppingItem = ({
 
 	return (
 		<>
-			<div className="bg-[#D9D9D9] max-w-[700px] mt-5 flex flex-col accepted-shopping-item">
+			<div className="bg-secondary max-w-[700px] mt-5 flex flex-col accepted-shopping-item">
 				{' '}
 				<div className="flex flex-row justify-between p-5 w-fit flex-wrap">
 					<div className="flex flex-col mr-20 mb-2">
@@ -88,7 +88,7 @@ const AcceptedShoppingItem = ({
 					</div>
 					{item.requestState !== 'Published' && (
 						<div
-							className="flex flex-col hover:cursor-pointer hover:text-[#8fb69c]"
+							className="flex flex-col hover:cursor-pointer hover:text-primary"
 							onClick={() => setIsModalOpen(true)}
 						>
 							<span className="font-bold text-black">
@@ -109,14 +109,14 @@ const AcceptedShoppingItem = ({
 					)}
 				</div>
 				<div>
-					<Collapse className="bg-[#D9D9D9] grocerListItem">
+					<Collapse className="bg-secondary grocerListItem">
 						<Panel
 							header={Text.publishedShoppingItemShowList}
 							key={1}
-							className="bg-[#D9D9D9]"
+							className="bg-secondary"
 						>
 							<div className="flex flex-row justify-between">
-								<div className="flex flex-col bg-[#D9D9D9]">
+								<div className="flex flex-col bg-secondary">
 									<Checkbox.Group
 										className="flex flex-col"
 										onChange={(e) => onCheckBoxChange(e)}
@@ -133,7 +133,7 @@ const AcceptedShoppingItem = ({
 					</Collapse>
 				</div>
 				<div className="self-end mt-4 flex flex-wrap">
-					<div className=" self-center p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm mb-5">
+					<div className=" self-center p-3 bg-primary border-primary shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm mb-5">
 						<PDFGenerator item={item} />
 					</div>
 
@@ -142,7 +142,7 @@ const AcceptedShoppingItem = ({
 							onClick={onRequestFulfill}
 							className={`${
 								!isShoppingFinished ? 'cursor-not-allowed' : 'hover:scale-95'
-							} p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid mx-4 text-sm h-12 mb-5`}
+							} p-3 bg-primary border-primary shadow-none rounded-3xl border-[1px] border-solid mx-4 text-sm h-12 mb-5`}
 							disabled={!isShoppingFinished}
 						>
 							{Text.acceptedShoppingItemButtonDone}
