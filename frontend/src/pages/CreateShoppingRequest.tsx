@@ -10,6 +10,7 @@ import { changeCurrentShoppingItems } from '../redux/shoppingSlice';
 import { useNavigate } from 'react-router-dom';
 import ShoppingService from '../services/shopping-service';
 import { setIsLoading } from '../redux/userSlice';
+import { Text } from '../localization/TextsDE';
 
 const { RangePicker } = DatePicker;
 
@@ -66,35 +67,30 @@ const CreateShoppingRequest = () => {
 
 	return (
 		<div className="w-full flex justify-center">
-			<Form
-				name="normal_login"
-				className="login-form"
-				onFinish={handleSubmit}
-				layout="vertical"
-				form={form}
-			>
+			<Form onFinish={handleSubmit} layout="vertical" form={form}>
 				<div className="mb-8">
-					<Form.Item name="note" label="Generelle Hinweise zum Einkauf">
+					<Form.Item name="note" label={Text.createShoppingRequestGeneral}>
 						<TextArea />
 					</Form.Item>
 					<Form.Item
 						name="daterange"
-						label="Wann soll der Einkauf geschehen?"
+						label={Text.createShoppingRequestWhen}
 						rules={[
 							{
 								required: true,
-								message: 'Bitte geben Sie eine Zeitspanne ein',
+								message: Text.createShoppingRequestWhenMissing,
 							},
 						]}
 					>
 						<RangePicker format="DD.MM.YYYY" />
 					</Form.Item>
-					<Form.Item name="preferredstore" label="Bevorzugter Supermarkt">
+					<Form.Item
+						name="preferredstore"
+						label={Text.createShoppingRequestPreferredStore}
+					>
 						<Input />
 					</Form.Item>
-					<p className="font-bold">
-						Bitte fügen Sie die benötigten Artikel hinzu
-					</p>
+					<p className="font-bold">{Text.createShoppingRequestAddArticle}</p>
 					{currentShopping.groceryList.map(
 						(option: ShoppingItem, index: number) => (
 							<div key={index} className="flex items-center mb-2 shoppingItems">
@@ -114,12 +110,12 @@ const CreateShoppingRequest = () => {
 						)
 					)}
 					<Button onClick={() => addShoppingItem('')} className="mt-2">
-						Artikel hinzufügen <PlusCircleOutlined />
+						{Text.createShoppingRequestButtonAdd} <PlusCircleOutlined />
 					</Button>
 				</div>
 				<Form.Item>
 					<Button type="primary" htmlType="submit">
-						Anfrage publizieren
+						{Text.createShoppingRequestPublish}
 					</Button>
 				</Form.Item>
 			</Form>

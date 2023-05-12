@@ -7,9 +7,8 @@ public class GroceryResponseDto : GroceryResponseBaseDto
 {
     public string FirstName { get; set; }
     public string City { get; set; }
-    
     public decimal Distance { get; set; }
-    
+
     public GroceryResponseDto(GroceryRequest groceryRequest, Address? address, Guid groceryRequestId)
     {
         FirstName = groceryRequest.Client.FirstName;
@@ -22,5 +21,6 @@ public class GroceryResponseDto : GroceryResponseBaseDto
         PreferredStore = groceryRequest.PreferredStore;
         GroceryRequestId = groceryRequestId;
         Distance = groceryRequest.Distance;
+        Note = groceryRequest.Note;
     }
 }

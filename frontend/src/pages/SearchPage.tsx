@@ -5,6 +5,7 @@ import { GroceryRequestResponseModel } from '../models/GroceryRequestModel';
 import ShoppingService from '../services/shopping-service';
 import GroceryListItem from '../components/GroceryListOverView/GroceryListItem';
 import Spinner from '../components/General/LoadingSpinner';
+import { Text } from '../localization/TextsDE';
 
 const SearchPage = () => {
 	const [plz, setPlz] = useState<number>();
@@ -36,9 +37,9 @@ const SearchPage = () => {
 	};
 
 	return (
-		<div className="px-20 mb-10">
-			<h1>Suche</h1>
-			<p>Bitte gib die Postleitzahl ein, um die Einkaufslisten zu filtern.</p>
+		<div className="mb-10 px-10 lg:px-20">
+			<h1>{Text.searchPageTitle}</h1>
+			<p>{Text.searchPageText}</p>
 			<Space.Compact>
 				<Input
 					type="number"
@@ -59,7 +60,7 @@ const SearchPage = () => {
 					groceryRequests.map((request, index) => (
 						<div className="flex flex-col items-end" key={index}>
 							{request.distance > 0 && (
-								<div className="border-[#8fb69c] bg-[#8fb69c] w-fit h-fit p-2 rounded-full flex flex-col justify-center items-center relative top-10 right-[-30px]">{`${request.distance}km`}</div>
+								<div className="border-primary bg-primary w-fit h-fit p-2 rounded-full flex flex-col justify-center items-center relative top-10 right-[-30px]">{`${request.distance}km`}</div>
 							)}
 							<GroceryListItem request={request} />
 						</div>

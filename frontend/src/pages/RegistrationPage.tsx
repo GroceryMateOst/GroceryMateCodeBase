@@ -5,6 +5,7 @@ import { UserModel } from '../models/UserModel';
 import UserService from '../services/user-service';
 import { setIsLoading, setIsAuthenticated } from '../redux/userSlice';
 import Spinner from '../components/General/LoadingSpinner';
+import { Text } from '../localization/TextsDE';
 
 interface RegisterFormData {
 	email: string;
@@ -46,19 +47,6 @@ const RegistrationPage = () => {
 		}
 	};
 
-	const tailFormItemLayout = {
-		wrapperCol: {
-			xs: {
-				span: 24,
-				offset: 0,
-			},
-			sm: {
-				span: 16,
-				offset: 8,
-			},
-		},
-	};
-
 	return (
 		<div className="w-full flex justify-center">
 			{isLoading ? (
@@ -77,15 +65,15 @@ const RegistrationPage = () => {
 				>
 					<Form.Item
 						name="email"
-						label="E-mail"
+						label={Text.userPageEmail}
 						rules={[
 							{
 								type: 'email',
-								message: 'Das ist keine gültige E-Mail Adresse!',
+								message: Text.userPageEmailInvalide,
 							},
 							{
 								required: true,
-								message: 'Bitte gebe deine E-Mail Adresse ein!',
+								message: Text.userPageEmailMissing,
 							},
 						]}
 					>
@@ -94,12 +82,11 @@ const RegistrationPage = () => {
 
 					<Form.Item
 						name="firstname"
-						label="Vorname"
-						tooltip="Was ist dein Vorname?"
+						label={Text.userPageFirstName}
 						rules={[
 							{
 								required: true,
-								message: 'Bitte gebe deinen Vorname ein!',
+								message: Text.userPageFirstNameMissing,
 								whitespace: true,
 							},
 						]}
@@ -109,12 +96,11 @@ const RegistrationPage = () => {
 
 					<Form.Item
 						name="name"
-						label="Nachname"
-						tooltip="Was ist dein Familienname?"
+						label={Text.userPageSecondName}
 						rules={[
 							{
 								required: true,
-								message: 'Bitte gebe deinen Nachnamen ein!',
+								message: Text.userPageSecondNameMissing,
 								whitespace: true,
 							},
 						]}
@@ -124,11 +110,11 @@ const RegistrationPage = () => {
 
 					<Form.Item
 						name="password"
-						label="Passwort"
+						label={Text.loginPagePassword}
 						rules={[
 							{
 								required: true,
-								message: 'Bitte gebe ein Passwort ein!',
+								message: Text.loginPagePasswordMissing,
 							},
 						]}
 						hasFeedback
@@ -138,13 +124,13 @@ const RegistrationPage = () => {
 
 					<Form.Item
 						name="confirm"
-						label="Bestätigung"
+						label={Text.registrationPageConfirm}
 						dependencies={['password']}
 						hasFeedback
 						rules={[
 							{
 								required: true,
-								message: 'Bitte bestätige dein Passwort!',
+								message: Text.registrationPageConfrimMissing,
 							},
 							({ getFieldValue }) => ({
 								validator(_, value) {
@@ -161,9 +147,9 @@ const RegistrationPage = () => {
 						<Input.Password />
 					</Form.Item>
 
-					<Form.Item {...tailFormItemLayout}>
+					<Form.Item>
 						<Button type="primary" htmlType="submit">
-							Registriere dich
+							{Text.registrationPageButton}
 						</Button>
 					</Form.Item>
 				</Form>

@@ -33,5 +33,6 @@ public class DetailedGroceryResponseDto : GroceryResponseBaseDto
         PreferredStore = groceryRequest.PreferredStore;
         GroceryRequestId = groceryRequest.GroceryRequestId;
         UnreadMessages = groceryRequest.Chat.Messages.Count(m => m.ReceiverId == userId && !m.MessageRead);
+        Note = groceryRequest.Note;
     }
 }

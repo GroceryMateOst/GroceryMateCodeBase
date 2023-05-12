@@ -25,8 +25,8 @@ public class UserServiceTests
     {
         // Arrange
         const string identityName = "testuser";
-        var identityUser = new IdentityUser { Id = "12345" };
-        var user = new User { UserId = Guid.NewGuid() };
+        var identityUser = new IdentityUser {Id = "12345"};
+        var user = new User {UserId = Guid.NewGuid()};
         _unitOfWorkMock.Setup(uow => uow.Authentication.FindIdentityUser(identityName))
             .ReturnsAsync(identityUser);
         _unitOfWorkMock.Setup(uow => uow.User.FindUserByIdentityId(identityUser.Id))
@@ -55,11 +55,11 @@ public class UserServiceTests
     {
         // Arrange
         const string identityName = "testuser";
-        var identityUser = new IdentityUser { Id = "12345" };
+        var identityUser = new IdentityUser {Id = "12345"};
         _unitOfWorkMock.Setup(uow => uow.Authentication.FindIdentityUser(identityName))
             .ReturnsAsync(identityUser);
         _unitOfWorkMock.Setup(uow => uow.User.FindUserByIdentityId(identityUser.Id))
-            .ReturnsAsync((User)null);
+            .ReturnsAsync((User) null);
 
         // Act
         var result = await UserService.GetAuthenticatedUser(identityName, _unitOfWorkMock.Object);
@@ -80,5 +80,11 @@ public class UserServiceTests
 
         // Assert
         Assert.That(result, Is.Null);
+
+
+        string Mail_Body_RequestAccepted = "Der Auftrag wurde von {0} angenommen. " +
+                                           "\nFalls Sie d";
+
+        Console.WriteLine(Mail_Body_RequestAccepted, "hans");
     }
 }

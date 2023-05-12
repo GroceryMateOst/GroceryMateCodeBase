@@ -5,6 +5,7 @@ import { setIsLoading, setIsAuthenticated } from '../redux/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import UserService from '../services/user-service';
 import Spinner from '../components/General/LoadingSpinner';
+import { Text } from '../localization/TextsDE';
 
 interface LoginFormData {
 	email: string;
@@ -35,19 +36,6 @@ const LoginPage = () => {
 		}
 	};
 
-	const tailFormItemLayout = {
-		wrapperCol: {
-			xs: {
-				span: 24,
-				offset: 0,
-			},
-			sm: {
-				span: 16,
-				offset: 8,
-			},
-		},
-	};
-
 	return (
 		<div className="w-full flex justify-center">
 			{isLoading ? (
@@ -58,53 +46,56 @@ const LoginPage = () => {
 				<Form
 					name="normal_login"
 					className="login-form"
+					layout="vertical"
 					initialValues={{ remember: true }}
 					onFinish={handleSubmit}
 				>
 					<Form.Item
 						name="email"
-						label="E-mail"
+						label={Text.userPageEmail}
 						rules={[
 							{
 								type: 'email',
-								message: 'Das ist eine gültige E-Mail Adresse!',
+								message: Text.userPageEmailInvalide,
 							},
 							{
 								required: true,
-								message: 'Bitte gebe deine E-Mail Adresse ein!',
+								message: Text.userPageEmailMissing,
 							},
 						]}
 					>
 						<Input
 							prefix={<UserOutlined className="site-form-item-icon" />}
-							placeholder="E-Mail"
+							placeholder={Text.userPageEmail}
 						/>
 					</Form.Item>
 					<Form.Item
 						name="password"
-						label="Passwort"
-						rules={[
-							{ required: true, message: 'Bitte gib dein Passwort ein!' },
-						]}
+						label={Text.loginPagePassword}
+						rules={[{ required: true, message: Text.loginPagePasswordMissing }]}
 					>
 						<Input
 							prefix={<LockOutlined className="site-form-item-icon" />}
 							type="password"
-							placeholder="Passwort"
+							placeholder={Text.loginPagePassword}
 						/>
 					</Form.Item>
-					<Form.Item style={{ marginBottom: '5px' }} {...tailFormItemLayout}>
+					<Form.Item style={{ marginBottom: '5px' }}>
 						<Button
 							type="primary"
 							htmlType="submit"
 							className="login-form-button"
 							style={{ width: '120px' }}
 						>
-							Log in
+							{Text.loginPageButton}
 						</Button>
 					</Form.Item>
-					<Form.Item {...tailFormItemLayout}>
-						Oder <Link to="/register">registrie dich</Link> jetzt
+					<Form.Item>
+						{Text.loginPageGoRegistration}
+						<Link to="/register">
+							<span className="text-primary">{Text.loginPageHere}</span>
+						</Link>
+						.
 					</Form.Item>
 				</Form>
 			)}

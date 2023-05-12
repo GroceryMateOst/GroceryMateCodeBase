@@ -7,13 +7,15 @@ public class GroceryResponseBaseDto
     public DateTime ToDate { get; set; }
     public string PreferredStore { get; set; }
     public Guid GroceryRequestId { get; set; }
+    public string Note { get; set; }
     
-    public GroceryResponseBaseDto(List<ShoppingListDto> shoppingList, DateTime fromDate, DateTime toDate, string preferredStore)
+    public GroceryResponseBaseDto(List<ShoppingListDto> shoppingList, DateTime fromDate, DateTime toDate, string preferredStore, string note)
     {
         ShoppingList = shoppingList;
         FromDate = fromDate;
         ToDate = toDate;
         PreferredStore = preferredStore;
+        Note = note;
     }
 
     public GroceryResponseBaseDto()
@@ -22,5 +24,6 @@ public class GroceryResponseBaseDto
         FromDate = DateTime.MinValue;
         ToDate = DateTime.MaxValue;;
         PreferredStore = string.Empty;
+        Note = string.Empty;
     }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { AxiosBaseService } from './axios-base.service';
 import {
 	UserModel,

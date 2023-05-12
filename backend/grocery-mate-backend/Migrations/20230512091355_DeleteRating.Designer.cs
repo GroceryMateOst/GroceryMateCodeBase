@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using grocery_mate_backend.Data.Context;
@@ -11,9 +12,11 @@ using grocery_mate_backend.Data.Context;
 namespace grocery_mate_backend.Migrations
 {
     [DbContext(typeof(GroceryContext))]
-    partial class GroceryContextModelSnapshot : ModelSnapshot
+    [Migration("20230512091355_DeleteRating")]
+    partial class DeleteRating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,58 +171,6 @@ namespace grocery_mate_backend.Migrations
                     b.HasKey("TokenBlacklistEntryId");
 
                     b.ToTable("CanceledTokens");
-                });
-
-            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Messaging.Chat", b =>
-                {
-                    b.Property<Guid>("ChatId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("GroceryRequestId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("ChatId");
-
-                    b.HasIndex("GroceryRequestId");
-
-                    b.ToTable("Chat");
-                });
-
-            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Messaging.Message", b =>
-                {
-                    b.Property<Guid>("MessageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ChatId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("MessageDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("MessageRead")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("MessageText")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ReceiverId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("SenderId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("MessageId");
-
-                    b.HasIndex("ChatId");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Message");
                 });
 
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Shopping.GroceryRequest", b =>
@@ -395,40 +346,6 @@ namespace grocery_mate_backend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Messaging.Chat", b =>
-                {
-                    b.HasOne("grocery_mate_backend.Data.DataModels.Shopping.GroceryRequest", "GroceryRequest")
-                        .WithMany()
-                        .HasForeignKey("GroceryRequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GroceryRequest");
-                });
-
-            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Messaging.Message", b =>
-                {
-                    b.HasOne("grocery_mate_backend.Data.DataModels.Messaging.Chat", null)
-                        .WithMany("Messages")
-                        .HasForeignKey("ChatId");
-
-                    b.HasOne("grocery_mate_backend.Data.DataModels.UserManagement.User", "Receiver")
-                        .WithMany()
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("grocery_mate_backend.Data.DataModels.UserManagement.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Shopping.GroceryRequest", b =>
                 {
                     b.HasOne("grocery_mate_backend.Data.DataModels.UserManagement.User", "Client")
@@ -474,11 +391,6 @@ namespace grocery_mate_backend.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("Identity");
-                });
-
-            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Messaging.Chat", b =>
-                {
-                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.Shopping.ShoppingList", b =>

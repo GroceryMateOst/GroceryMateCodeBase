@@ -27,17 +27,9 @@ public class ShoppingListItem
 {
     public Guid ShoppingListItemId { get; set; }
     public string Grocery { get; set; }
-    public int Amount { get; set; }
-    public string Unit { get; set; }
-    public string PreferredBrand { get; set; }
-    public string Note { get; set; }
 
     public ShoppingListItem(string grocery)
     {
         Grocery = grocery;
-        Amount = 1;
-        Unit = string.Empty;
-        PreferredBrand = string.Empty;
-        Note = string.Empty;
     }
 }
