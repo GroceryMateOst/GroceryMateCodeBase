@@ -162,8 +162,8 @@ const AcceptedShoppingItem = ({
 				<Delayed placeHolderSize={calculateSize()}>
 					<Map
 						zoom={20}
-						latitude={47.30682745}
-						longitude={9.082206350049724}
+						latitude={item.client.address.latitude}
+						longitude={item.client.address.longitude}
 						width={calculateSize()}
 						height={calculateSize()}
 						address={`${item.client.address.street} ${item.client.address.houseNr} ${item.client.address.zipCode} ${item.client.address.city}`}
