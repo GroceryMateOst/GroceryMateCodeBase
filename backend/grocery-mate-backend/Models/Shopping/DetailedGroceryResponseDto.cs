@@ -7,14 +7,15 @@ namespace grocery_mate_backend.Models.Shopping;
 public class DetailedGroceryResponseDto : GroceryResponseBaseDto
 {
     public string RequestState { get; set; }
+    public int UnreadMessages { get; set; }
     public UserDataDto Client { get; set; }
     public UserDataDto Contractor { get; set; }
     
-    public DetailedGroceryResponseDto(GroceryRequest groceryRequest)
+    public DetailedGroceryResponseDto(GroceryRequest groceryRequest, Guid userId)
     {
         var client = groceryRequest.Client;
         var contractor = groceryRequest.Contractor;
-
+        
         client.GroceryRequestsClients = new List<GroceryRequest>();
         contractor.GroceryRequestsClients = new List<GroceryRequest>();
         client.GroceryRequestsContractor = new List<GroceryRequest>();
@@ -31,5 +32,6 @@ public class DetailedGroceryResponseDto : GroceryResponseBaseDto
         ToDate = groceryRequest.ToDate;
         PreferredStore = groceryRequest.PreferredStore;
         GroceryRequestId = groceryRequest.GroceryRequestId;
+        UnreadMessages = groceryRequest.Chat.Messages.Count(m => m.ReceiverId == userId && !m.MessageRead);
     }
 }

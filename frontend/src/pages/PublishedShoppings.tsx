@@ -10,23 +10,50 @@ const PublishedShoppings = () => {
 	>([]);
 	const [isLoading, setIsLoading] = useState(false);
 
+	const markMessageAsRead = (item: GroceryRequestDetailModel) => {
+		item.unreadMessages = 0;
+		setPublishedRequests([
+			...publishedRequests.filter(
+				(shopping) => shopping.groceryRequestId !== item.groceryRequestId
+			),
+			item,
+		]);
+	};
+
 	const publishedShoppings = publishedRequests
 		.filter((item) => item.requestState === 'Published')
-		.map((item, index) => <PublishedShoppingItem key={index} item={item} />);
+		.map((item) => (
+			<PublishedShoppingItem
+				key={item.groceryRequestId}
+				item={item}
+				markMessageAsRead={markMessageAsRead}
+			/>
+		));
 
 	const acceptedShoppings = publishedRequests
 		.filter((item) => item.requestState === 'Accepted')
-		.map((item, index) => <PublishedShoppingItem key={index} item={item} />);
+		.map((item) => (
+			<PublishedShoppingItem
+				key={item.groceryRequestId}
+				item={item}
+				markMessageAsRead={markMessageAsRead}
+			/>
+		));
 
 	const fulfilledIShoppings = publishedRequests
 		.filter((item) => item.requestState === 'Fulfilled')
-		.map((item, index) => <PublishedShoppingItem key={index} item={item} />);
+		.map((item) => (
+			<PublishedShoppingItem
+				key={item.groceryRequestId}
+				item={item}
+				markMessageAsRead={markMessageAsRead}
+			/>
+		));
 
 	const getPublishedShoppings = async (shoppingService: ShoppingService) => {
 		setIsLoading(true);
 		try {
 			const response = await shoppingService.getAllClientShoppings();
-			console.log(response);
 			setPublishedRequests(response);
 		} finally {
 			setIsLoading(false);

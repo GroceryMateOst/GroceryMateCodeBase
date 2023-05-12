@@ -21,6 +21,7 @@ export interface GroceryRequestResponseModel {
 
 export interface GroceryRequestDetailModel {
 	groceryRequestId: string;
+	unreadMessages: number;
 	requestState: string;
 	shoppingList: ShoppingItem[];
 	fromDate: string;

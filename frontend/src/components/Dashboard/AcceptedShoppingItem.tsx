@@ -6,15 +6,18 @@ import ShoppingService from '../../services/shopping-service';
 import { Collapse, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import PDFGenerator from './PDFGenerator';
+import ChatOverlay from '../Chat/ChatOverlay';
 
 interface PublishedShoppingItemProps {
 	item: GroceryRequestDetailModel;
 	updateState: (item: GroceryRequestDetailModel) => void;
+	markMessageAsRead: (item: GroceryRequestDetailModel) => void;
 }
 
 const AcceptedShoppingItem = ({
 	item,
 	updateState,
+	markMessageAsRead,
 }: PublishedShoppingItemProps) => {
 	const { Panel } = Collapse;
 
@@ -85,6 +88,9 @@ const AcceptedShoppingItem = ({
 						</Tooltip>
 					</button>
 				)}
+				<div className="p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm">
+					<ChatOverlay item={item} markMessageAsRead={markMessageAsRead} />
+				</div>
 			</div>
 			<div>
 				<Collapse className="bg-[#D9D9D9] grocerListItem">

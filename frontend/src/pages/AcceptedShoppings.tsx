@@ -20,6 +20,16 @@ const AcceptedShoppings = () => {
 		]);
 	};
 
+	const markMessageAsRead = (item: GroceryRequestDetailModel) => {
+		item.unreadMessages = 0;
+		setAcceptedRequests([
+			...acceptedRequests.filter(
+				(shopping) => shopping.groceryRequestId !== item.groceryRequestId
+			),
+			item,
+		]);
+	};
+
 	const acceptedShoppings = acceptedRequests
 		.filter((item) => item.requestState === 'Accepted')
 		.map((item) => (
@@ -27,6 +37,7 @@ const AcceptedShoppings = () => {
 				key={item.groceryRequestId}
 				item={item}
 				updateState={updateShoppingState}
+				markMessageAsRead={markMessageAsRead}
 			/>
 		));
 
@@ -37,6 +48,7 @@ const AcceptedShoppings = () => {
 				key={item.groceryRequestId}
 				item={item}
 				updateState={updateShoppingState}
+				markMessageAsRead={markMessageAsRead}
 			/>
 		));
 
