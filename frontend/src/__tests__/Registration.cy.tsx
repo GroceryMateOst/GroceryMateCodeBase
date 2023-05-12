@@ -19,7 +19,7 @@ describe('Registration component', () => {
 		cy.get('#basic_email').type('invalidemail').blur();
 		cy.get('.ant-form-item-explain-error')
 			.should('be.visible')
-			.contains('Das ist keine gültige E-Mail Adresse!');
+			.contains('Das ist eine ungültige E-Mail Adresse!');
 	});
 
 	it('Displays error message for non matching passwords', () => {

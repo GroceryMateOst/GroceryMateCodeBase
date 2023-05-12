@@ -7,4 +7,5 @@ public interface IUserRepository : IGenericRepository<User>
 {
     Task<User?> FindUserByMail(string email);
     Task<User?> FindUserByIdentityId(string id);
+    Task<User?> FindUserById(Guid id);
 }

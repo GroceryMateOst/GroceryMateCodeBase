@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using grocery_mate_backend.Data.Context;
@@ -11,9 +12,11 @@ using grocery_mate_backend.Data.Context;
 namespace grocery_mate_backend.Migrations
 {
     [DbContext(typeof(GroceryContext))]
-    partial class GroceryContextModelSnapshot : ModelSnapshot
+    [Migration("20230507155446_chat")]
+    partial class chat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,6 +248,9 @@ namespace grocery_mate_backend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("RatingId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("ShoppingListId")
                         .HasColumnType("uuid");
 
@@ -259,6 +265,8 @@ namespace grocery_mate_backend.Migrations
                     b.HasIndex("GroceryRequestsClients");
 
                     b.HasIndex("GroceryRequestsContractors");
+
+                    b.HasIndex("RatingId");
 
                     b.HasIndex("ShoppingListId");
 
@@ -282,12 +290,27 @@ namespace grocery_mate_backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Grocery")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PreferredBrand")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid?>("ShoppingListId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("ShoppingListItemId");
 
@@ -330,6 +353,28 @@ namespace grocery_mate_backend.Migrations
                     b.HasKey("AddressId");
 
                     b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.UserManagement.Rating", b =>
+                {
+                    b.Property<Guid>("RatingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("EvaluatorUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("UserRating")
+                        .HasColumnType("integer");
+
+                    b.HasKey("RatingId");
+
+                    b.HasIndex("EvaluatorUserId");
+
+                    b.ToTable("Rating");
                 });
 
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.UserManagement.User", b =>
@@ -441,6 +486,10 @@ namespace grocery_mate_backend.Migrations
                         .WithMany("GroceryRequestsContractor")
                         .HasForeignKey("GroceryRequestsContractors");
 
+                    b.HasOne("grocery_mate_backend.Data.DataModels.UserManagement.Rating", "Rating")
+                        .WithMany()
+                        .HasForeignKey("RatingId");
+
                     b.HasOne("grocery_mate_backend.Data.DataModels.Shopping.ShoppingList", "ShoppingList")
                         .WithMany()
                         .HasForeignKey("ShoppingListId")
@@ -451,6 +500,8 @@ namespace grocery_mate_backend.Migrations
 
                     b.Navigation("Contractor");
 
+                    b.Navigation("Rating");
+
                     b.Navigation("ShoppingList");
                 });
 
@@ -459,6 +510,15 @@ namespace grocery_mate_backend.Migrations
                     b.HasOne("grocery_mate_backend.Data.DataModels.Shopping.ShoppingList", null)
                         .WithMany("Items")
                         .HasForeignKey("ShoppingListId");
+                });
+
+            modelBuilder.Entity("grocery_mate_backend.Data.DataModels.UserManagement.Rating", b =>
+                {
+                    b.HasOne("grocery_mate_backend.Data.DataModels.UserManagement.User", "Evaluator")
+                        .WithMany()
+                        .HasForeignKey("EvaluatorUserId");
+
+                    b.Navigation("Evaluator");
                 });
 
             modelBuilder.Entity("grocery_mate_backend.Data.DataModels.UserManagement.User", b =>

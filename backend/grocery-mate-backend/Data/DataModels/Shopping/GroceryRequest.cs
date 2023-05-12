@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using grocery_mate_backend.Data.DataModels.Messaging;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models.Shopping;
 
@@ -20,6 +21,8 @@ public class GroceryRequest
     public DateTime ToDate { get; set; }
     public string Note { get; set; }
     public string PreferredStore { get; set; }
+
+    public Chat Chat { get; set; }
     [Required] public GroceryRequestState State { get; set; }
     
     [NotMapped]

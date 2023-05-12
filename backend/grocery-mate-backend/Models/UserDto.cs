@@ -5,17 +5,28 @@ namespace grocery_mate_backend.Models;
 
 public class UserDto
 {
+    public Guid UserId { get; set; }
     [Required] public string FirstName { get; set; }
     [Required] public string SecondName { get; set; }
     [Required] public string EmailAddress { get; set; }
     public string ResidencyDetails { get; set; }
 
+    
+    public UserDto(string firstName, string secondName, string emailAddress, string residencyDetails, Guid userId)
+    {
+        FirstName = firstName;
+        SecondName = secondName;
+        EmailAddress = emailAddress;
+        ResidencyDetails = residencyDetails;
+        UserId = userId;
+    }
     public UserDto(string firstName, string secondName, string emailAddress, string residencyDetails)
     {
         FirstName = firstName;
         SecondName = secondName;
         EmailAddress = emailAddress;
         ResidencyDetails = residencyDetails;
+        UserId = Guid.Empty;
     }
 
     public UserDto(string firstName, string secondName, string emailAddress)
@@ -24,6 +35,7 @@ public class UserDto
         SecondName = secondName;
         EmailAddress = emailAddress;
         ResidencyDetails = string.Empty;
+        UserId = Guid.Empty;
     }
 
     public UserDto()
@@ -32,6 +44,7 @@ public class UserDto
         SecondName = string.Empty;
         EmailAddress = string.Empty;
         ResidencyDetails = string.Empty;
+        UserId = Guid.Empty;
     }
 }
 

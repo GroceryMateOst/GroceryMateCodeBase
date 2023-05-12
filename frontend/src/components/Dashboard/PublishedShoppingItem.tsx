@@ -1,12 +1,17 @@
 import { Text } from '../../localization/TextsDE';
 import { GroceryRequestDetailModel } from '../../models/GroceryRequestModel';
 import { Collapse } from 'antd';
+import ChatOverlay from '../Chat/ChatOverlay';
 
 interface PublishedShoppingItemProps {
 	item: GroceryRequestDetailModel;
+	markMessageAsRead: (item: GroceryRequestDetailModel) => void;
 }
 
-const PublishedShoppingItem = ({ item }: PublishedShoppingItemProps) => {
+const PublishedShoppingItem = ({
+	item,
+	markMessageAsRead,
+}: PublishedShoppingItemProps) => {
 	const { Panel } = Collapse;
 
 	const formateDate = (dateString: string) => {
@@ -41,6 +46,13 @@ const PublishedShoppingItem = ({ item }: PublishedShoppingItemProps) => {
 						<span>
 							{item.contractor.user.firstName} {item.contractor.user.secondName}
 						</span>
+					</div>
+				)}
+			</div>
+			<div className=" mt-4 flex row justify-end">
+				{item.requestState !== 'Published' && (
+					<div className="  p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm">
+						<ChatOverlay item={item} markMessageAsRead={markMessageAsRead} />
 					</div>
 				)}
 			</div>

@@ -1,6 +1,7 @@
 using grocery_mate_backend.BusinessLogic.Notification.Mail;
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Controllers.Repo.UOW;
+using grocery_mate_backend.Data.DataModels.Messaging;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
 using grocery_mate_backend.Service;
@@ -41,10 +42,12 @@ public class ShoppingController : BaseController
             user, requestDto,
             DateTime.Parse(requestDto.FromDate, null).ToUniversalTime(),
             DateTime.Parse(requestDto.ToDate, null).ToUniversalTime());
+        var chat = new Chat(groceryRequest);
 
         try
         {
             await _unitOfWork.Shopping.Add(groceryRequest, user);
+            await _unitOfWork.Messaging.Add(chat);
             await _unitOfWork.CompleteAsync();
         }
         catch (Exception e)
@@ -218,10 +221,7 @@ public class ShoppingController : BaseController
             return BadRequest(ResponseErrorMessages.NotFound);
         }
 
-        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest))
-            .ToList();
-
-
+        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest, user.UserId)).ToList();
         GmLogger.Instance.Trace(methodName, "Grocery-Response successfully mapped");
         return Ok(requests);
     }
@@ -245,9 +245,8 @@ public class ShoppingController : BaseController
             GmLogger.Instance.Trace(methodName, e.Message);
             return BadRequest(ResponseErrorMessages.NotFound);
         }
-
-        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest))
-            .ToList();
+        
+        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest, user.UserId)).ToList();
 
         GmLogger.Instance.Trace(methodName, "Grocery-Response successfully mapped");
         return Ok(requests);
