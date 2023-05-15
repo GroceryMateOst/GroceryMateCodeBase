@@ -20,22 +20,29 @@ public class AddressValidationTest
     }
 
     [Test]
-    public void ValidateZipCode_InvalidZipCode_ReturnsFalse()
+    public void ValidateZipCode_TooSmallZipcode_ReturnsFalse()
     {
         // Arrange
         var zipcode = 0;
-        var zipcode1 = 10000;
 
         // Act
         var validationResult = AddressValidation.ValidateZipcode(zipcode);
-        var validationResult1 = AddressValidation.ValidateZipcode(zipcode1);
 
         // Assert
-        Assert.Multiple(() =>
-        {
-            Assert.That(validationResult, Is.False);
-            Assert.That(validationResult1, Is.False);
-        });
+        Assert.That(validationResult, Is.False);
+    }
+    
+    [Test]
+    public void ValidateZipCode_TooBigZipcode_ReturnsFalse()
+    {
+        // Arrange
+        var zipcode = 10000;
+
+        // Act
+        var validationResult = AddressValidation.ValidateZipcode(zipcode);
+
+        // Assert
+        Assert.That(validationResult, Is.False);
     }
     
     [Test]
