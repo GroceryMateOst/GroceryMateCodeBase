@@ -1,6 +1,7 @@
 using grocery_mate_backend.BusinessLogic.Notification.Mail;
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Controllers.Repo.UOW;
+using grocery_mate_backend.Data.DataModels.Messaging;
 using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
 using grocery_mate_backend.Service;
@@ -41,10 +42,12 @@ public class ShoppingController : ControllerBase
             user, requestDto,
             DateTime.Parse(requestDto.FromDate, null).ToUniversalTime(),
             DateTime.Parse(requestDto.ToDate, null).ToUniversalTime());
+        var chat = new Chat(groceryRequest);
 
         try
         {
             await _unitOfWork.Shopping.Add(groceryRequest, user);
+            await _unitOfWork.Messaging.Add(chat);
             await _unitOfWork.CompleteAsync();
         }
         catch (Exception e)
@@ -213,11 +216,13 @@ public class ShoppingController : ControllerBase
             return BadRequest(ResponseErrorMessages.NotFound);
         }
 
+
         var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest))
             .ToList();
 
         GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest_clientRequests,
             LogMessages.LogMessage_GroceryResponseMapped);
+            
         return Ok(requests);
     }
 
@@ -238,9 +243,8 @@ public class ShoppingController : ControllerBase
             GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest_contractorRequests, e.Message);
             return BadRequest(ResponseErrorMessages.NotFound);
         }
-
-        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest))
-            .ToList();
+        
+        var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest, user.UserId)).ToList();
 
         GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest_contractorRequests,
             LogMessages.LogMessage_GroceryResponseMapped);

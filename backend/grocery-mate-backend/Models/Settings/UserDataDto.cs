@@ -18,7 +18,8 @@ public class UserDataDto
             FirstName = user.FirstName,
             SecondName = user.SecondName,
             EmailAddress = user.EmailAddress,
-            ResidencyDetails = user.ResidencyDetails ?? string.Empty
+            ResidencyDetails = user.ResidencyDetails ?? string.Empty,
+            UserId = user.UserId
         };
         if (address is not null)
         {

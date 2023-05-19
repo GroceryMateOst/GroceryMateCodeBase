@@ -6,6 +6,7 @@ import ShoppingService from '../../services/shopping-service';
 import { Collapse, Tooltip, Checkbox, Modal } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import PDFGenerator from './PDFGenerator';
+import ChatOverlay from '../Chat/ChatOverlay';
 import { Text } from '../../localization/TextsDE';
 import './AcceptedShoppingItem.css';
 import { useEffect, useState } from 'react';
@@ -16,11 +17,13 @@ import { CheckboxValueType } from 'antd/es/checkbox/Group';
 interface PublishedShoppingItemProps {
 	item: GroceryRequestDetailModel;
 	updateState: (item: GroceryRequestDetailModel) => void;
+	markMessageAsRead: (item: GroceryRequestDetailModel) => void;
 }
 
 const AcceptedShoppingItem = ({
 	item,
 	updateState,
+	markMessageAsRead,
 }: PublishedShoppingItemProps) => {
 	const { Panel } = Collapse;
 	const [isShoppingFinished, setIsShoppingFinished] = useState(false);
@@ -57,13 +60,9 @@ const AcceptedShoppingItem = ({
 			groceryRequestId: item.groceryRequestId,
 			requestState: 'fulfilled',
 		};
-		try {
-			const shoppingService: ShoppingService = new ShoppingService();
-			await shoppingService.updateShoppingState(body);
-			updateState(item);
-		} catch (err) {
-			console.error(err);
-		}
+		const shoppingService: ShoppingService = new ShoppingService();
+		await shoppingService.updateShoppingState(body);
+		updateState(item);
 	};
 
 	const onCheckBoxChange = (element: CheckboxValueType[]) => {
@@ -183,6 +182,11 @@ const AcceptedShoppingItem = ({
 							</Tooltip>
 						</button>
 					)}
+					<div>
+						<div className="p-3 bg-[#8fb69c] border-[#8fb69c] shadow-none rounded-3xl border-[1px] border-solid hover:scale-95 mx-4 text-sm">
+							<ChatOverlay item={item} markMessageAsRead={markMessageAsRead} />
+						</div>
+					</div>
 				</div>
 			</div>
 			<Modal

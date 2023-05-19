@@ -1,4 +1,5 @@
 export interface UserModel {
+	userId?: string;
 	emailaddress: string;
 	password: string;
 	secondname: string;
@@ -18,6 +19,7 @@ export interface LoginResponseModel {
 
 export interface UserModelGrocery {
 	user: {
+		userId: string;
 		firstName: string;
 		secondName: string;
 		emailAddress: string;

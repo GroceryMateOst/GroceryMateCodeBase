@@ -29,4 +29,12 @@ public class UserRepository : GenericRepository<User>, IUserRepository
                 .Include(user => user.Address)
                 .FirstOrDefaultAsync();
     }
+    
+    public Task<User?> FindUserById(Guid id)
+    {
+        return _context.User
+            .Where(u => u.UserId == id)
+            .Include(user => user.Address)
+            .FirstOrDefaultAsync();
+    }
 }

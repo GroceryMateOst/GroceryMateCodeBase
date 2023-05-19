@@ -3,6 +3,7 @@ using grocery_mate_backend.Controllers.Repo.Settings;
 using grocery_mate_backend.Controllers.Repo.Shopping;
 using grocery_mate_backend.Data.Context;
 using grocery_mate_backend.Repositories.Authentication;
+using grocery_mate_backend.Repositories.Messaging;
 using Microsoft.AspNetCore.Identity;
 
 namespace grocery_mate_backend.Controllers.Repo.UOW;
@@ -15,6 +16,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     public override IUserRepository User { get; }
     public override IShoppingRepository Shopping { get; }
     public override IAddressRepository Address { get; }
+    public override  IMessagingRepository Messaging { get; }
     public override ICanceledTokensRepository TokenBlacklist { get; }
 
     private const int ExpirationMinutes = 60;
@@ -25,6 +27,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         User = new UserRepository(_context);
         Shopping = new ShoppingRepository(_context);
         Address = new AddressRepository(_context);
+        Messaging = new MessagingRepository(_context);
         Authentication = new AuthenticationRepository(context, userManager, configuration, ExpirationMinutes);
         TokenBlacklist = new CanceledTokensRepository(context, ExpirationMinutes);
     }
