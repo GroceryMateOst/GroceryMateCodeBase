@@ -50,6 +50,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
             .Include(request => request.ShoppingList.Items)
             .Include(request => request.Client.Address)
             .Include(request => request.Contractor.Address)
+            .Include(request => request.Chat.Messages)
             .ToList());
     }
 
@@ -60,6 +61,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
             .Include(request => request.ShoppingList.Items)
             .Include(request => request.Client.Address)
             .Include(request => request.Contractor.Address)
+            .Include(request => request.Chat.Messages)
             .ToList());
     }
 

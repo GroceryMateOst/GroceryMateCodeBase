@@ -6,6 +6,7 @@ using System.Text;
 using grocery_mate_backend.Configs;
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.Context;
+using grocery_mate_backend.Service.Chat;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -19,17 +20,18 @@ if (conn == null)
     conn = builder.Configuration.GetConnectionString("DefaultConnection");
 }
 
-Console.WriteLine(conn);
-
 builder.Services.AddDbContext<GroceryContext>(options => options.UseNpgsql(conn));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<IDictionary<string, UserConnection>>(options => new Dictionary<string, UserConnection>());
 
 builder.Services.AddCors(p =>
-    p.AddPolicy("corspolicy", buid => { buid.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
+    p.AddPolicy("corspolicy", buid => { buid.WithOrigins("http://localhost:3000", "https://grocerymate-backend.azurewebsites.net/").AllowAnyMethod().AllowAnyHeader().AllowCredentials(); }));
 
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
 
@@ -89,5 +91,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("api/v0/chatsocket");
+
+
 
 app.Run();

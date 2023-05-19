@@ -9,7 +9,7 @@ describe('User creates a new GroceryRequest with Multiple groceries and submits 
 
 	it('Should login the user', () => {
 		cy.get('.ant-dropdown-trigger').trigger('mouseover');
-		cy.get('.ant-dropdown').contains('Login').click();
+		cy.get('.ant-dropdown').contains('Anmelden').click();
 		cy.get('#normal_login_email').type(constants.EMAIL);
 		cy.get('#normal_login_password').type(constants.PASSWORD);
 		cy.get('button[type="submit"]').click();
@@ -21,8 +21,8 @@ describe('User creates a new GroceryRequest with Multiple groceries and submits 
 	});
 
 	it('should allow users to create a shopping list', () => {
-		cy.get('#normal_login_note').type('Please buy some groceries.');
-		cy.get('#normal_login_preferredstore').type('Migros');
+		cy.get('#note').type('Please buy some groceries.');
+		cy.get('#preferredstore').type('Migros');
 		cy.get('button').contains('Artikel hinzufügen').click();
 		cy.get('.shoppingItems').find('input').first().type('5 Apples');
 		cy.get('button').contains('Artikel hinzufügen').click();
@@ -32,7 +32,7 @@ describe('User creates a new GroceryRequest with Multiple groceries and submits 
 		cy.visit('/');
 		cy.visit('/create');
 
-		cy.get('#normal_login_note').should('have.value', '');
-		cy.get('#normal_login_preferredstore').should('have.value', '');
+		cy.get('#note').should('have.value', '');
+		cy.get('#preferredstore').should('have.value', '');
 	});
 });
