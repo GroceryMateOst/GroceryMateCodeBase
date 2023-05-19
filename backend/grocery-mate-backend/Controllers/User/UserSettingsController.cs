@@ -3,6 +3,7 @@ using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Settings;
+using grocery_mate_backend.Models.Shopping;
 using grocery_mate_backend.Service;
 using grocery_mate_backend.Utility;
 using grocery_mate_backend.Utility.Log;
@@ -78,13 +79,11 @@ public class UserSettingsController : ControllerBase
         return Ok();
     }
 
-
     [Authorize]
-    [HttpGet("GetCity")]
-    public async Task<ActionResult<ZipResponseDto>> GetCityNameByZip([FromQuery] int zipCode)
+    [HttpGet("getCity")]
+    public async Task<ActionResult<ZipCodeResponseDto>> GetCityNameByZip([FromQuery] int zipCode)
     {
-        var cityName = await GeoApifyApi.GetCityName(zipCode);
-
-        return Ok(cityName);
+        var zipCodeResponseDto = await GeoApifyApi.GetCityName(zipCode);
+        return Ok(zipCodeResponseDto);
     }
 }
