@@ -44,7 +44,6 @@ public class AuthenticationValidationTests
     {
         // Arrange
         const bool result = true;
-        const string methodName = "TestMethodName";
 
         // Act
         var validationResult = AuthenticationValidation.ValidateUserPassword(result);
@@ -58,7 +57,6 @@ public class AuthenticationValidationTests
     {
         // Arrange
         const bool result = false;
-        const string methodName = "TestMethodName";
 
         // Act
         var validationResult = AuthenticationValidation.ValidateUserPassword(result);
@@ -72,7 +70,6 @@ public class AuthenticationValidationTests
     {
         // Arrange
         const bool result = false;
-        const string methodName = "TestMethodName";
 
         // Act
         var validationResult = AuthenticationValidation.ValidateUserPassword(result);

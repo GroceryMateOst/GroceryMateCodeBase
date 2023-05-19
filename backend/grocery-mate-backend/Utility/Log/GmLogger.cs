@@ -12,9 +12,16 @@ public class GmLogger : ILogger
 
     public static GmLogger Instance => lazy.Value;
 
+    /**
+     * Log-Directory: GroceryMateCodeBase\backend\grocery-mate-backend\bin\Debug\net6.0\logs 
+     */
     private GmLogger()
     {
-        logger = LogManager.GetLogger("groceryMateLoggerRule");
+        // Logger for Log-File
+        logger = LogManager.GetLogger("groceryMateLoggerFileRule");
+        
+        // Logger for Console
+        // logger = LogManager.GetLogger("groceryMateLoggerConsoleRule");
     }
 
     public void Trace(string method, string message, string? arg = null)

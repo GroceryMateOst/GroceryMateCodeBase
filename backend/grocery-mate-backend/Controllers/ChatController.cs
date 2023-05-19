@@ -9,7 +9,7 @@ namespace grocery_mate_backend.Controllers;
 
 [ApiController]
 [Route("api/v0/[controller]")]
-public class ChatController : BaseController
+public class ChatController : ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
     

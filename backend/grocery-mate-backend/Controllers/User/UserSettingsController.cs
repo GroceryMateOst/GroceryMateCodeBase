@@ -3,7 +3,9 @@ using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models;
 using grocery_mate_backend.Models.Settings;
+using grocery_mate_backend.Models.Shopping;
 using grocery_mate_backend.Service;
+using grocery_mate_backend.Utility;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +14,7 @@ namespace grocery_mate_backend.Controllers;
 
 [ApiController]
 [Route("api/v0/User/Settings")]
-public class UserSettingsController : BaseController
+public class UserSettingsController : ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -25,15 +27,14 @@ public class UserSettingsController : BaseController
     [HttpGet]
     public async Task<ActionResult<UserDataDto>> GetUserSettings()
     {
-        const string methodName = "REST Get User-Settings";
-        
         if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
         {
-            GmLogger.Instance.Warn(methodName, "User with given identityId does not exist");
+            GmLogger.Instance.Warn(LogMessages.MethodName_REST_GET_settings,
+                LogMessages.LogMessage_UserWithIdDoesntExist);
             return BadRequest(ResponseErrorMessages.SettingsError);
         }
 
@@ -45,7 +46,6 @@ public class UserSettingsController : BaseController
     [HttpPost]
     public async Task<ActionResult> UpdateUserSettings(UserDataDto requestDto)
     {
-        const string methodName = "REST Set User-Settings";
 
         if (!AuthenticationValidation.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
@@ -53,7 +53,7 @@ public class UserSettingsController : BaseController
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
         {
-            GmLogger.Instance.Warn(methodName, "User with given identityId does not exist");
+            GmLogger.Instance.Warn(LogMessages.MethodName_REST_POST_settings, LogMessages.LogMessage_UserWithIdDoesntExist);
             return BadRequest(ResponseErrorMessages.NotAuthorised);
         }
 
@@ -64,10 +64,10 @@ public class UserSettingsController : BaseController
         }
         catch (Exception e)
         {
-            GmLogger.Instance.Warn(methodName, e.Message);
+            GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_settings, e.Message);
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
-        
+
         var oldAddress = _unitOfWork.Address.FindAddressByGuid(user.AddressId).Result;
         if (!AddressValidation.ValidateAddress(oldAddress))
             await _unitOfWork.Address.RemoveAddress(oldAddress, user);
@@ -78,16 +78,12 @@ public class UserSettingsController : BaseController
         await _unitOfWork.CompleteAsync();
         return Ok();
     }
-    
-  
+
     [Authorize]
-    [HttpGet("GetCity")]
-    public async Task<ActionResult<ZipResponseDto>> GetCityNameByZip([FromQuery] int zipCode)
+    [HttpGet("getCity")]
+    public async Task<ActionResult<ZipCodeResponseDto>> GetCityNameByZip([FromQuery] int zipCode)
     {
-        const string methodName = "REST Get City name by zip";
-
-        var cityName = await GeoApifyApi.GetCityName(zipCode);
-
-        return Ok(cityName);
+        var zipCodeResponseDto = await GeoApifyApi.GetCityName(zipCode);
+        return Ok(zipCodeResponseDto);
     }
 }

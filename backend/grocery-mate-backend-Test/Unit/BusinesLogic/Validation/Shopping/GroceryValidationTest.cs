@@ -1,6 +1,5 @@
 using grocery_mate_backend.BusinessLogic.Validation;
 using grocery_mate_backend.Models.Shopping;
-using Microsoft.IdentityModel.Tokens;
 using NUnit.Framework;
 
 namespace grocery_mate_backend_Test.Unit.BusinesLogic.Validation.Shopping;
@@ -51,8 +50,6 @@ public class GroceryValidationTests
     {
         // Arrange
         List<ShoppingListDto> list = new List<ShoppingListDto> { new(""), new("woota") };
-
-        bool asdf = !"".IsNullOrEmpty();
         
         // Act
         var result = GroceryValidation.ValidateGroceryList(list);
@@ -104,5 +101,24 @@ public class GroceryValidationTests
 
         // Assert
         Assert.That(result, Is.True);
+    }
+    
+    [Test]
+    public void Validate_InvalidRequestDto_ReturnsTrue()
+    {
+        // Arrange
+        var requestDto = new GroceryRequestDto
+        {
+            GroceryList = new List<ShoppingListDto> { new(""), new("umami") },
+            RequestState = "asdfasdf",
+            FromDate = "2023sd-04-01T09:00:00.000Z",
+            ToDate = "2023af-04-30T17:00:00.000Z"
+        };
+
+        // Act
+        var result = GroceryValidation.Validate(requestDto);
+
+        // Assert
+        Assert.That(result, Is.False);
     }
 }

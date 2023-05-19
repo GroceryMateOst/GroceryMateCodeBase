@@ -8,7 +8,7 @@ public abstract class AuthenticationValidation : ValidationBase
 {
     public static bool ValidateIdentityUserCreation(IdentityResult? result, string methodName)
     {
-        if (result is {Succeeded: true}) return true;
+        if (result is { Succeeded: true }) return true;
         foreach (var error in result.Errors)
         {
             GmLogger.Instance.Trace(methodName, error.Description);

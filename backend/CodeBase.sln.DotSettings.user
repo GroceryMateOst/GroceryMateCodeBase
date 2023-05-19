@@ -4,15 +4,9 @@
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:Boolean x:Key="/Default/Environment/Highlighting/HighlightingEnabled/@EntryValue">False</s:Boolean>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingMode/@EntryValue">OnlyFullLine</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=18d8b761_002Da7b0_002D4c28_002Dbc31_002D0e7a1cc460e0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SendMailNotification_ExceptionThrown_ReturnsFalse" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.BusinesLogic.Notification.Mail.MailNotifierTest.SendMailNotification_ExceptionThrown_ReturnsFalse&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4f4f7afd_002Dfe79_002D4c30_002D8df7_002Dc087d1906ffd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="MailNotifierTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F0670888-82A6-439C-B717-5AE543308B40::net6.0::grocery_mate_backend_Test.Unit.BusinesLogic.Notification.Mail.MailNotifierTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Project Location="C:\application_projects\GroceryMate\GroceryMateCodeBase\backend\grocery-mate-backend-Test" Presentation="&amp;lt;grocery-mate-backend-Test&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	
