@@ -91,7 +91,7 @@ public class ShoppingController : ControllerBase
         return Ok(requests);
     }
 
-    [HttpGet("Search")]
+    [HttpGet("search")]
     public async Task<ActionResult<GroceryResponseDto>> GetGroceryRequestsByZipcode([FromQuery] int zipCode)
     {
         if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist) &&
@@ -122,14 +122,13 @@ public class ShoppingController : ControllerBase
         GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_search, LogMessages.LogMessage_GroceryResponseMapped);
         return Ok(requests);
     }
-
-
+    
     [Authorize]
-    [HttpPut("groceryRequestState")]
-    public async Task<IActionResult> UpdateRequestState(string requestId, string state)
+    [HttpPatch("groceryRequestState")]
+    public async Task<IActionResult> UpdateRequestState(GroceryUpdateDto updatedDto)
     {
         if (!ValidationBase.ValidateModel(ModelState, Request.Headers, _unitOfWork.TokenBlacklist) &&
-            !GroceryValidation.ValidateRequestState(state))
+            !GroceryValidation.ValidateRequestState(updatedDto.RequestState))
         {
             GmLogger.Instance.Warn(LogMessages.MethodName_REST_PUT_groceryRequestState,
                 LogMessages.LogMessage_InvalidGroceryRequestState);
@@ -143,9 +142,9 @@ public class ShoppingController : ControllerBase
 
         try
         {
-            var groceryRequestId = Guid.Parse(requestId);
+            var groceryRequestId = Guid.Parse(updatedDto.GroceryRequestId);
             groceryRequest = await _unitOfWork.Shopping.GetById(groceryRequestId);
-            groceryRequest.State = Enum.Parse<GroceryRequestState>(state, true);
+            groceryRequest.State = Enum.Parse<GroceryRequestState>(updatedDto.RequestState, true);
             groceryRequest.Contractor = user;
             await _unitOfWork.CompleteAsync();
 
@@ -217,8 +216,8 @@ public class ShoppingController : ControllerBase
         var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest))
             .ToList();
 
-
-        GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest_clientRequests, LogMessages.LogMessage_GroceryResponseMapped);
+        GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest_clientRequests,
+            LogMessages.LogMessage_GroceryResponseMapped);
         return Ok(requests);
     }
 
@@ -243,7 +242,8 @@ public class ShoppingController : ControllerBase
         var requests = groceryRequests.Select(groceryRequest => new DetailedGroceryResponseDto(groceryRequest))
             .ToList();
 
-        GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest_contractorRequests, LogMessages.LogMessage_GroceryResponseMapped);
+        GmLogger.Instance.Trace(LogMessages.MethodName_REST_GET_groceryRequest_contractorRequests,
+            LogMessages.LogMessage_GroceryResponseMapped);
         return Ok(requests);
     }
 }
