@@ -31,7 +31,7 @@ builder.Services.AddSignalR();
 builder.Services.AddSingleton<IDictionary<string, UserConnection>>(options => new Dictionary<string, UserConnection>());
 
 builder.Services.AddCors(p =>
-    p.AddPolicy("corspolicy", buid => { buid.WithOrigins("http://localhost:3000", "https://grocerymate-backend.azurewebsites.net/").AllowAnyMethod().AllowAnyHeader().AllowCredentials(); }));
+    p.AddPolicy("corspolicy", buid => { buid.WithOrigins("http://localhost:3000", "https://grocerymate-frontend.azurewebsites.net/").AllowAnyMethod().AllowAnyHeader().AllowCredentials(); }));
 
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
 
