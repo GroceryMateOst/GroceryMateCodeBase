@@ -146,7 +146,7 @@ public class ShoppingController : ControllerBase
         try
         {
             var groceryRequestId = Guid.Parse(updatedDto.GroceryRequestId);
-            groceryRequest = await _unitOfWork.Shopping.GetById(groceryRequestId);
+            groceryRequest = await _unitOfWork.Shopping.GetGroceryRequestById(groceryRequestId);
             groceryRequest.State = Enum.Parse<GroceryRequestState>(updatedDto.RequestState, true);
             groceryRequest.Contractor = user;
             await _unitOfWork.CompleteAsync();

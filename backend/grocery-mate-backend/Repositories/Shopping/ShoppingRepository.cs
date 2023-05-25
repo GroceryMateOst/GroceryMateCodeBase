@@ -26,6 +26,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
         if (zipcode == 0) return await GetGroceryRequests();
         var coordinates = await GeoApifyApi.GetCoordinatesByZipCode(zipcode);
         var groceryRequests = await Task.FromResult(_context.GroceryRequests
+            .Where(req => req.State == GroceryRequestState.Published )
             .Include(req => req.Client.Address)
             .Include(req => req.ShoppingList.Items)
             .ToList());
@@ -40,6 +41,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
                 groceryRequest.Client.Address.Longitude);
             groceryRequest.Distance = Convert.ToDecimal(Math.Truncate(distance / 100) / 10);
         }
+
         return groceryRequests.OrderBy(request => request.Distance).ToList();
     }
 
@@ -63,6 +65,17 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
             .Include(request => request.Contractor.Address)
             .Include(request => request.Chat.Messages)
             .ToList());
+    }
+
+    public Task<GroceryRequest?> GetGroceryRequestById(Guid id)
+    {
+        return _context.GroceryRequests
+            .Where(gr => gr.GroceryRequestId == id)
+            .Include(request => request.Client)
+            .Include(request => request.Contractor)
+            .Include(request => request.Chat.Messages)
+            .Include(request => request.ShoppingList.Items)
+            .FirstOrDefaultAsync();
     }
 
     public async Task<bool> Add(GroceryRequest request, User user)
