@@ -10,5 +10,6 @@ public interface IShoppingRepository : IGenericRepository<GroceryRequest>
     Task<List<GroceryRequest>> GetAllGroceryRequestsByZipcode(int zipcode);
     Task<List<GroceryRequest>> GetGroceryRequestsAsContractor(User user);
     Task<List<GroceryRequest>> GetGroceryRequestsAsClient(User user);
+    Task<GroceryRequest?> GetGroceryRequestById(Guid id);
     Task<bool> Add(GroceryRequest entity, User user);
 }

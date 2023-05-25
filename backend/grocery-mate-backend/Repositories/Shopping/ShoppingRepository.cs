@@ -32,7 +32,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
 
         foreach (var groceryRequest in groceryRequests)
         {
-            if (groceryRequest.Client.Address == null) continue;
+            if (groceryRequest.Client.Address == null && groceryRequest.State == GroceryRequestState.Published) continue;
             var distance = DistanceCalculationService.CalculateDistance(
                 coordinates.lat,
                 coordinates.lon,
@@ -65,6 +65,17 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
             .ToList());
     }
 
+    public Task<GroceryRequest?> GetGroceryRequestById(Guid id)
+    {
+        return _context.GroceryRequests
+            .Where(gr => gr.GroceryRequestId == id)
+            .Include(request => request.Client)
+            .Include(request => request.Contractor)
+            .Include(request => request.Chat.Messages)
+            .Include(request => request.ShoppingList.Items)
+            .FirstOrDefaultAsync();
+    }
+    
     public async Task<bool> Add(GroceryRequest request, User user)
     {
         _context.Attach(user);
