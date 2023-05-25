@@ -26,13 +26,14 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
         if (zipcode == 0) return await GetGroceryRequests();
         var coordinates = await GeoApifyApi.GetCoordinatesByZipCode(zipcode);
         var groceryRequests = await Task.FromResult(_context.GroceryRequests
+            .Where(req => req.State == GroceryRequestState.Published )
             .Include(req => req.Client.Address)
             .Include(req => req.ShoppingList.Items)
             .ToList());
 
         foreach (var groceryRequest in groceryRequests)
         {
-            if (groceryRequest.Client.Address == null && groceryRequest.State == GroceryRequestState.Published) continue;
+            if (groceryRequest.Client.Address == null) continue;
             var distance = DistanceCalculationService.CalculateDistance(
                 coordinates.lat,
                 coordinates.lon,
@@ -40,6 +41,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
                 groceryRequest.Client.Address.Longitude);
             groceryRequest.Distance = Convert.ToDecimal(Math.Truncate(distance / 100) / 10);
         }
+
         return groceryRequests.OrderBy(request => request.Distance).ToList();
     }
 
@@ -75,7 +77,7 @@ public class ShoppingRepository : GenericRepository<GroceryRequest>, IShoppingRe
             .Include(request => request.ShoppingList.Items)
             .FirstOrDefaultAsync();
     }
-    
+
     public async Task<bool> Add(GroceryRequest request, User user)
     {
         _context.Attach(user);
