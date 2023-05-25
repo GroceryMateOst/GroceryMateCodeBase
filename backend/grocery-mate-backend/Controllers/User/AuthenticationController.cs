@@ -32,14 +32,14 @@ public class AuthenticationController : ControllerBase
         var identityUser = new IdentityUser() {UserName = userDm.EmailAddress, Email = userDm.EmailAddress};
         var result = _unitOfWork.Authentication.SaveNewIdentityUser(identityUser, userDm).Result;
 
-        if (!AuthenticationValidation.ValidateIdentityUserCreation(result, LogMessages.MethodName_REST_POST_register))
+        if (!AuthenticationValidation.ValidateIdentityUserCreation(result, LogMessages.REST_POST_register))
             return BadRequest(ResponseErrorMessages.InvalidRequest);
 
         userDm.Identity = identityUser;
         await _unitOfWork.Authentication.Add(userDm);
         await _unitOfWork.CompleteAsync();
 
-        GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_register, LogMessages.LogMessage_SuccessfullyCreated);
+        GmLogger.Instance.Trace(LogMessages.REST_POST_register, LogMessages.LogMessage_SuccessfullyCreated);
 
         userDto.Password = string.Empty;
         Created(string.Empty, userDto);
@@ -65,7 +65,7 @@ public class AuthenticationController : ControllerBase
         if (user == null) return BadRequest(ResponseErrorMessages.NotAuthorised);
 
         var token = _unitOfWork.Authentication.CreateToken(identityUser, user.UserId);
-        GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_login, LogMessages.LogMessage_BearerTokenGenerated);
+        GmLogger.Instance.Trace(LogMessages.REST_POST_login, LogMessages.LogMessage_BearerTokenGenerated);
         return Ok(token);
     }
 
@@ -78,7 +78,7 @@ public class AuthenticationController : ControllerBase
         var token = Request.Headers["Authorization"].ToString().Replace(oldValue, newValue);
         await _unitOfWork.TokenBlacklist.AddTokenToBlacklist(token);
 
-        GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_logout, LogMessages.LogMessage_TokenRevoked);
+        GmLogger.Instance.Trace(LogMessages.REST_POST_logout, LogMessages.LogMessage_TokenRevoked);
         return Ok();
     }
 }

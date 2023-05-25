@@ -1,11 +1,10 @@
-using grocery_mate_backend.Data.DataModels.UserManagement;
 using grocery_mate_backend.Models.Authentication;
 
 namespace grocery_mate_backend.BusinessLogic.Notification.Mail;
 
 public abstract class MailNotification
 {
-    public delegate bool ShoppingRequestAcceptedNotificationDelegate(
+    private delegate bool ShoppingRequestAcceptedNotificationDelegate(
         string mailAddress,
         string fullName,
         string mailSubjectTemplate,

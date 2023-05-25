@@ -1,4 +1,7 @@
+using System.ComponentModel;
+using grocery_mate_backend.Data.DataModels.Shopping;
 using grocery_mate_backend.Models.Shopping;
+using grocery_mate_backend.Utility;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,22 +19,43 @@ public abstract class GroceryValidation : ValidationBase
     
     public static bool ValidateRequestState(string requestState)
     {
+        var validStateNames = GetAllEnumDescriptions<GroceryRequestState>();
+        
         return Validate(requestState,
-            "RequestState is incorrect",
-            item => item is "published" or "accepted" or "fulfilled");
+            ErrorMessages.RequestState_incorrect,
+            item =>Array.Exists(validStateNames, validState => validState.Equals(requestState, StringComparison.OrdinalIgnoreCase))); 
+
     }
 
     public static bool ValidateGroceryList(List<ShoppingListDto> requestDto)
     {
         return Validate(requestDto,
-            "Shopping list is empty",
+            ErrorMessages.GroceryList_empty,
             item => item.All(groceryList => !groceryList.Description.IsNullOrEmpty()));
     }
 
     public static bool ValidateDateTime(string date)
     {
         return Validate(date,
-            "Invalid date format",
+            ErrorMessages.DateTime_invalidFromat,
             item => DateTime.TryParse(item, out _));
+    }
+
+    private static string[] GetAllEnumDescriptions<TEnum>()
+    {
+        var enumType = typeof(TEnum);
+        
+        return Enum.GetValues(enumType)
+            .Cast<Enum>()
+            .Select(GetEnumDescription)
+            .ToArray();
+    }
+    
+    private static string GetEnumDescription(Enum value)
+    {
+        var fieldInfo = value.GetType().GetField(value.ToString());
+        var attributes = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
+
+        return attributes.Length > 0 ? attributes[0].Description : value.ToString();
     }
 }

@@ -1,6 +1,7 @@
 using grocery_mate_backend.Controllers.Repo.UOW;
 using grocery_mate_backend.Models.Chat;
 using grocery_mate_backend.Service;
+using grocery_mate_backend.Utility;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,12 +23,10 @@ public class ChatController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ChatDto>> GetChat(Guid groceryId)
     {
-        const string methodName = "REST Get Chat";
-
         var chat = await _unitOfWork.Messaging.GetChatByGroceryId(groceryId);
         if (chat == null)
         {
-            GmLogger.Instance.Warn(methodName, "There is no Chat for this GroceryReqeust");
+            GmLogger.Instance.Warn(LogMessages.REST_GET_chat, LogMessages.LogMessage_NoChatMessage);
             return BadRequest(ResponseErrorMessages.NotFound);
         }
 
@@ -36,12 +35,11 @@ public class ChatController : ControllerBase
     
     [Authorize]
     [HttpPut("read")]
-    public async Task<IActionResult> UpdateMesasgesRead(Guid groceryId)
+    public async Task<IActionResult> UpdateMessagesRead(Guid groceryId)
     {
-        
-        const string methodName = "REST Update Messages Read";
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         await _unitOfWork.Messaging.SetMessagesAsRead(groceryId, user.UserId);
+        GmLogger.Instance.Trace(LogMessages.REST_PUT_MessageReadStatus, LogMessages.LogMessage_ReadChatMessage + groceryId);
         return Ok();
     }
 

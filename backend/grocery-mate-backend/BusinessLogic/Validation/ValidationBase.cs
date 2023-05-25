@@ -2,6 +2,7 @@ using System.Diagnostics;
 using grocery_mate_backend.Controllers.Repo.Authentication;
 using grocery_mate_backend.Data.DataModels.Authentication;
 using grocery_mate_backend.Data.DataModels.UserManagement;
+using grocery_mate_backend.Utility;
 using grocery_mate_backend.Utility.Log;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -19,7 +20,7 @@ public class ValidationBase
     public static bool ValidateModel(ModelStateDictionary modelState,
         IHeaderDictionary headers, ICanceledTokensRepository canceledTokensRepository)
     {
-        var token =  headers["Authorization"].ToString().Replace("Bearer ", "");
+        var token =  headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
         return ValidateModelState(modelState) &&
                ValidateSessionToken(token, canceledTokensRepository);
     }
@@ -27,7 +28,7 @@ public class ValidationBase
     private static bool ValidateModelState(ModelStateDictionary modelState)
     {
         return Validate(modelState,
-            "Invalid Model-State due to Bad credentials",
+            ErrorMessages.ModelState_badCredentials,
             item => item.IsValid);
     }
 
@@ -35,7 +36,7 @@ public class ValidationBase
         ICanceledTokensRepository canceledTokensRepository)
     {
         return Validate(canceledTokensRepository.ValidateToken(token),
-            "Invalid Model-State due to Bad credentials",
+            ErrorMessages.ModelState_badCredentials,
             item => item.Result);
     }
 
