@@ -1,5 +1,5 @@
 export const constants = {
-	EMAIL: 'test26@test.com',
+	EMAIL: 'test40@test.com',
 	PASSWORD: 'p@ssw0rd2023A',
 	FIRST_NAME: 'John',
 	LAST_NAME: 'Doe',
@@ -9,4 +9,16 @@ export const constants = {
 	CITY: 'St. Gallen',
 	STATE: 'St. Gallen',
 	DETAILS: 'Please come here by foot',
+	CLIENT: {
+		EMAIL: 'client12@test.ch',
+		PASSWORD: 'p@ssw0rd2023A',
+		FIRST_NAME: 'Larissa',
+		LAST_NAME: 'Doe',
+		STREET: 'Kaustrasse',
+		NUMBER: '46',
+		ZIP: '9050',
+		CITY: 'Appenzell',
+		STATE: 'Appenzell Innerrhoden',
+		DETAILS: '',
+	},
 };

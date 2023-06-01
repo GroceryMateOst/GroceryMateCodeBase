@@ -47,7 +47,11 @@ const SearchPage = () => {
 						setPlz(e.target.value ? parseInt(e.target.value) : undefined)
 					}
 				/>
-				<Button onClick={onSearchClick} disabled={plz === undefined}>
+				<Button
+					onClick={onSearchClick}
+					disabled={plz === undefined}
+					className="search-button"
+				>
 					<SearchOutlined />
 				</Button>
 			</Space.Compact>
@@ -60,7 +64,7 @@ const SearchPage = () => {
 					groceryRequests.map((request, index) => (
 						<div className="flex flex-col items-end" key={index}>
 							{request.distance > 0 && (
-								<div className="border-primary bg-primary w-fit h-fit p-2 rounded-full flex flex-col justify-center items-center relative top-10 right-[-30px]">{`${request.distance}km`}</div>
+								<div className="distance border-primary bg-primary w-fit h-fit p-2 rounded-full flex flex-col justify-center items-center relative top-10 right-[-30px]">{`${request.distance}km`}</div>
 							)}
 							<GroceryListItem request={request} />
 						</div>
