@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Mail;
 using grocery_mate_backend.Models.Authentication;
+using grocery_mate_backend.Utility;
 using grocery_mate_backend.Utility.Log;
 
 namespace grocery_mate_backend.BusinessLogic.Notification.Mail;
@@ -32,8 +33,7 @@ public class MailNotifier
         }
         catch (Exception e)
         {
-            // TODO: remove macing-strings
-            GmLogger.Instance.Trace("Send Mail-Notification", "An error occurred while sending the mail!");
+            GmLogger.Instance.Warn(LogMessages.Notification_Mail_Send, LogMessages.LogMessage_ErrorMailSend);
             return false;
         }
 

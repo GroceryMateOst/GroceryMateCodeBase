@@ -10,13 +10,22 @@ public class GroceryValidationTests
     public void ValidateRequestState_ValidRequestState_ReturnsTrue()
     {
         // Arrange
-        const string requestState = "published";
+        const string requestStatePublished = "published";
+        const string requestStateAccepted = "accepted";
+        const string requestStateFulfilled = "fulfilled";
 
         // Act
-        var result = GroceryValidation.ValidateRequestState(requestState);
-
+        var resultPublished = GroceryValidation.ValidateRequestState(requestStatePublished);
+        var resultAccepted = GroceryValidation.ValidateRequestState(requestStateAccepted);
+        var resultFulfilled = GroceryValidation.ValidateRequestState(requestStateFulfilled);
+       
         // Assert
-        Assert.That(result, Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(resultPublished, Is.True);
+            Assert.That(resultAccepted, Is.True);
+            Assert.That(resultFulfilled, Is.True);
+        });
     }
 
     [Test]

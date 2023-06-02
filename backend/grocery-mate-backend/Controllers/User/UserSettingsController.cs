@@ -33,7 +33,7 @@ public class UserSettingsController : ControllerBase
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
         {
-            GmLogger.Instance.Warn(LogMessages.MethodName_REST_GET_settings,
+            GmLogger.Instance.Warn(LogMessages.REST_GET_settings,
                 LogMessages.LogMessage_UserWithIdDoesntExist);
             return BadRequest(ResponseErrorMessages.SettingsError);
         }
@@ -53,7 +53,7 @@ public class UserSettingsController : ControllerBase
         var user = await UserService.GetAuthenticatedUser(User.Identity?.Name, _unitOfWork);
         if (user == null)
         {
-            GmLogger.Instance.Warn(LogMessages.MethodName_REST_POST_settings, LogMessages.LogMessage_UserWithIdDoesntExist);
+            GmLogger.Instance.Warn(LogMessages.REST_POST_settings, LogMessages.LogMessage_UserWithIdDoesntExist);
             return BadRequest(ResponseErrorMessages.NotAuthorised);
         }
 
@@ -64,7 +64,7 @@ public class UserSettingsController : ControllerBase
         }
         catch (Exception e)
         {
-            GmLogger.Instance.Trace(LogMessages.MethodName_REST_POST_settings, e.Message);
+            GmLogger.Instance.Trace(LogMessages.REST_POST_settings, e.Message);
             return BadRequest(ResponseErrorMessages.InvalidRequest);
         }
 
