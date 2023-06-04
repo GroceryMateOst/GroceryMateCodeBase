@@ -57,7 +57,7 @@
 	loginPagePasswordMissing: 'Bitte gib dein Passwort ein!',
 	loginPageButton: 'Anmelden',
 	loginPageGoRegistration: 'Oder registrie dich jetzt ',
-	loginPageHere: 'hir',
+	loginPageHere: 'hier',
 	// RegistrationPage
 	registrationPageConfirm: 'Bestätigung',
 	registrationPageConfrimMissing: 'Bitte bestätige dein Passwort!',
