@@ -39,7 +39,7 @@ const GroceryListItem = ({
 	};
 
 	return (
-		<div className="bg-secondary mt-5 max-w-[600px]">
+		<div className="bg-secondary mt-5 w-[600px]">
 			<div className="flex flex-row  justify-between p-5 w-fit flex-wrap">
 				<div className="flex flex-col mr-20 mb-2">
 					<span className="font-bold">{Text.groceryListItemGroceryOf}</span>
