@@ -37,7 +37,7 @@ const UserPage = () => {
 	const handleSubmit = async (userSettings: UserModelComplete) => {
 		const userService = new UserService();
 		await userService.updateUserSettings(userSettings);
-		toast.success('Deine Änderungen wurden gespeicher.', {
+		toast.success('Deine Änderungen wurden gespeichert.', {
 			position: 'top-center',
 			autoClose: 5000,
 			hideProgressBar: false,
@@ -176,7 +176,7 @@ const UserPage = () => {
 								]}
 								style={{ width: '70%' }}
 							>
-								<Input />
+								<Input disabled/>
 							</Form.Item>
 						</Space.Compact>
 						<Form.Item
@@ -190,7 +190,7 @@ const UserPage = () => {
 								},
 							]}
 						>
-							<Input />
+							<Input disabled />
 						</Form.Item>
 						<Form.Item name="residencyDetails" label={Text.userPageDetails}>
 							<TextArea />
