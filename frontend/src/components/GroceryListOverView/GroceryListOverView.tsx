@@ -43,9 +43,12 @@ const GroceryListOverView = () => {
 						<Spinner />
 					</div>
 				) : (
-					groceryRequests.map((request, index) => (
-						<GroceryListItem request={request} key={index} />
-					))
+					groceryRequests.map((request, index) => {
+						if (index < 3) {
+							return <GroceryListItem request={request} key={index} />;
+						}
+						return null;
+					})
 				)}
 			</div>
 			<div className="mt-4 font-bold">
